@@ -1,6 +1,6 @@
 ---
 title: "Forcasting Reduction Techniques"
-output: md_document
+
 ---
 ```
  Feature Name: `Forecasting Reduction Techniques`
