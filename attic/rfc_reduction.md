@@ -20,14 +20,11 @@ Most machine learning algorithms are not designed for temporal data. To still us
 ## Guide-level explanation
 [guide-level-explanation]: #guide-level-explanation
 
-Basically there are two major approaches to feed timeseries data into a regression method: the "rolling window"-approach and the "expanding window"-approach. Both methods use past values as features to predict the next value(s) in the timeseries.
 
-#### Rolling-window-approach
-[Rolling-window-approach]: #Rolling-window-approach
 
-The rolling window approach is the most obvius choice for reducing a forecasting problem to a ordinary regression problem, as it is easy to implement due to the fixed size of the feature dimension.
+Basically there are two major approaches to feed timeseries data into a regression method: the "rolling window"-approach and the "expanding window"-approach. Both methods use the last k values as features to predict the next value(s) in the timeseries.
 
- Example for k = 2: Predict X(t) given X(t-1) and X(t-2)
+Example for k = 2: Predict X(t) given X(t-1) and X(t-2)
 
 ```
    X(t) X(t-1) X(t-2)
@@ -43,29 +40,30 @@ The rolling window approach is the most obvius choice for reducing a forecasting
 10   10      9      8
 
 ```
+The difference between these two approaches is the amount of data that is used for making the prediction. While the rolling window (with window size n) approach uses the last n values for training and then predicts the next values, the expanding window approach trains the model before every prediction on all the available data.
 
-#### Expanding-window-approach
-[Expanding-window-approach]: #Expanding-window-approach
+Example: Suppose we are at timestep 50 of a timeseries
 
-The expanding-window-approach uses all the currently available data to predict the next value(s) of the series. This means at time t we have t-1 features to regress on. This approach may be useful, when there is only a short history of the data available.
+Rolling window approach:
 
-Example: predict X(t) given all previous values of the series
-```
-  X(t) X(t-1) X(t-2) X(t-3) X(t-4)
-1    1     NA     NA     NA     NA
-2    2      1     NA     NA     NA
-3    3      2      1     NA     NA
-4    4      3      2      1     NA
-5    5      4      3      2      1
+1. choose a window-size (for simplicity we choose 50)
+2. train the model on observation 1 to 50
+3. predict the value for timestep 51
+4. for the next prediction train the model on observation 2 to 51
+5. predict the value for timestep 52 
+6. repeat according to this scheme
 
-```
+Expanding window approach:
+
+1. use all the available data to train the model (timesteps 1 to 50)
+2. predict the value for timestep 51
+1. use all the available data to train the model (timesteps 1 to 51)
+4. predict the value for timestep 52 
+5. repeat according to this scheme
 
 
 
 ## Rationale, drawbacks and alternatives
 [rationale-and-alternatives]: #rationale-and-alternatives
 
-These two approaches make it possible the reformulate time series forcasting as a regression problem.While training via the rolling window approach seems obvious, we have to come up with solutions for the expanding window approach, as most algorithms expect a fixed sized feature-dimensionality.
-
-Supposed we we want to predict the next h values of our series we have h regression problems, one for each timestep we want to predict. Through this approach the algorithm may not be capable to take advantages of the correlation between our targets. Another drawback is the hurt iid assumption that is usually required for machine learning algorithms.
-
+The main drawback of this two approaches are the hurt iid assumptions that are usually required for machine learning algorithms. Another point is how we want to handle multi-step ahead forecasts, as there are several options to do that.
