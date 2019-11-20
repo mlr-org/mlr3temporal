@@ -62,8 +62,55 @@ Expanding window approach:
 5. repeat according to this scheme
 
 
+## Multi-step-forecasting
+[Multi-step-forecasting]: #Multi-step-forecasting
+
+For multi-step-forecasts there are several options to tackle the problem.
+
+##### 1. Direct forecasting
+[1.Direct-forecasting]: #1.Direct-forecasting
+
+For the direct forecasting method you build a seperate model for each timestep you want to predict.
+
+ - prediction(t+1) = model1(x(t), x(t-1),..., x(t-n))
+ - prediction(t+2) = model2(x(t), x(t-1),..., x(t-n))
+ - etc.
+ 
+An alternative to this approach is building a multi-output regression model that can handle the forecasts directly without the need for additional models.
+ 
+##### 2. Recursive forecasting
+[2.Recursive-forecasting]: #2.Recursive-forecasting
+ 
+For the recursive forecasting method you build one model and predict timestep t+1. To forecast the next value (t+2) you feed this prediction back into the model.
+
+ - prediction(t+1) = model1(x(t), x(t-1),..., x(t-n))
+ - prediction(t+2) = model1(prediction(t+1), x(t), x(t-1),..., x(t-n-1))
+ - etc.
+ 
+##### 3. Hybrid forecasting
+[3.Hybrid-forecasting]: #3.Hybrid-forecasting
+
+It would also be possible to combine the two strategies: build a seperate model for each timestep, but feed the prediction of the previous timestep as input.
+
+ - prediction(t+1) = model1(x(t), x(t-1),..., x(t-n))
+ - prediction(t+2) = model2(prediction(t+1), x(t), x(t-1),..., x(t-n-1))
+ - etc.
+
+
+## Reference-level explanation
+[reference-level-explanation]: #reference-level-explanation
+
 
 ## Rationale, drawbacks and alternatives
 [rationale-and-alternatives]: #rationale-and-alternatives
 
 The main drawback of this two approaches are the hurt iid assumptions that are usually required for machine learning algorithms. Another point is how we want to handle multi-step ahead forecasts, as there are several options to do that.
+
+## Prior art
+[prior-art]: #prior-art
+
+## Introduced Dependencies 
+
+
+## Unresolved questions
+[unresolved-questions]: #unresolved-questions
