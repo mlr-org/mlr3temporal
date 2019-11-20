@@ -57,9 +57,11 @@ There exists a function that implements the API as here...
 
 ## Introduced Dependencies 
 This solution would introduce dependencies on the following (additional) packages:
+
 Those packages either depend on or import the following other (additional) packages:
+
 Using this package would allow us to ... instead of re-implementing and maintining
-N loc ourselves. 
+N loc ourselves.
 
 
 ## Unresolved questions
