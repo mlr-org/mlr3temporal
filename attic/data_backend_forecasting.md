@@ -34,7 +34,7 @@ It is imperative to store data in a format that is flexible enough for different
 
 1. one or more time-series
 2. time-series can be equi-distant or  not
-3. time-series can be measured at equivalent grids.
+3. time-series can be measured at equivalent grids (or not).
 
 
 Example: 
@@ -92,7 +92,8 @@ This would look as follows (output is a data.table):
 ## Reference-level explanation
 [reference-level-explanation]: #reference-level-explanation
 
-@mllg created a draft for a `DataBackend`.
+@mllg created a draft for a `DataBackend`. This can serve as basis for discussion.
+
 
 ```r
 DataBackendLong = R6Class("DataBackendLong",
@@ -205,9 +206,9 @@ The current design is by no means obvious, but it  is simple enough to be implem
 as a first approach.
 
 Adherence to design principles: 
-- [x] simple 
-- [x] no or few depencies
-- [x] extensible
+- simple 
+- no or few depencies
+- extensible
 
 - In the future we might want to capture a larger set of applications, similar to python's sktime.
   The current proposal might not be extensive enough.
@@ -219,7 +220,7 @@ Adherence to design principles:
 [prior-art]: #prior-art
 
 Alternatives and different approaches are implemented in many different packages, notably sktime, xts, tsibble etc.
-
+Notable also: (forecastML)[https://github.com/nredell/forecastML]
 
 ## Unresolved questions
 [unresolved-questions]: #unresolved-questions
