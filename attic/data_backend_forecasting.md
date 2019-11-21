@@ -225,10 +225,12 @@ Notable also: (forecastML)[https://github.com/nredell/forecastML]
 ## Unresolved questions
 [unresolved-questions]: #unresolved-questions
 
-Is / does this: 
-- A new task type?
-- Need new backend?
+This introduces:
+- A new Task Type:`TaskForecast`
+- A new Backend: `DataBackendLong`
 - Solve 95% of forecasting data situations?
-  - Forecasting a single time-series
+
+And solves:
+  - Forecasting a single numeric time-series
   - Forecasting with covariates
   - Forecasting multiple time-series
