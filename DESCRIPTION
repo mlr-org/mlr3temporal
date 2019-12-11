@@ -7,7 +7,17 @@ Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
-Imports: 
-    R6,
-    mlr3,
-    tsbox
+Depends:
+    R (>= 3.1.0)
+Imports:
+    backports,
+    checkmate (>= 1.9.3),
+    data.table,
+    digest,
+    lgr (>= 0.3.0),
+    mlr3misc (>= 0.1.5),
+    paradox,
+    R6
+Encoding: UTF-8
+RoxygenNote: 7.0.2
+Roxygen: list(markdown = TRUE, r6 = FALSE)
