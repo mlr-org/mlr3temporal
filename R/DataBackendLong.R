@@ -1,11 +1,11 @@
 #' @title DataBackend
 #'
 #' @usage NULL
-#' @format [R6::R6Class] object.
+#' @format  [R6::R6Class] inheriting from [mlr3::DataBackend]
 # @include mlr_reflections.R
 #'
 #' @description
-#' This is the abstract base class for data backends.
+#' DataBackend for timeseries in long-format
 #'
 #' Data Backends provide a layer of abstraction for various data storage systems.
 #' It is not recommended to work directly with the DataBackend.
@@ -108,6 +108,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     initialize = function(data, primary_key, id_col) {
       assert_data_frame(data, ncol = 3L, col.names = "unique")
       setDT(data)
+      data[,eval(primary_key):= as.POSIXct( data[[primary_key]])]
       super$initialize(data, primary_key, data_formats = "data.table")
 
       self$id_col = assert_choice(id_col, names(data))
@@ -120,7 +121,8 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_names(cols, type = "unique")
       assert_choice(data_format, self$data_formats)
       cols = intersect(cols, self$colnames)
-      data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]
+      rows = as.POSIXct(rows)
+      data = private$.data[CJ(rows, setdiff(cols, self$primary_key)) , roll = roll]
       if (nrow(data) == 0L) {
         if (setequal("time", cols)) {
           private$.data[list(rows), self$primary_key, on = self$primary_key, with = FALSE][[1]]
@@ -130,7 +132,11 @@ DataBackendLong = R6::R6Class("DataBackendLong",
           # FIXME ....
         }
       } else {
-        dcast(data, formulate(self$primary_key, self$id_col))
+        if(self$primary_key %in% cols){
+          dcast(data, formulate(self$primary_key, self$id_col))
+        } else {
+          dcast(data, formulate(self$primary_key, self$id_col))[,-self$primary_key, with = FALSE]
+        }
       }
     },
 
@@ -140,12 +146,15 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       self$data(rn, cn)
     },
 
-    distinct = function(rows, cols, na_rm = TRUE) {
+    distinct = function(rows=NULL, cols = self$colnames, na_rm = TRUE) {
+      if(is.null(rows)){
+        rows=self$rownames
+      }
       assert_names(cols, type = "unique")
       assert_flag(na_rm)
       cols = intersect(cols, self$colnames)
 
-      tab = private$.data[CJ(rows, cols), list(N = uniqueN(self$value_col, na.rm = na_rm)), by = c(self$id_col)]
+      tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
       set_names(tab[["N"]], tab[[self$id_col]])
     },
 
@@ -154,14 +163,14 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_names(cols, type = "unique")
       cols = intersect(cols, self$colnames)
 
-      private$.data[CJ(rows, cols), list(N = sum(is.na(self$value_col))), by = c(self$id_col)]
+      tab = private$.data[CJ(rows, cols), list(N = sum(is.na(eval(parse(text=self$value_col))))), by = c(self$id_col)]
       set_names(tab[["N"]], tab[[self$id_col]])
     }
   ),
 
   active = list(
     rownames = function() {
-      unique(private$.data[, self$primary_key, with = FALSE])[[1L]]
+      as.character( unique(private$.data[, self$primary_key, with = FALSE])[[1L]])
     },
 
     colnames = function() {
@@ -187,7 +196,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
 #' @export
 as_data_backend.dts = function(data) {
   cname = attr(data, "cname")
-  set(data, j = cname$time, value = as.IDate(data[[cname$time]]))
+  set(data, j = cname$time, value = as.POSIXct(data[[cname$time]]))
   DataBackendLong$new(data, primary_key = cname$time, id_col = cname$id)
 }
 
