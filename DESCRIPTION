@@ -5,7 +5,7 @@ Version: 0.1
 Date: 2019-12-11
 Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Description: Enable users to use algorithms like auto.arima
 License: What license is it under?
 Depends:
     R (>= 3.1.0)
