@@ -1,6 +1,6 @@
 Package: mlr3forecasting
 Type: Package
-Title: What the package does (short line)
+Title: Extending forecasting for mlr3
 Version: 0.1
 Date: 2019-12-11
 Author: Who wrote it
@@ -18,7 +18,8 @@ Imports:
     lgr (>= 0.3.0),
     mlr3misc (>= 0.1.5),
     paradox,
-    R6
+    R6,
+    forecast
 Encoding: UTF-8
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE, r6 = FALSE)
