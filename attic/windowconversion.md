@@ -127,7 +127,7 @@ windowConversion = function(data, date.col = NULL, lag.cols = NULL, lag = 0L,
 
 ## Rationale, drawbacks and alternatives
 [rationale-and-alternatives]: #rationale-and-alternatives
-
+data.table currently has no function like diff() in base R, which makes getting the lagged differences kind of ugly.
 
 
 ## Prior art
@@ -141,3 +141,4 @@ The above function relies on the following packages:
 
 ## Unresolved questions
 [unresolved-questions]: #unresolved-questions
+
