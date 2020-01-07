@@ -35,8 +35,8 @@ And so on.
 
  The function would look the following:
 
-
 ```r
+
 ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
@@ -62,19 +62,6 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
   ),
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   private = list(
 
     .sample = function(ids) {
@@ -93,14 +80,11 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
 
-
     .get_train = function(i) {
 
       self$instance[!list(i), "row_id", on = "fold"][[1L]]
 
     },
-
-
 
 
     .get_test = function(i) {
@@ -111,14 +95,11 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
 
-
     .combine = function(instances) {
 
       list(train = do.call(c, map(instances, "train")), test = do.call(c, map(instances, "test"))) })) 
 
     },
-
-
 
 
     deep_clone = function(name, value) {
