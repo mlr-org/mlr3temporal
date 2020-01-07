@@ -35,8 +35,8 @@ And so on.
 
  The function would look the following:
 
-```r
 
+```r
 ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
@@ -111,7 +111,6 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
   )
 
 )
-
 ```
 
 
