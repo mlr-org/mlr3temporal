@@ -12,7 +12,7 @@
 #' ```
 #'
 #' @description
-#' A [LearnerRegr] for a vector autoregressive model  implemented in [vars::VAR] in package \CRANpkg{var}.
+#' A [LearnerRegrForecastMultiv] for a vector autoregressive model  implemented in [vars::VAR] in package \CRANpkg{var}.
 #'
 #'
 #' @template seealso_learner
