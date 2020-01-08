@@ -195,6 +195,10 @@ DataBackendLong = R6::R6Class("DataBackendLong",
 
 #' @export
 as_data_backend.dts = function(data) {
+  if(ncol(data)==2){
+    data$id = "target"
+    attr(data,"cname")$id ="id"
+  }
   cname = attr(data, "cname")
   set(data, j = cname$time, value = as.POSIXct(data[[cname$time]]))
   DataBackendLong$new(data, primary_key = cname$time, id_col = cname$id)

@@ -1,5 +1,26 @@
+#' @title Auto.Arima Learner
+#'
+#' @usage NULL
+#' @name mlr_learners_regr.Auto.Arima
+#' @format [R6::R6Class] inheriting from [LearnerRegr].
+#' @include LearnerRegr.R
+#'
+#' @section Construction:
+#' ```
+#' LearnerRegrForecastAutoArima$new()
+#' mlr_learners$get("regr.rpart")
+#' lrn("regr.rpart")
+#' ```
+#'
+#' @description
+#' A [LearnerRegr] for a arima model  implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
+#'
+#'
+#' @template seealso_learner
+#' @export
 
-LearnerAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerRegr,
+
+LearnerRegrForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerRegr,
  public = list(
    initialize = function() {
      ps = ParamSet$new(list(
@@ -37,21 +58,33 @@ LearnerAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerRegr,
      if ("weights" %in% task$properties) {
        pv = insert_named(pv, list(weights = task$weights$weight))
      }
-     xreg = as.matrix( task$data(cols = task$feature_names))
-     invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
-                                                cols=task$target_names), xreg = xreg, .args = pv)
+     if(length(task$feature_names)>0){
+      xreg = as.matrix( task$data(cols = task$feature_names))
+      invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
+      cols=task$target_names), xreg = xreg, .args = pv)
+     }else{
+        invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
+           cols=task$target_names),.args = pv)
+      }
+
    },
 
    predict_internal = function(task) {
-     newdata = as.matrix( task$data(cols = task$feature_names))
-     response = invoke(forecast::forecast, self$model, xreg = newdata)
-     se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
-     PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
-
+     if(length(task$feature_names)>0){
+        newdata = as.matrix( task$data(cols = task$feature_names))
+        response = invoke(forecast::forecast, self$model, xreg = newdata)
+     }else{
+        response = invoke(forecast::forecast, self$model, h = task$nrow)
+     }
+      se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
+      PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
    }
 
 
  )
 )
 
+
+#' @include mlr_learners.R
+mlr_learners$add("regr.rpart", LearnerRegrRpart)
 
