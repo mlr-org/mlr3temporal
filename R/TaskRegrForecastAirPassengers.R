@@ -2,7 +2,6 @@
 #'
 #' @name mlr_tasks_airpassengers
 #' @format [R6::R6Class] inheriting from [TaskRegrForecast].
-# what does this do? #' @include mlr_tasks.R
 #'
 #' @section Construction:
 #' ```
