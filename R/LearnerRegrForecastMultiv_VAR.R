@@ -44,8 +44,7 @@ LearnerRegrForecastMultivVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
      }
      if(length(task$feature_names)>0){
       exogen = task$data(cols = task$feature_names)
-      invoke(vars::VAR, y = task$data(rows = task$row_ids,cols=task$target_names),
-      exogen=exogen,.args = pv)
+      invoke(vars::VAR, y = task$data(rows = task$row_ids,cols=task$target_names), exogen=exogen,.args = pv)
      }else{
       invoke(vars::VAR, y = task$data(rows = task$row_ids,cols=task$target_names), .args = pv)
      }
