@@ -140,10 +140,20 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     },
 
     distinct = function(rows, cols, na_rm = TRUE) {
+      #tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
+      #tab = private$.data[CJ(rows, cols), list(N = uniqueN(self$value_col, na.rm = na_rm)), by = c(self$id_col)]
+      #set_names(tab[["N"]], tab[[self$id_col]])
+      if(is.null(rows)){
+        rows=self$rownames
+      }
+      assert_names(cols, type = "unique")
+      assert_flag(na_rm)
+      cols = intersect(cols, self$colnames)
+
       tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
-      tab = private$.data[CJ(rows, cols), list(N = uniqueN(self$value_col, na.rm = na_rm)), by = c(self$id_col)]
       set_names(tab[["N"]], tab[[self$id_col]])
     },
+
 
     missings = function(rows, cols) {
       assert_atomic_vector(rows)
