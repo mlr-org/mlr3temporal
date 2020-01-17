@@ -2,7 +2,6 @@
 #'
 #' @usage NULL
 #' @format  [R6::R6Class] inheriting from [mlr3::DataBackend]
-# @include mlr_reflections.R
 #'
 #' @description
 #' DataBackend for timeseries in long-format
@@ -98,6 +97,7 @@
 # b$distinct(rows = b$rownames, "y")
 # b$missings(rows = b$rownames, cols = names(data))
 DataBackendLong = R6::R6Class("DataBackendLong",
+
   inherit = mlr3::DataBackend,
   cloneable = FALSE,
 
@@ -123,21 +123,14 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       cols = intersect(cols, self$colnames)
       rows = as.POSIXct(rows)
       data = private$.data[CJ(rows, setdiff(cols, self$primary_key)) , roll = roll]
-      if (nrow(data) == 0L) {
-        if (setequal("time", cols)) {
-          private$.data[list(rows), self$primary_key, on = self$primary_key, with = FALSE][[1]]
-        } else {
-          cbind(
-            as.data.table(named_list(setdiff(cols, self$primary_key), vector(typeof(private$.data$value)))))
-          # FIXME ....
-        }
-      } else {
+
+
+      data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]
         if(self$primary_key %in% cols){
           dcast(data, formulate(self$primary_key, self$id_col))
         } else {
           dcast(data, formulate(self$primary_key, self$id_col))[,-self$primary_key, with = FALSE]
         }
-      }
     },
 
     head = function(n = 6L) {
@@ -146,15 +139,9 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       self$data(rn, cn)
     },
 
-    distinct = function(rows=NULL, cols = self$colnames, na_rm = TRUE) {
-      if(is.null(rows)){
-        rows=self$rownames
-      }
-      assert_names(cols, type = "unique")
-      assert_flag(na_rm)
-      cols = intersect(cols, self$colnames)
-
+    distinct = function(rows, cols, na_rm = TRUE) {
       tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
+      tab = private$.data[CJ(rows, cols), list(N = uniqueN(self$value_col, na.rm = na_rm)), by = c(self$id_col)]
       set_names(tab[["N"]], tab[[self$id_col]])
     },
 
@@ -162,15 +149,15 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_atomic_vector(rows)
       assert_names(cols, type = "unique")
       cols = intersect(cols, self$colnames)
-
       tab = private$.data[CJ(rows, cols), list(N = sum(is.na(eval(parse(text=self$value_col))))), by = c(self$id_col)]
+      private$.data[CJ(rows, cols), list(N = sum(is.na(self$value_col))), by = c(self$id_col)]
       set_names(tab[["N"]], tab[[self$id_col]])
     }
   ),
 
   active = list(
     rownames = function() {
-      as.character( unique(private$.data[, self$primary_key, with = FALSE])[[1L]])
+      unique(private$.data[, self$primary_key, with = FALSE])[[1L]]
     },
 
     colnames = function() {

@@ -3,7 +3,6 @@
 #' @usage NULL
 #' @name mlr_learners_regr.Auto.Arima
 #' @format [R6::R6Class] inheriting from [LearnerRegr].
-#' @include LearnerRegr.R
 #'
 #' @section Construction:
 #' ```
@@ -18,7 +17,7 @@
 #' @template seealso_learner
 #' @export
 
-LearnerRegrForecastMultivVAR= R6::R6Class("LearnerVAR", inherit = LearnerRegr,
+LearnerRegrForecastMultivVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
  public = list(
    initialize = function() {
      ps = ParamSet$new(list(
@@ -57,8 +56,6 @@ LearnerRegrForecastMultivVAR= R6::R6Class("LearnerVAR", inherit = LearnerRegr,
      response = invoke(predict, self$model, h = task$nrow)
      PredictionRegr$new(task = task, response = c(response$mean))
    }
-
-
  )
 )
 

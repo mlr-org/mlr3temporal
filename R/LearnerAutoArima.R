@@ -3,7 +3,6 @@
 #' @usage NULL
 #' @name mlr_learners_regr.Auto.Arima
 #' @format [R6::R6Class] inheriting from [LearnerRegr].
-#' @include LearnerRegr.R
 #'
 #' @section Construction:
 #' ```
@@ -18,8 +17,6 @@
 #'
 #' @template seealso_learner
 #' @export
-
-
 LearnerRegrForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerRegr,
  public = list(
    initialize = function() {
@@ -83,8 +80,3 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = Learner
 
  )
 )
-
-
-#' @include mlr_learners.R
-mlr_learners$add("regr.rpart", LearnerRegrRpart)
-

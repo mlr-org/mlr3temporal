@@ -9,7 +9,6 @@ Authors@R:
            role = c("cre", "aut"),
            email = "michellang@gmail.com",
            comment = c(ORCID = "0000-0001-9754-0393"))
-Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: Implements tasks, learners, resamplings and measures for forcasting tasks.
 URL: https://mlr3forecasting.mlr-org.com,
     https://github.com/mlr-org/mlr3forecasting
@@ -32,8 +31,19 @@ Imports:
 Suggests:
     testthat
 Encoding: UTF-8
-RoxygenNote: 7.0.2
-Encoding: UTF-8
 NeedsCompilation: no
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE, r6 = FALSE)
+RoxygenNote: 7.0.2
+Collate: 
+    'DataBackendLong.R'
+    'LearnerAutoArima.R'
+    'LearnerForecast.R'
+    'LearnerForecastAverage.R'
+    'LearnerRegrForecastMultiv_VAR.R'
+    'PredictionForecast.R'
+    'TaskForecasting.R'
+    'TaskRegrForecast.R'
+    'TaskRegrForecastAirPassengers.R'
+    'TaskRegrForecastMultiv.R'
+    'TaskRegrForecastMultiv_Petrol.R'
+    'zzz.R'
