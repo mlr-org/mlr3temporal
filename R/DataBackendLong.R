@@ -122,7 +122,6 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_choice(data_format, self$data_formats)
       cols = intersect(cols, self$colnames)
       rows = as.POSIXct(rows)
-      data = private$.data[CJ(rows, setdiff(cols, self$primary_key)) , roll = roll]
 
 
       data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]

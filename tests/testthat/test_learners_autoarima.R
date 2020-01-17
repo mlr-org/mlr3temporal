@@ -1,6 +1,6 @@
-test_that("autotest", {
-  learner = #mlr_learners$get("surv.rpart")
-  expect_learner(learner)
-  result = run_autotest(learner)
-  expect_true(result, info = result$error)
-})
+# test_that("autotest", {
+#   learner = LearnerRegrForecastAutoArima$new()
+#   expect_learner(learner)
+#   result = run_autotest(learner)
+#   expect_true(result, info = result$error)
+# })
