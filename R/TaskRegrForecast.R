@@ -49,7 +49,6 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
 
     initialize = function(id, backend, target, date.col = NULL) {
       assert_string(date.col, null.ok = TRUE)
-
       # FIXME: A comment here would be nice
       # FIXME: Add asserts for target in data etc.
       if (!is.null(date.col) && is.data.frame(backend)) {
@@ -79,13 +78,12 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
       super$truth(row_ids)[[1L]]
     },
     time_col = function(row_ids = NULL){
-
       if(is.null(row_ids)) {
         self$backend$data(self$backend$rownames, self$backend$colnames)[[self$backend$primary_key]]
       }else{
         self$backend$data(assert_integerish(row_ids), self$backend$colnames)[[self$backend$primary_key]]
       }
-
-    }
+      self$properties = union(self$properties, if (length(target) == 1L) "univariate" else "multivariate")
+    },
   ),
 )

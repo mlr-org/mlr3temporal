@@ -57,5 +57,3 @@ LearnerRegrForecastMultivVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
    }
  )
 )
-
-
