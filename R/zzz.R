@@ -7,6 +7,7 @@
 #' @import tsbox
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
+#' @importFrom utils getFromNamespace
 NULL
 
 
