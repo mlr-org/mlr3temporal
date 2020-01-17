@@ -27,8 +27,8 @@
 #'     or any object which is convertible to a DataBackend with `as_data_backend()`.
 #'   E.g., a object of class  `dts` will be converted to a [DataBackendLong].
 #'
-#' * `target` :: `character(1)`\cr
-#'   Name of the target column.
+#' * `target` :: `character(n)`\cr
+#'   Name of the target column(s).
 #'
 #' * `date.col` :: `character(1)`\cr
 #'   Name of the date column. Not needed if backend is a timeseries
@@ -47,33 +47,36 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
   inherit = TaskRegr,
   public = list(
 
-    initialize = function(id, backend, target,date.col=NULL) {
-      assert_string(date.col,null.ok = TRUE)
-      if(!is.null(date.col)&&is.data.frame(backend) ){
+    initialize = function(id, backend, target, date.col = NULL) {
+      assert_string(date.col, null.ok = TRUE)  
+
+      # FIXME: A comment here would be nice
+      # FIXME: Add asserts for target in data etc.
+      if (!is.null(date.col) && is.data.frame(backend)) {
         setDT(backend)
-        backend = (melt(backend,id.vars=date.col, variable.factor = FALSE))
+        backend = (melt(backend, id.vars = date.col, variable.factor = FALSE))
         backend$value = as.numeric(backend$value)
         backend[[date.col]] = as.POSIXct(backend[[date.col]])
         backend = ts_dts(backend)
-      }else if ("ts" %in% class(backend)){
+      } else if ("ts" %in% class(backend)){
         backend = ts_dts(backend)
         if(ncol(backend)==2){
           backend$id = target
           attr(backend,"cname")$id ="id"
         }
       }
-
+      # Initialize the task and properties
       super$initialize(id = id, backend = (backend), target = target)
-
-      type = self$col_info[id == target]$type
-      if (type %nin% c("integer", "numeric")) {
-        stopf("Target column '%s' must be numeric", target)
+      for(i in self$target_names){
+        type = self$col_info[id == i]$type
+        if (type %nin% c("integer", "numeric")) {
+          stopf("Target column '%s' must be numeric", i)
+        }
       }
-
+      self$properties = union(self$properties, if (length(target) == 1L) "univariate" else "multivariate")
+    },
+    truth = function(row_ids = NULL) {
+      super$truth(row_ids)[[1L]]
     }
   ),
-
-  active = list(
-
-  )
 )
