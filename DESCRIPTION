@@ -23,3 +23,5 @@ Imports:
 Encoding: UTF-8
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE, r6 = FALSE)
+Suggests: 
+    testthat (>= 2.1.0)
