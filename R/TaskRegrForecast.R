@@ -48,7 +48,7 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
   public = list(
 
     initialize = function(id, backend, target, date.col = NULL) {
-      assert_string(date.col, null.ok = TRUE)  
+      assert_string(date.col, null.ok = TRUE)
 
       # FIXME: A comment here would be nice
       # FIXME: Add asserts for target in data etc.
@@ -77,6 +77,15 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
     },
     truth = function(row_ids = NULL) {
       super$truth(row_ids)[[1L]]
+    },
+    time_col = function(row_ids = NULL){
+
+      if(is.null(row_ids)) {
+        self$backend$data(self$backend$rownames, self$backend$colnames)[[self$backend$primary_key]]
+      }else{
+        self$backend$data(assert_integerish(row_ids), self$backend$colnames)[[self$backend$primary_key]]
+      }
+
     }
   ),
 )
