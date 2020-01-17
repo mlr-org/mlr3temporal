@@ -6,7 +6,7 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
       n = length(row_ids)
 
       self$task_type = "forecast"
-      self$predict_types = "response"[c(!is.null(response))]
+      self$predict_types = c("response","se")[c(!is.null(response), !is.null(se))]
       self$data$tab = data.table(
         row_id = row_ids,
         truth = assert_numeric(truth, len = n, null.ok = TRUE)
@@ -14,6 +14,9 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
 
       if (!is.null(response)) {
         self$data$tab$response = assert_numeric(response, len = n, any.missing = FALSE)
+      }
+      if (!is.null(se)) {
+        self$data$tab$se = assert_numeric(se, len = n, any.missing = FALSE)
       }
     },
 

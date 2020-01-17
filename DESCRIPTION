@@ -13,23 +13,22 @@ Description: Implements tasks, learners, resamplings and measures for forcasting
 URL: https://mlr3forecasting.mlr-org.com,
     https://github.com/mlr-org/mlr3forecasting
 BugReports: https://github.com/mlr-org/mlr3forecasting/issues
-License: What license is it under?
+License: LGPL-3
 Depends:
     R (>= 3.1.0)
 Imports:
-    backports,
     checkmate (>= 1.9.3),
     data.table,
     digest,
-    tsbox,
-    lgr (>= 0.3.0),
     mlr3,
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
-    forecast
+    tsbox
 Suggests:
-    testthat
+    forecast,
+    testthat,
+    vars
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)

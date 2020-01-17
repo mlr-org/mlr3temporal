@@ -7,6 +7,7 @@
 #' @import tsbox
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
+#' @importFrom u
 NULL
 
 
@@ -15,9 +16,12 @@ register_mlr3 = function() {
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
   x$task_types = rbind(x$task_types,
     data.table(type = "forecast", package = "mlr3forecasting",
-      task = "TaskForecast", learner = "LearnerForecast",
-      prediction = "PredictionForecast", measure = "MeasureForecast"))
+      task = "TaskRegrForecast",
+      learner = "LearnerRegrForecast",
+      prediction = "PredictionRegrForecast",
+      measure = "MeasureRegrForecast"))
   x$task_types = unique(x$task_types, by = "type", fromLast = TRUE)
+  x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr, c("univariate", "multivariate")))
   x$task_col_roles$forecast = x$task_col_roles$regr
 
     # tasks --------------------------------------------------------------------
