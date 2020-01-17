@@ -11,7 +11,7 @@ test_that("DataBackendLong construction", {
   cols = self$colnames
 
   dt2 = self$data(rows, cols)
-  assert_data_table(dt2, nrows = 72, ncols = 3)
+  expect_data_table(dt2, nrows = 72, ncols = 3)
   #self$data(rows, cols[0])
   #self$data(rows[0], cols)
 })

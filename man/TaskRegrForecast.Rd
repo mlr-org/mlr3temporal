@@ -38,6 +38,6 @@ See \link{TaskSupervised} and \link{TaskRegr}.
 }
 
 \seealso{
-
+seealso_task
 }
 \concept{Task}

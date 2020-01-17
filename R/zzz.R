@@ -7,6 +7,7 @@
 #' @import tsbox
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
+#' @importFrom utils getFromNamespace
 NULL
 
 
@@ -14,7 +15,8 @@ register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
   x$task_types = rbind(x$task_types,
-    data.table(type = "forecast", package = "mlr3forecasting",
+    data.table(type = "forecast",
+      package = "mlr3forecasting",
       task = "TaskRegrForecast",
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
@@ -31,11 +33,11 @@ register_mlr3 = function() {
     # learners
     x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
     x$add("forecast.average", LearnerForeCastAverage)
-
+    # TODO: Add all learners here.
 
     # resampling methods ---------------------------------------------------------
     x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
-
+    # TODO: Add resamplings here
 }
 
 .onLoad = function(libname, pkgname) {

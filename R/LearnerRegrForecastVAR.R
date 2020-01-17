@@ -1,23 +1,22 @@
 #' @title Vector Autoregression Learner
 #'
 #' @usage NULL
-#' @name mlr_learners_regr.Auto.Arima
+#' @name mlr_learners_regr.VAR
 #' @format [R6::R6Class] inheriting from [LearnerRegr].
 #'
 #' @section Construction:
 #' ```
-#' LearnerRegrForecastMultivVAR$new()
+#' LearnerRegrForecastVAR$new()
 
 #' ```
 #'
 #' @description
-#' A [LearnerRegrForecastMultiv] for a vector autoregressive model  implemented in [vars::VAR] in package \CRANpkg{var}.
+#' A [LearnerRegrForecast] for a vector autoregressive model  implemented in [vars::VAR] in package \CRANpkg{var}.
 #'
 #'
 #' @template seealso_learner
 #' @export
-
-LearnerRegrForecastMultivVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
+LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
  public = list(
    initialize = function() {
      ps = ParamSet$new(list(

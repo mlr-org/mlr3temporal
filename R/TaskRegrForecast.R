@@ -41,7 +41,7 @@
 #' See [TaskSupervised] and [TaskRegr].
 #'
 #' @family Task
-#' @seealso
+#' @seealso seealso_task
 #' @export
 TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
   inherit = TaskRegr,
@@ -57,33 +57,32 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
         backend$value = as.numeric(backend$value)
         backend[[date.col]] = as.POSIXct(backend[[date.col]])
         backend = ts_dts(backend)
-      } else if ("ts" %in% class(backend)){
+      } else if ("ts" %in% class(backend)) {
         backend = ts_dts(backend)
-        if(ncol(backend)==2){
+        if(ncol(backend)==2) {
           backend$id = target
-          attr(backend,"cname")$id ="id"
+          attr(backend, "cname")$id = "id"
         }
       }
       # Initialize the task and properties
       super$initialize(id = id, backend = (backend), target = target)
-      for(i in self$target_names){
+      for (i in self$target_names){
         type = self$col_info[id == i]$type
         if (type %nin% c("integer", "numeric")) {
           stopf("Target column '%s' must be numeric", i)
         }
       }
-      self$properties = union(self$properties, if (length(target) == 1L) "univariate" else "multivariate")
+      self$properties = union(self$properties, if (length(self$target_names) == 1L) "univariate" else "multivariate")
     },
     truth = function(row_ids = NULL) {
       super$truth(row_ids)[[1L]]
     },
     time_col = function(row_ids = NULL){
-      if(is.null(row_ids)) {
+      if (is.null(row_ids)) {
         self$backend$data(self$backend$rownames, self$backend$colnames)[[self$backend$primary_key]]
-      }else{
+       }else {
         self$backend$data(assert_integerish(row_ids), self$backend$colnames)[[self$backend$primary_key]]
       }
-      self$properties = union(self$properties, if (length(target) == 1L) "univariate" else "multivariate")
-    },
+    }
   ),
 )

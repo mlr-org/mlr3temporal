@@ -1,7 +1,7 @@
 #' @title Auto.Arima Learner
 #'
 #' @usage NULL
-#' @name mlr_learners_regr.Auto.Arima
+#' @name mlr_learners_regr.AutoArima
 #' @format [R6::R6Class] inheriting from [LearnerRegr].
 #'
 #' @section Construction:
@@ -12,7 +12,7 @@
 #' ```
 #'
 #' @description
-#' A [LearnerRegr] for a arima model  implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
+#' A [LearnerRegr] for an (AR)I(MA) model implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
 #'
 #'
 #' @template seealso_learner
@@ -41,11 +41,11 @@ LearnerForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerFore
 
      super$initialize(
        id = "auto.arima",
-       feature_types = c("numeric"),
-       predict_types = c("response","se"),
+       feature_types = "numeric",
+       predict_types = c("response", "se"),
        packages = "forecast",
        param_set = ps,
-       properties = c("univariate")
+       properties = "univariate"
      )
 
    },
