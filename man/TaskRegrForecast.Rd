@@ -20,8 +20,8 @@ Either a \link{DataBackendLong}, a object of class \code{ts} or a \code{data.fra
 
 or any object which is convertible to a DataBackend with \code{as_data_backend()}.
 E.g., a object of class  \code{dts} will be converted to a \link{DataBackendLong}.
-\item \code{target} :: \code{character(1)}\cr
-Name of the target column.
+\item \code{target} :: \code{character(n)}\cr
+Name of the target column(s).
 \item \code{date.col} :: \code{character(1)}\cr
 Name of the date column. Not needed if backend is a timeseries
 }
@@ -39,8 +39,5 @@ See \link{TaskSupervised} and \link{TaskRegr}.
 
 \seealso{
 
-
-Other Task: 
-\code{\link{TaskRegrForecastMultiv}}
 }
 \concept{Task}

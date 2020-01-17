@@ -33,17 +33,3 @@ Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
 RoxygenNote: 7.0.2
-Collate: 
-    'DataBackendLong.R'
-    'LearnerAutoArima.R'
-    'LearnerForecast.R'
-    'LearnerForecastAverage.R'
-    'LearnerRegrForecastMultiv_VAR.R'
-    'PredictionForecast.R'
-    'TaskForecasting.R'
-    'TaskRegrForecast.R'
-    'TaskRegrForecastAirPassengers.R'
-    'TaskRegrForecastMultiv.R'
-    'TaskRegrForecastMultiv_Petrol.R'
-    'zzz.R'
-
