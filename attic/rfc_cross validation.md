@@ -1,4 +1,3 @@
-
 ```
 Feature Name: `Cross Validation`
 Start Date: 2019-12-20
@@ -20,14 +19,14 @@ In temporal data there is correlation among data, then a sophisticated method is
 
 In the rolling method through the dataset, the train and test data look like the following:
 
-         fold 1 : training [1], test [2]
-         fold 2 : training [1 2], test [3]
-         fold 3 : training [1 2 3], test [4]
-         fold 4 : training [1 2 3 4], test [5]
-         fold 5 : training [1 2 3 4 5], test [6]
+        fold 1 : training [1], test [2]
+        fold 2 : training [1 2], test [3]
+        fold 3 : training [1 2 3], test [4]
+        fold 4 : training [1 2 3 4], test [5]
+        fold 5 : training [1 2 3 4 5], test [6]
 
 And so on.
- 
+ 
 
  
 
@@ -62,19 +61,6 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
   ),
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   private = list(
 
     .sample = function(ids) {
@@ -93,14 +79,11 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
 
-
     .get_train = function(i) {
 
       self$instance[!list(i), "row_id", on = "fold"][[1L]]
 
     },
-
-
 
 
     .get_test = function(i) {
@@ -111,14 +94,11 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
 
 
 
-
     .combine = function(instances) {
 
       list(train = do.call(c, map(instances, "train")), test = do.call(c, map(instances, "test"))) })) 
 
     },
-
-
 
 
     deep_clone = function(name, value) {
@@ -130,7 +110,6 @@ ResamplingCV = R6Class("ResamplingRoling", inherit = Resampling,
   )
 
 )
-
 ```
 
 
