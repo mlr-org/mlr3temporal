@@ -1,11 +1,18 @@
 Package: mlr3forecasting
 Type: Package
-Title: Extending forecasting for mlr3
-Version: 0.1
+Title: Forecasting for 'mlr3'
+Version: 0.1.0
 Date: 2019-12-11
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: Enable users to use algorithms like auto.arima
+Authors@R:
+    person(given = "Michel",
+           family = "Lang",
+           role = c("cre", "aut"),
+           email = "michellang@gmail.com",
+           comment = c(ORCID = "0000-0001-9754-0393"))
+Description: Implements tasks, learners, resamplings and measures for forcasting tasks.
+URL: https://mlr3forecasting.mlr-org.com,
+    https://github.com/mlr-org/mlr3forecasting
+BugReports: https://github.com/mlr-org/mlr3forecasting/issues
 License: What license is it under?
 Depends:
     R (>= 3.1.0)
@@ -16,12 +23,28 @@ Imports:
     digest,
     tsbox,
     lgr (>= 0.3.0),
+    mlr3,
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
     forecast
+Suggests:
+    testthat
 Encoding: UTF-8
-RoxygenNote: 7.0.2
+NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-Suggests: 
-    testthat (>= 2.1.0)
+RoxygenNote: 7.0.2
+Collate: 
+    'DataBackendLong.R'
+    'LearnerAutoArima.R'
+    'LearnerForecast.R'
+    'LearnerForecastAverage.R'
+    'LearnerRegrForecastMultiv_VAR.R'
+    'PredictionForecast.R'
+    'TaskForecasting.R'
+    'TaskRegrForecast.R'
+    'TaskRegrForecastAirPassengers.R'
+    'TaskRegrForecastMultiv.R'
+    'TaskRegrForecastMultiv_Petrol.R'
+    'zzz.R'
+

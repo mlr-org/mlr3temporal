@@ -50,7 +50,7 @@
 
 
 
-TaskRegrForecastMultiv <- R6::R6Class("TaskRegrForecastMultiv",
+TaskRegrForecastMultiv = R6::R6Class("TaskRegrForecastMultiv",
   inherit = TaskSupervised,
   public = list(
 

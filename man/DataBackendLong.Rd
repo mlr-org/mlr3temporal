@@ -3,9 +3,9 @@
 \name{DataBackendLong}
 \alias{DataBackendLong}
 \title{DataBackend}
-\format{\link[R6:R6Class]{R6::R6Class} object.}
+\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:DataBackend]{mlr3::DataBackend}}
 \description{
-This is the abstract base class for data backends.
+DataBackend for timeseries in long-format
 
 Data Backends provide a layer of abstraction for various data storage systems.
 It is not recommended to work directly with the DataBackend.

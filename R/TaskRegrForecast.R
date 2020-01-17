@@ -43,10 +43,6 @@
 #' @family Task
 #' @seealso
 #' @export
-# @examples
-#
-# # possible properties:
-# mlr3::mlr_reflections$task_properties$regr
 TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
   inherit = TaskRegr,
   public = list(
