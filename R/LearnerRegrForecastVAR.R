@@ -2,16 +2,15 @@
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.VAR
-#' @format [R6::R6Class] inheriting from [LearnerRegr].
+#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
 #'
 #' @section Construction:
 #' ```
 #' LearnerRegrForecastVAR$new()
-
 #' ```
 #'
 #' @description
-#' A [LearnerRegrForecast] for a vector autoregressive model  implemented in [vars::VAR] in package \CRANpkg{var}.
+#' A LearnerRegrForecast for a vector autoregressive model implemented in [vars::VAR] in package \CRANpkg{var}.
 #'
 #'
 #' @template seealso_learner
@@ -31,9 +30,9 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
        predict_types = c("response","se"),
        packages = "vars",
        param_set = ps,
-       properties = c("weights", "missings")
+       properties = c("weights", "missings"),
+       man = "mlr3forecasting::mlr_learners_regr.VAR"
      )
-
    },
 
    train_internal = function(task) {

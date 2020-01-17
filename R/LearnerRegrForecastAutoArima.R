@@ -2,7 +2,7 @@
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.AutoArima
-#' @format [R6::R6Class] inheriting from [LearnerRegr].
+#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
 #'
 #' @section Construction:
 #' ```
@@ -12,7 +12,7 @@
 #' ```
 #'
 #' @description
-#' A [LearnerRegr] for an (AR)I(MA) model implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
+#' A LearnerRegrForecast for an (AR)I(MA) model implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
 #'
 #'
 #' @template seealso_learner
@@ -45,7 +45,8 @@ LearnerForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerFore
        predict_types = c("response", "se"),
        packages = "forecast",
        param_set = ps,
-       properties = "univariate"
+       properties = "univariate",
+       man = "mlr3forecasting::mlr_learners_regr.AutoArima"
      )
 
    },
@@ -55,15 +56,14 @@ LearnerForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerFore
      if ("weights" %in% task$properties) {
        pv = insert_named(pv, list(weights = task$weights$weight))
      }
-     if(length(task$feature_names)>0){
-      xreg = as.matrix( task$data(cols = task$feature_names))
-      invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
-      cols=task$target_names), xreg = xreg, .args = pv)
-     }else{
+     if (length(task$feature_names)>0) {
+        xreg = as.matrix( task$data(cols = task$feature_names))
+        invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
+        cols=task$target_names), xreg = xreg, .args = pv)
+      } else {
         invoke(forecast::auto.arima, y = task$data(rows = task$row_ids,
            cols=task$target_names),.args = pv)
-      }
-
+     }
    },
 
    predict_internal = function(task) {
@@ -76,7 +76,5 @@ LearnerForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerFore
       se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
       PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
    }
-
-
  )
 )
