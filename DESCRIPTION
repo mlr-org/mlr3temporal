@@ -1,0 +1,25 @@
+Package: mlr3forecasting
+Type: Package
+Title: Extending forecasting for mlr3
+Version: 0.1
+Date: 2019-12-11
+Author: Who wrote it
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: Enable users to use algorithms like auto.arima
+License: What license is it under?
+Depends:
+    R (>= 3.1.0)
+Imports:
+    backports,
+    checkmate (>= 1.9.3),
+    data.table,
+    digest,
+    tsbox,
+    lgr (>= 0.3.0),
+    mlr3misc (>= 0.1.5),
+    paradox,
+    R6,
+    forecast
+Encoding: UTF-8
+RoxygenNote: 7.0.2
+Roxygen: list(markdown = TRUE, r6 = FALSE)
