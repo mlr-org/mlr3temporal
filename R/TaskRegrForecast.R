@@ -49,7 +49,7 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
 
     initialize = function(id, backend, target="target", time.col="time") {
 
-      assert_multi_class (x,c("data.frame","ts"))
+      assert_multi_class (backend,c("data.frame","ts"))
 
       # melts data.frames into long format and coerces to an object of class dts
       # as.numeric on the value columns removes possible unnecessary classes
@@ -57,7 +57,7 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
         setDT(backend)
         assert_subset(time.col,names(backend))
         assert_subset(target,names(backend))
-        assert_data_table( x[,setdiff(names(x),time.col), with = FALSE], types = "numeric")
+        assert_data_table( backend[,setdiff(names(backend),time.col), with = FALSE], types = "numeric")
         backend = (melt(backend, id.vars = time.col, variable.factor = FALSE))
         backend$value = as.numeric(backend$value)
         backend[[time.col]] = as.POSIXct(backend[[time.col]])
