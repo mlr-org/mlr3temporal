@@ -2,7 +2,7 @@
 % Please edit documentation in R/LearnerRegrForecastAutoArima.R
 \name{mlr_learners_regr.AutoArima}
 \alias{mlr_learners_regr.AutoArima}
-\alias{LearnerForecastAutoArima}
+\alias{LearnerRegrForecastAutoArima}
 \title{Auto.Arima Learner}
 \format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:LearnerRegr]{mlr3::LearnerRegr}.}
 \description{

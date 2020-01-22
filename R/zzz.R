@@ -14,16 +14,18 @@ NULL
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
-  x$task_types = rbind(x$task_types,
+  x$task_types = setkeyv(rbind(x$task_types,
     data.table(type = "forecast",
       package = "mlr3forecasting",
       task = "TaskRegrForecast",
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
-      measure = "MeasureRegrForecast"))
-  x$task_types = unique(x$task_types, by = "type", fromLast = TRUE)
+      measure = "MeasureRegrForecast")),"type")
+  #x$task_types = unique(x$task_types, by = "type", fromLast = TRUE)
   x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr, c("univariate", "multivariate")))
   x$task_col_roles$forecast = x$task_col_roles$regr
+  x$learner_properties$forecast = unique(c(x$learner_properties$forecast, x$learner_properties$regr, c("univariate", "multivariate")))
+
 
     # tasks --------------------------------------------------------------------
     x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
