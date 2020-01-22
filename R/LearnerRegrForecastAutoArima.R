@@ -17,7 +17,7 @@
 #'
 #' @template seealso_learner
 #' @export
-LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima", inherit = LearnerForecast,
+LearnerForecastAutoArima = R6::R6Class("LearnerAutoArima", inherit = LearnerForecast,
  public = list(
    initialize = function() {
      ps = ParamSet$new(list(

@@ -10,7 +10,7 @@ The target column is assumed to be numeric.
 The \code{task_type} is set to \code{"regr"} `.
 }
 \section{Construction}{
-\preformatted{t = TaskRegrForecast$new(id, backend, target, time.col)
+\preformatted{t = TaskRegrForecast$new(id, backend, target, date.col)
 }
 \itemize{
 \item \code{id} :: \code{character(1)}\cr
@@ -22,7 +22,7 @@ or any object which is convertible to a DataBackend with \code{as_data_backend()
 E.g., a object of class  \code{dts} will be converted to a \link{DataBackendLong}.
 \item \code{target} :: \code{character(n)}\cr
 Name of the target column(s).
-\item \code{time.col} :: \code{character(1)}\cr
+\item \code{date.col} :: \code{character(1)}\cr
 Name of the date column. Not needed if backend is a timeseries
 }
 }

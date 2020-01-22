@@ -3,7 +3,7 @@
 S3method(as_data_backend,dts)
 S3method(as_data_backend,forecast)
 export(DataBackendLong)
-export(LearnerRegrForecastAutoArima)
+export(LearnerForecastAutoArima)
 export(LearnerRegrForecastVAR)
 export(TaskRegrForecast)
 import(checkmate)
