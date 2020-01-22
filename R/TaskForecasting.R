@@ -23,5 +23,13 @@ TaskForecast = R6::R6Class("TaskForecast",
     truth = function(row_ids = NULL) {
       super$truth(row_ids)[[1L]]
     }
+  ),
+
+  active = list(
+
+    timestamps = function(){
+      self$backend$timestamps
+    }
+
   )
 )

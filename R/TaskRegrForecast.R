@@ -80,9 +80,6 @@ TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
       }
       self$properties = union(self$properties, if (length(self$target_names) == 1L) "univariate" else "multivariate")
     },
-    truth = function(row_ids = NULL) {
-      super$truth(row_ids)[[1L]]
-    },
     time_col = function(row_ids = NULL){
       if (is.null(row_ids)) {
         self$backend$data(self$backend$rownames, self$backend$colnames)[[self$backend$primary_key]]

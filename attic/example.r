@@ -6,6 +6,7 @@ df = ts_c(mdeaths,fdeaths)
 task = TaskRegrForecast$new(id = "a",backend =df,target = "mdeaths")
 learner=LearnerRegrForecastAutoArima$new()
 learner$train(task)
+learner$predict(task)
 learner$model
 
 ### Example 2
@@ -13,12 +14,13 @@ learner$model
 task = tsk("AirPassengers")
 learner=LearnerRegrForecastAutoArima$new()
 learner$train(task)
+learner$predict(task)
 learner$model
 
 
 ### Example multivariate forecasting
 task = tsk("petrol")
-learner =LearnerRegrForecastMultivVAR$new()
+learner =LearnerRegrForecastVAR$new()
 learner$train(task)
 learner$model
 

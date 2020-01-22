@@ -75,7 +75,7 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
         response = invoke(forecast::forecast, self$model, h = task$nrow)
      }
       se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
-      PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
+      PredictionForecast$new(task = task, response = c(response$mean),se = c(se))
    }
  )
 )

@@ -108,7 +108,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     initialize = function(data, primary_key, id_col) {
       assert_data_frame(data, ncol = 3L, col.names = "unique")
       setDT(data)
-      data[,eval(primary_key):= as.POSIXct( data[[primary_key]])]
+      data[,eval(primary_key):= as.integer(data[[primary_key]])]
       super$initialize(data, primary_key, data_formats = "data.table")
 
       self$id_col = assert_choice(id_col, names(data))
@@ -121,8 +121,10 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_names(cols, type = "unique")
       assert_choice(data_format, self$data_formats)
       cols = intersect(cols, self$colnames)
-      rows = as.POSIXct(rows, origin = "1970-01-01")
-
+      #rows = as.POSIXct(rows, origin = "1970-01-01")
+      if(length(rows)==0){
+        return(self$head(1)[0])
+      }
       data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]
         if(self$primary_key %in% cols){
           dcast(data, formulate(self$primary_key, self$id_col))
@@ -170,6 +172,10 @@ DataBackendLong = R6::R6Class("DataBackendLong",
 
     colnames = function() {
       c(self$primary_key, unique(private$.data[, self$id_col, with = FALSE])[[1L]])
+    },
+
+    timestamps = function(){
+      as.POSIXct(self$rownames, origin = "1970-01-01")
     },
 
     nrow = function() {
