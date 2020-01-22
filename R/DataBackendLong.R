@@ -121,8 +121,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_names(cols, type = "unique")
       assert_choice(data_format, self$data_formats)
       cols = intersect(cols, self$colnames)
-      rows = as.POSIXct(rows)
-
+      rows = as.POSIXct(rows, origin = "1970-01-01")
 
       data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]
         if(self$primary_key %in% cols){

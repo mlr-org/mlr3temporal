@@ -14,30 +14,34 @@ NULL
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
-  x$task_types = rbind(x$task_types,
+  x$task_types = setkeyv(rbind(x$task_types,
     data.table(type = "forecast",
       package = "mlr3forecasting",
       task = "TaskRegrForecast",
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
-      measure = "MeasureRegrForecast"))
-  x$task_types = unique(x$task_types, by = "type", fromLast = TRUE)
+      measure = "MeasureRegrForecast")),"type")
   x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr, c("univariate", "multivariate")))
   x$task_col_roles$forecast = x$task_col_roles$regr
+  x$learner_predict_types$forecast = x$learner_predict_types$regr
+  x$learner_properties$forecast = unique(c(x$learner_properties$forecast,
+                                          x$learner_properties$regr,
+                                          c("univariate", "multivariate")))
+  x$default_measures$forecast = "regr.mse"
+  # tasks --------------------------------------------------------------------
+  x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
+  x$add("AirPassengers", load_task_AirPassengers)
+  x$add("petrol", load_task_petrol)
 
-    # tasks --------------------------------------------------------------------
-    x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-    x$add("AirPassengers", load_task_AirPassengers)
-    x$add("petrol", load_task_petrol)
+  # learners
+  x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
+  x$add("forecast.average", LearnerForeCastAverage)
+  # TODO: Add all learners here.
 
-    # learners
-    x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
-    x$add("forecast.average", LearnerForeCastAverage)
-    # TODO: Add all learners here.
+  # resampling methods ---------------------------------------------------------
+  x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
+  # TODO: Add resamplings here
 
-    # resampling methods ---------------------------------------------------------
-    x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
-    # TODO: Add resamplings here
 }
 
 .onLoad = function(libname, pkgname) {

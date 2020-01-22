@@ -4,3 +4,11 @@
 #   result = run_autotest(learner)
 #   expect_true(result, info = result$error)
 # })
+
+test_that("Basic Tests", {
+  learner = LearnerRegrForecastAutoArima$new()
+  expect_r6(learner)
+  # expect_learner(learner)
+  # tsk = mlr_tasks$get("AirPassengers")
+  # learner$train(tsk)
+})

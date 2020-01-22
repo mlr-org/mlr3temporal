@@ -4,8 +4,7 @@ test_that("DataBackendLong construction", {
   data = tsbox::ts_dts(tsbox::ts_c(mdeath = tsbox::ts_dt(mdeaths), fdeath = tsbox::ts_dt(fdeaths)))
   self = backend = as_data_backend(data)
   private = private(self)
-  #expect_backend(backend)
-
+  # expect_backend(backend)
 
   rows = self$rownames
   cols = self$colnames
