@@ -12,7 +12,7 @@ test_that("has date.col", {
 test_that("has date.col", {
 
   task = tsk("AirPassengers")
-  tc = task$time_col()
+  tc = task$timestamps()
   assert_class(tc, "POSIXct")
   expect_equal(task$nrow, length(tc))
 })
