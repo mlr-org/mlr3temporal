@@ -104,15 +104,16 @@ DataBackendLong = R6::R6Class("DataBackendLong",
   public = list(
     id_col = NULL,
     value_col = NULL,
+    date_col = NULL,
 
-    initialize = function(data, primary_key, id_col) {
-      assert_data_frame(data, ncol = 3L, col.names = "unique")
+    initialize = function(data, primary_key, id_col, date_col) {
+      assert_data_frame(data, ncol = 4L, col.names = "unique")
       setDT(data)
-      data[,eval(primary_key):= as.POSIXct( data[[primary_key]])]
       super$initialize(data, primary_key, data_formats = "data.table")
 
       self$id_col = assert_choice(id_col, names(data))
-      self$value_col = setdiff(colnames(data), c(primary_key, id_col))
+      self$date_col = assert_choice(date_col, names(data))
+      self$value_col = setdiff(colnames(data), c(primary_key, id_col, date_col))
       setkeyv(data, c(primary_key, id_col))
     },
 
@@ -120,15 +121,26 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       assert_atomic_vector(rows)
       assert_names(cols, type = "unique")
       assert_choice(data_format, self$data_formats)
-      cols = intersect(cols, self$colnames)
-      rows = as.POSIXct(rows, origin = "1970-01-01")
 
-      data = private$.data[CJ(rows, setdiff(cols, self$primary_key)), roll = roll]
-        if(self$primary_key %in% cols){
-          dcast(data, formulate(self$primary_key, self$id_col))
-        } else {
-          dcast(data, formulate(self$primary_key, self$id_col))[,-self$primary_key, with = FALSE]
-        }
+      cols = intersect(cols, self$colnames)
+      rows = keep_in_bounds(rows, 1L, max(private$.data[[self$primary_key]]))
+
+      if (length(cols) == 0)
+        return(data.table()) # FIXME: Not sure what should be returned here. cols = "_not_existing_" check.
+      if (!all(cols %in% self$key_cols))
+        subset_cols = setdiff(cols, self$key_cols) # for dcasting id_col
+      else
+        subset_cols = cols # case we only want primary key or date
+      # FIXME: This is not very efficient, but seems reasonably robust
+
+
+      if (length(rows) != 0L)
+        dt = private$.data[CJ(rows, subset_cols), roll = roll]
+      else # else: keep all rows, subset later
+        dt = private$.data[CJ(private$.data[[self$primary_key]], subset_cols), roll = roll]
+      dt = dcast(dt, formulate(paste0(c(self$key_cols), collapse = "+"), self$id_col), fun.aggregate = identity, fill = NA)
+      dt = dt[list(rows), cols, with = FALSE, on = self$primary_key, nomatch = 0L]
+      return(dt)
     },
 
     head = function(n = 6L) {
@@ -138,28 +150,22 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     },
 
     distinct = function(rows, cols, na_rm = TRUE) {
-      #tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
-      #tab = private$.data[CJ(rows, cols), list(N = uniqueN(self$value_col, na.rm = na_rm)), by = c(self$id_col)]
-      #set_names(tab[["N"]], tab[[self$id_col]])
-      if(is.null(rows)){
-        rows=self$rownames
-      }
       assert_names(cols, type = "unique")
       assert_flag(na_rm)
       cols = intersect(cols, self$colnames)
-
-      tab = private$.data[CJ(rows, setdiff(cols,self$primary_key )), list(N = uniqueN(eval(parse(text=self$value_col)), na.rm = na_rm)), by = c(self$id_col)]
-      set_names(tab[["N"]], tab[[self$id_col]])
+      if (is.null(rows)) rows = self$rownames
+      data = self$data(rows, cols)
+      if (is.null(rows)) {
+        set_names(lapply(cols, function(x) distinct_values(data[[x]], drop = FALSE, na_rm = na_rm)), cols)
+      } else {
+        lapply(data, distinct_values, drop = TRUE, na_rm = na_rm)
+      }
     },
 
-
     missings = function(rows, cols) {
-      assert_atomic_vector(rows)
       assert_names(cols, type = "unique")
-      cols = intersect(cols, self$colnames)
-      tab = private$.data[CJ(rows, cols), list(N = sum(is.na(eval(parse(text=self$value_col))))), by = c(self$id_col)]
-      private$.data[CJ(rows, cols), list(N = sum(is.na(self$value_col))), by = c(self$id_col)]
-      set_names(tab[["N"]], tab[[self$id_col]])
+      data = self$data(rows, cols)
+      map_int(data, function(x) sum(is.na(x)))
     }
   ),
 
@@ -169,7 +175,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     },
 
     colnames = function() {
-      c(self$primary_key, unique(private$.data[, self$id_col, with = FALSE])[[1L]])
+      c(self$primary_key, self$date_col, unique(private$.data[, self$id_col, with = FALSE])[[1L]])
     },
 
     nrow = function() {
@@ -177,7 +183,10 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     },
 
     ncol = function() {
-      uniqueN(private$.data, by = self$id_col) + 1L
+      uniqueN(private$.data, by = self$id_col) + 2L
+    },
+    key_cols = function() {
+      c(self$primary_key, self$date_col)
     }
   ),
 
@@ -190,17 +199,32 @@ DataBackendLong = R6::R6Class("DataBackendLong",
 
 #' @export
 as_data_backend.dts = function(data) {
-  if(ncol(data)==2){
+  if(ncol(data) == 2){
     data$id = "target"
-    attr(data,"cname")$id ="id"
+    cname = attr(data,"cname")
+    cname$id = "id"
+    setattr(data, "cname", cname)
   }
   cname = attr(data, "cname")
   set(data, j = cname$time, value = as.POSIXct(data[[cname$time]]))
-  DataBackendLong$new(data, primary_key = cname$time, id_col = cname$id)
+  if ("..row_id" %nin% names(data)) data[, "..row_id" := rowid(id)]
+  DataBackendLong$new(data, primary_key = "..row_id", id_col = cname$id, date_col = cname$time)
 }
 
 #' @export
 as_data_backend.forecast = function(data) {
   require_namespaces("tsbox")
   as_data_backend(tsbox::ts_dts(data))
+}
+
+# Helper function for conversion.
+df_to_backend = function(data, target, date_col) {
+  setDT(data)
+  assert_subset(date_col, names(data))
+  assert_subset(target, names(data))
+  assert_data_table(data[, setdiff(names(data), date_col), with = FALSE], types = "numeric")
+  backend = (melt(data, id.vars = date_col, variable.factor = FALSE))
+  backend$value = as.numeric(backend$value)
+  backend[[date_col]] = as.POSIXct(backend[[date_col]])
+  return(backend)
 }

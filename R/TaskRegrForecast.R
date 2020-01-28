@@ -14,7 +14,7 @@
 #'
 #' @section Construction:
 #' ```
-#' t = TaskRegrForecast$new(id, backend, target, time.col)
+#' t = TaskRegrForecast$new(id, backend, target, date_col)
 #' ```
 #'
 #' * `id` :: `character(1)`\cr
@@ -30,7 +30,7 @@
 #' * `target` :: `character(n)`\cr
 #'   Name of the target column(s).
 #'
-#' * `time.col` :: `character(1)`\cr
+#' * `date_col` :: `character(1)`\cr
 #'   Name of the date column. Not needed if backend is a timeseries
 #'
 #' @section Fields:
@@ -43,52 +43,14 @@
 #' @family Task
 #' @seealso seealso_task
 #' @export
-TaskRegrForecast <- R6::R6Class("TaskRegrForecast",
+TaskRegrForecast = R6::R6Class("TaskRegrForecast",
   inherit = TaskForecast,
   public = list(
-
-    initialize = function(id, backend, target="target", time.col="time") {
-
-      assert_multi_class (backend,c("data.frame", "ts", "DataBackend"))
-
-      # melts data.frames into long format and coerces to an object of class dts
-      # as.numeric on the value columns removes possible unnecessary classes
-      if (is.data.frame(backend)) {
-        setDT(backend)
-        assert_subset(time.col,names(backend))
-        assert_subset(target,names(backend))
-        assert_data_table( backend[, setdiff(names(backend),time.col), with = FALSE], types = "numeric")
-        backend = (melt(backend, id.vars = time.col, variable.factor = FALSE))
-        backend$value = as.numeric(backend$value)
-        backend[[time.col]] = as.POSIXct(backend[[time.col]])
-        backend = ts_dts(backend)
-      } else if ("ts" %in% class(backend)) {
-        backend = ts_dts(backend)
-        assert_numeric(backend$value)
-        if(ncol(backend)==2) {
-          backend$id = target
-          attr(backend, "cname")$id = "id"
-        }
-      }
+    initialize = function(id, backend, target = "target") {
       # Initialize the task and properties
-      super$initialize(id = id, backend = (backend), target = target, time = time.col)
-      for (i in self$target_names){
-        type = self$col_info[id == i]$type
-        if (type %nin% c("integer", "numeric")) {
-          stopf("Target column '%s' must be numeric", i)
-        }
-      }
+      super$initialize(id = id, backend = (backend), target = target)
       self$properties = union(self$properties, if (length(self$target_names) == 1L) "univariate" else "multivariate")
-    },
-    truth = function(row_ids = NULL) {
-      super$truth(row_ids)[[1L]]
-    },
-    time_col = function(row_ids = NULL){
-      if (is.null(row_ids)) {
-        self$backend$data(self$backend$rownames, self$backend$colnames)[[self$backend$primary_key]]
-       }else {
-        self$backend$data(assert_integerish(row_ids), self$backend$colnames)[[self$backend$primary_key]]
-      }
+      assert_true(all(self$col_info[id %in% self$target_names]$type == "numeric"))
     }
-  ),
+  )
 )

@@ -29,7 +29,6 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
     response = function() {
       self$data$tab$response %??% rep(NA_real_, length(self$data$row_ids))
     },
-
     missing = function() {
       miss = is.na(self$response)
       self$data$tab$row_id[miss]

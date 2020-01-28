@@ -3,9 +3,7 @@
 
 LearnerForecast = R6Class("LearnerRegr", inherit = Learner,
   public = list(
-    begin = NULL,
-    end = NULL,
-    period = 0,
+    date_span = NULL,
     initialize = function(id, param_set = ParamSet$new(), predict_types = "response",
       feature_types = character(), properties = character(), data_formats = "data.table",
       packages = character(), man = NA_character_) {
@@ -14,9 +12,9 @@ LearnerForecast = R6Class("LearnerRegr", inherit = Learner,
     },
 
     train = function(task, row_ids) {
-      super$train(task)
-      self$begin = head(row_ids, 1)
-      self$end = tail(row_ids, 1)
+      super$train(task, row_ids)
+      span = range(task$date(row_ids)[[task$date_col]])
+      self$date_span = list(begin = span[1], end = span[2])
     }
   )
 )

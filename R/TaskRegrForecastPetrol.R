@@ -15,8 +15,10 @@
 #' @template seealso_task
 NULL
 
-load_task_petrol = function(id = "petrol"){
-  b = as_data_backend.forecast(load_dataset("petrol", "fma"))
-  b$hash = "mlr3forecasting::mlr_tasks_petrol"
-  TaskRegrForecast$new(id, b, target = c("Chemicals", "Coal", "Petrol", "Vehicles"))
+load_task_petrol = function(id = "petrol") {
+  requireNamespace("fma")
+  b = as_data_backend.forecast(fma::petrol)
+  task = TaskRegrForecast$new(id, b, target = c("Chemicals", "Coal", "Petrol", "Vehicles"))
+  b$hash = task$man = "mlr3forecasting::mlr_tasks_petrol"
+  return(task)
 }
