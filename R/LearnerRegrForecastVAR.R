@@ -15,7 +15,7 @@
 #'
 #' @template seealso_learner
 #' @export
-LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerRegr,
+LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
  public = list(
    initialize = function() {
      ps = ParamSet$new(list(

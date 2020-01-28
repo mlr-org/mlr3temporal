@@ -1,7 +1,7 @@
 context("Forecasting Task")
 
 test_that("Basic properties", {
-  task = tsk("AirPassengers")
+  task = tsk("airpassengers")
   dt = task$head(3)
   expect_data_table(dt, nrow = 3, ncol = 1, col.names = "named")
   dt = task$head(0L)

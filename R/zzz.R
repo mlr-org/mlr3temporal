@@ -30,7 +30,7 @@ register_mlr3 = function() {
   x$default_measures$forecast = "regr.mse"
   # tasks --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-  x$add("AirPassengers", load_task_AirPassengers)
+  x$add("airpassengers", load_task_AirPassengers)
   x$add("petrol", load_task_petrol)
 
   # learners

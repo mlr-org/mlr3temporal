@@ -1,7 +1,7 @@
 context("Included Tasks")
 
 test_that("air_passengers", {
-  tsk = mlr_tasks$get("AirPassengers")
+  tsk = mlr_tasks$get("airpassengers")
   expect_task(tsk)
   expect_subset("univariate", tsk$properties)
 })
