@@ -1,3 +1,49 @@
+#' @title Forecast Task
+#'
+#' @import data.table
+#' @import mlr3
+#'
+#' @usage NULL
+#' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised].
+#'
+#' @description
+#' This task specializes [Task] and [TaskSupervised] for forecasting regression problems.
+#' The target column is assumed to be numeric.
+#' The `task_type` is set to `"regr"` `.
+
+#'
+#' @section Construction:
+#' ```
+#' t = TaskRegrForecast$new(id, backend, target, date_col)
+#' ```
+#'
+#' * `id` :: `character(1)`\cr
+#'   Identifier for the task.
+#'
+#' * `backend` :: [DataBackend]\cr
+#'   Either a [DataBackendLong], a object of class `ts` or a `data.frame` with specified date column
+#'
+#'
+#'     or any object which is convertible to a DataBackend with `as_data_backend()`.
+#'   E.g., a object of class  `dts` will be converted to a [DataBackendLong].
+#'
+#' * `target` :: `character(n)`\cr
+#'   Name of the target column(s).
+#'
+#' @section Fields:
+#' All methods from [TaskSupervised] and [TaskRegr], and additionally:
+#' * `date_col` :: `character(1)`\cr
+#'   Name of the date column.
+#
+#' @section Methods:
+#' See [TaskSupervised], additionally:
+#' * `date(row_ids = NULL)`  :: `data.table`\cr
+#'   (`integer()` | `character()`) -> named `list()`\cr
+#'   Returns the `date` column.
+#'
+#' @family Task
+#' @seealso seealso_task
+#' @export
 TaskForecast = R6::R6Class("TaskForecast",
   inherit = TaskSupervised,
   public = list(

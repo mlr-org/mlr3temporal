@@ -205,6 +205,7 @@ as_data_backend.dts = function(data) {
     cname$id = "id"
     setattr(data, "cname", cname)
   }
+  id = NULL
   cname = attr(data, "cname")
   set(data, j = cname$time, value = as.POSIXct(data[[cname$time]]))
   if ("..row_id" %nin% names(data)) data[, "..row_id" := rowid(id)]
@@ -217,14 +218,14 @@ as_data_backend.forecast = function(data) {
   as_data_backend(tsbox::ts_dts(data))
 }
 
-# Helper function for conversion.
-df_to_backend = function(data, target, date_col) {
-  setDT(data)
-  assert_subset(date_col, names(data))
-  assert_subset(target, names(data))
-  assert_data_table(data[, setdiff(names(data), date_col), with = FALSE], types = "numeric")
-  backend = (melt(data, id.vars = date_col, variable.factor = FALSE))
-  backend$value = as.numeric(backend$value)
-  backend[[date_col]] = as.POSIXct(backend[[date_col]])
-  return(backend)
-}
+# # Helper function for conversion.
+# df_to_backend = function(data, target, date_col) {
+#   setDT(data)
+#   assert_subset(date_col, names(data))
+#   assert_subset(target, names(data))
+#   assert_data_table(data[, setdiff(names(data), date_col), with = FALSE], types = "numeric")
+#   backend = (melt(data, id.vars = date_col, variable.factor = FALSE))
+#   backend$value = as.numeric(backend$value)
+#   backend[[date_col]] = as.POSIXct(backend[[date_col]])
+#   return(backend)
+# }

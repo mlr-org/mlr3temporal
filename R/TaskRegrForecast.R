@@ -4,7 +4,7 @@
 #' @import mlr3
 #'
 #' @usage NULL
-#' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised]/[TaskRegr].
+#' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised]/[TaskForecast].
 #'
 #' @description
 #' This task specializes [Task] and [TaskSupervised] for forecasting regression problems.
@@ -30,15 +30,11 @@
 #' * `target` :: `character(n)`\cr
 #'   Name of the target column(s).
 #'
-#' * `date_col` :: `character(1)`\cr
-#'   Name of the date column. Not needed if backend is a timeseries
-#'
 #' @section Fields:
-#' All methods from [TaskSupervised] and [TaskRegr], and additionally:
+#' All methods from [TaskSupervised] and [TaskForecast].
 #'
-
 #' @section Methods:
-#' See [TaskSupervised] and [TaskRegr].
+#' See [TaskSupervised] and [TaskForecast].
 #'
 #' @family Task
 #' @seealso seealso_task
