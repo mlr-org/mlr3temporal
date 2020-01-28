@@ -10,4 +10,10 @@ test_that("Basic Tests", {
   tsk = mlr_tasks$get("airpassengers")
   learner$train(tsk)
   expect_prediction(learner$predict(tsk))
+
+  rs = ResamplingCustom$new()
+  rs$instantiate(tsk, train_sets = list(1:100), test_sets = list(101:144))
+  res = resample(tsk, learner, rs)
+  res$prediction()
+  # expect_resample_result(res) scoring currently broken, see https://github.com/mlr-org/mlr3measures/issues/7
 })

@@ -65,7 +65,7 @@ TaskForecast = R6::R6Class("TaskForecast",
       data[order(date), ]
     },
     date = function(row_ids = NULL) {
-      rows = row_ids %??% self$backend$rownames
+      rows = row_ids %??% self$row_roles$use
       self$backend$data(rows, self$date_col)
     }
   ),
