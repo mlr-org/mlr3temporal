@@ -36,12 +36,14 @@ register_mlr3 = function() {
   # learners
   x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
   x$add("forecast.average", LearnerForeCastAverage)
-  # TODO: Add all learners here.
+  # FIXME: Add all learners here.
 
   # resampling methods ---------------------------------------------------------
   x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
-  # TODO: Add resamplings here
+  # FIXME: Add resamplings here
 
+  # measures --------------------------------------------------------------------
+  x = utils::getFromNamespace("mlr_measures", ns = "mlr3")
 }
 
 .onLoad = function(libname, pkgname) {
