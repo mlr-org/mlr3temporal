@@ -15,9 +15,10 @@
 #' @template seealso_task
 NULL
 
-load_task_AirPassengers = function(id = "AirPassengers") {
+load_task_AirPassengers = function(id = "airpassengers") {
+  requireNamespace("datasets")
   b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
   task = TaskRegrForecast$new(id, b, target = "target")
-  b$hash = task$man = "mlr3forecasting::mlr_tasks_AirPassengers"
-  task
+  b$hash = task$man = "mlr3forecasting::mlr_tasks_airpassengers"
+  return(task)
 }

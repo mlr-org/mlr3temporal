@@ -68,12 +68,13 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
    },
 
    predict_internal = function(task) {
-     if(length(task$feature_names)>0){
+     if (length(task$feature_names) > 0) {
         newdata = as.matrix( task$data(cols = task$feature_names))
         response = invoke(forecast::forecast, self$model, xreg = newdata)
-     }else{
+      } else {
         response = invoke(forecast::forecast, self$model, h = task$nrow)
-     }
+      }
+      # FIXME: ci_to_se should be a helper function
       se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
       PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
    }
