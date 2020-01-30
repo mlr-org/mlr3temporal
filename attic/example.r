@@ -5,20 +5,21 @@ library(tsbox)
 df = ts_c(mdeaths,fdeaths)
 task = TaskRegrForecast$new(id = "a",backend =df,target = "mdeaths")
 learner=LearnerRegrForecastAutoArima$new()
-learner$train(task)
+learner$train(task,row_ids = 1:20)
 learner$model
+p=learner$predict(task,row_ids = 21:45)
 
 ### Example 2
 
-task = tsk("AirPassengers")
-learner=LearnerRegrForecastAutoArima$new()
+task = tsk("airpassengers")
+learner=LearnerForecastAverage$new()
 learner$train(task)
 learner$model
-
+p=learner$predict(task)
 
 ### Example multivariate forecasting
 task = tsk("petrol")
-learner =LearnerRegrForecastMultivVAR$new()
+learner =LearnerRegrForecastVAR$new()
 learner$train(task)
 learner$model
-
+p=learner$predict(task)

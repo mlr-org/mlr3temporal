@@ -35,7 +35,9 @@ register_mlr3 = function() {
 
   # learners
   x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
-  x$add("forecast.average", LearnerForeCastAverage)
+  x$add("forecast.average", LearnerForecastAverage)
+  x$add("forecast.auto.arima", LearnerRegrForecastAutoArima)
+  x$add("forecast.VAR", LearnerRegrForecastVAR)
   # FIXME: Add all learners here.
 
   # resampling methods ---------------------------------------------------------

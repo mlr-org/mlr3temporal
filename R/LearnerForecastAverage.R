@@ -1,8 +1,8 @@
-LearnerForeCastAverage = R6::R6Class("LearnerForeCastAverage", inherit = LearnerForecast,
+LearnerForecastAverage = R6::R6Class("LearnerForecastAverage", inherit = LearnerForecast,
   public = list(
     initialize = function() {
       super$initialize(
-        id = "regr.featureless",
+        id = "forecast.average",
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
         predict_types = c("response"),
         man = "mlr3::mlr_learners_forecast.average"

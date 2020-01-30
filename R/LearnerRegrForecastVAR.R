@@ -30,7 +30,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
        predict_types = c("response","se"),
        packages = "vars",
        param_set = ps,
-       properties = c("weights", "missings"),
+       properties = c("multivariate"),
        man = "mlr3forecasting::mlr_learners_regr.VAR"
      )
    },
@@ -49,9 +49,14 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
    },
 
    predict_internal = function(task) {
-      # FIXME ....
-     response = invoke(predict, self$model, h = task$nrow)
-     PredictionRegr$new(task = task, response = c(response$mean))
+     forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95)
+     response = data.table(
+        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"])
+     )
+     se = data.table(
+        sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95))
+     )
+     p=PredictionForecast$new(task = task, response = response, se = se)
    }
  )
 )
