@@ -2,7 +2,7 @@
 #'
 #' @usage NULL
 #' @format [R6::R6Class] object inheriting from [Prediction].
-#' @include Prediction.R
+#' @include PredictionForecast.R
 #'
 #' @description
 #' This object wraps the predictions returned by a learner of class [LearnerForecast], i.e.
@@ -46,9 +46,6 @@
 #' learner=LearnerRegrForecastAutoArima$new()
 #' learner$train(task)
 #' p=learner$predict(task)
-
-
-
 PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
   cloneable = FALSE,
   public = list(
@@ -153,5 +150,5 @@ as.data.table.PredictionForecast = function(x, ...) {
     tab = rcbind(tab, se)
   }
 
-  tab
+  return(tab)
 }
