@@ -42,7 +42,7 @@
 #' @family Prediction
 #' @export
 #' @examples
-#' task = tsk("airpassengers")
+#' task = mlr3::tsk("airpassengers")
 #' learner=LearnerRegrForecastAutoArima$new()
 #' learner$train(task)
 #' p=learner$predict(task)
