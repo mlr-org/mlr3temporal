@@ -121,10 +121,15 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
     },
 
     missing = function() {
-      miss = which(is.na(self$response), arr.ind = TRUE)
-      data.table(
-        row_id = self$data$tab$response$row_id[miss[,1]],
-        target_name = names(self$data$tab$response)[miss[,2]])
+      miss = logical(nrow(self$data$tab$truth))
+      if ("response" %in% self$predict_types) {
+        miss[which(is.na(self$response[,-1]), arr.ind = TRUE)[1]] = TRUE
+      }
+      if ("se" %in% self$predict_types) {
+        miss[which(is.na(self$se[,-1]), arr.ind = TRUE)[1]] = TRUE
+      }
+
+      self$data$tab$truth$row_id[miss]
     }
   )
 )
