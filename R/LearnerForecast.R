@@ -17,7 +17,7 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
 )
 
 
-#' @export
+
 ci_to_se = function(width, level){
   se = width / (2 * stats::qnorm(0.5 + level / 200))
   return(se)
