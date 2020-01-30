@@ -42,7 +42,7 @@
 #' @family Prediction
 #' @export
 #' @examples
-#' task = tsk("airpassengers")
+#' task = mlr3::tsk("airpassengers")
 #' learner=LearnerRegrForecastAutoArima$new()
 #' learner$train(task)
 #' p=learner$predict(task)
@@ -151,4 +151,31 @@ as.data.table.PredictionForecast = function(x, ...) {
   }
 
   return(tab)
+}
+
+#' @export
+c.PredictionForecast = function(..., keep_duplicates = TRUE) {
+  dots = list(...)
+  assert_list(dots, "PredictionForecast")
+  assert_flag(keep_duplicates)
+  if (length(dots) == 1L) {
+    return(dots[[1L]])
+  }
+
+  predict_types = map(dots, "predict_types")
+  if (!every(predict_types[-1L], setequal, y = predict_types[[1L]])) {
+    stopf("Cannot rbind predictions: Standard Errors for some predictions, not all")
+  }
+  tab = list()
+  tab$truth = map_dtr(dots, function(p) p$data$tab$truth, .fill = FALSE)
+  tab$response = map_dtr(dots, function(p) p$data$tab$response, .fill = FALSE)
+  tab$se = map_dtr(dots, function(p) p$data$tab$se, .fill = FALSE)
+
+  if (!keep_duplicates) {
+    tab$truth = unique(tab$truth, by = "row_id", fromLast = TRUE)
+    tab$response = unique(tab$truth, by = "row_id", fromLast = TRUE)
+    tab$se = unique(tab$truth, by = "row_id", fromLast = TRUE)
+  }
+
+ PredictionForecast$new(row_ids = tab$truth$row_id, truth = tab$truth[,-1], response = tab$response[,-1], se = tab$se[,-1])
 }
