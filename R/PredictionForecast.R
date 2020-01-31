@@ -5,7 +5,7 @@
 #' @include PredictionForecast.R
 #'
 #' @description
-#' This object wraps the predictions returned by a learner of class [LearnerForecast], i.e.
+#' This object wraps the predictions returned by a learner of class LearnerForecast, i.e.
 #' the predicted response and standard error.
 #'
 #' @section Construction:
