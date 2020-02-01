@@ -74,9 +74,8 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
       } else {
         response = invoke(forecast::forecast, self$model, h = task$nrow)
       }
-      # FIXME: ci_to_se should be a helper function
-      se = (response$upper[,1] - response$lower[,1]) / (2 * qnorm(.5 + response$level[1] / 200))
-      PredictionRegr$new(task = task, response = c(response$mean),se = c(se))
+      se = ci_to_se(width = response$upper[,1] - response$lower[,1], level = response$level[1])
+      PredictionForecast$new(task = task, response = c(response$mean),se = c(se))
    }
  )
 )

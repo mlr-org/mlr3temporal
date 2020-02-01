@@ -29,6 +29,7 @@ Suggests:
     fma,
     forecast,
     testthat,
+    stats,
     vars
 Encoding: UTF-8
 NeedsCompilation: no

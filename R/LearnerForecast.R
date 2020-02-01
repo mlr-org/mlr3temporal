@@ -1,4 +1,4 @@
-LearnerForecast = R6Class("LearnerRegr", inherit = Learner,
+LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
   public = list(
     date_span = NULL,
     initialize = function(id, param_set = ParamSet$new(), predict_types = "response",
@@ -15,3 +15,10 @@ LearnerForecast = R6Class("LearnerRegr", inherit = Learner,
     }
   )
 )
+
+
+
+ci_to_se = function(width, level){
+  se = width / (2 * stats::qnorm(0.5 + level / 200))
+  return(se)
+}
