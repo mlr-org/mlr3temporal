@@ -55,7 +55,7 @@ actually, the Lagged values of a timeseries can be used as features for a machin
 Another method for reshaping temporal data is windowconversion using lagged and lagged differenced values. Supervised ML-Algorithms 
 usually expect the data to be in a tabular format: one row euqals one observation. The transformation to such a structure is called window-conversion.
 
-```{r}
+```r
 Data_ reformating = windowConversion(data, date.col="date", lag = c(1L,2L), diff.lag = c(1L), diff.diff = c(1L))
 
 ```
