@@ -129,6 +129,7 @@ resample$score(measure)
 ```
 
 ## Univariate Forecast Example
+```{r}
 load_task_AirPassengers = function(id = "airpassengers") {
   requireNamespace("datasets")
   b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
@@ -136,8 +137,11 @@ load_task_AirPassengers = function(id = "airpassengers") {
   b$hash = task$man = "mlr3forecasting::mlr_tasks_airpassengers"
   return(task)
 }
+```
+
 
 ## Multivariate Forecast Example
+```{r}
 load_task_petrol = function(id = "petrol") {
   requireNamespace("fma")
   b = as_data_backend.forecast(fma::petrol)
@@ -145,7 +149,7 @@ load_task_petrol = function(id = "petrol") {
   b$hash = task$man = "mlr3forecasting::mlr_tasks_petrol"
   return(task)
 }
-
+```
 
 
 
