@@ -67,7 +67,7 @@ and the name of taget variable is used for calling during the regresion analysis
 For classification, the `TaskClassif` and for regression task `TaskRegr` has been used.
 
 
-```{r}
+```r
 # create learning task
 task = TaskRegrForecast$new(id = "id",backend = "data set",target = "target variable")
 print(task) # Gives a short summary of task
