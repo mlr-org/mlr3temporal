@@ -78,7 +78,7 @@ print(task) # Gives a short summary of task
 Thare are two tzpe of learner
 1- Auto.Arima Learner which is a LearnerRegrForecast for an (AR)I(MA) model implemented  in the  `forecast` package.
 
-```{r}
+```r
 # load learner and set hyperparameter
 Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
 
@@ -91,7 +91,7 @@ Learner_AutoArima$ParamInt$new$lower = 0
 
 2- Vector Autoregression Learner which is a LearnerRegrForecast for a vector autoregressive model implemented in th `var` package. 
 
-```{r}
+```r
 # load learner and set hyperparameter
 Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
 
@@ -105,31 +105,31 @@ Learner_AutoArima$ParamInt$new$lower = 1L
 ## train and predict
 
 # train/test split
-```{r}
+```r
 train_set = sample(task$nrow, 0.8 * task$nrow)
 test_set = setdiff(seq_len(task$nrow), train_set)
 ```
 # train the model
-```{r}
+```r
 learner$train(task, row_ids = train_set)
 ```
 
 
 # predict data
-```{r}
+```r
 prediction = learner$predict(task, row_ids = test_set)
 ```
 
 
 ## Resampling
-```{r}
+```r
 resampling = rsmp("cv", folds = 3L)
 resample = resample(task_iris, learner, resampling)
 resample$score(measure)
 ```
 
 ## Univariate Forecast Example
-```{r}
+```r
 load_task_AirPassengers = function(id = "airpassengers") {
   requireNamespace("datasets")
   b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
@@ -141,7 +141,7 @@ load_task_AirPassengers = function(id = "airpassengers") {
 
 
 ## Multivariate Forecast Example
-```{r}
+```r
 load_task_petrol = function(id = "petrol") {
   requireNamespace("fma")
   b = as_data_backend.forecast(fma::petrol)
