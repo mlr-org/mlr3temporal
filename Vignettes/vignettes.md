@@ -10,7 +10,7 @@ vignette: >
 %\VignetteEncoding{UTF-8}
 ---
   
-  ```{r, include = FALSE}
+  ```r
 knitr::opts_chunk$set(
   cache = FALSE,
   collapse = TRUE,
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 ##Installation
   
-```{r setup}
+```r
 set.seed(123)
 install.packages("mlr3") ; install.packages("tsbox")
 library(mlr3);library(tsbox)
