@@ -1,4 +1,4 @@
-#' @title Visualization for prediction
+#' @title Visualization for forecasting
 #'
 #' @description 
 #' Generates plots for the [mlr3forecasting::prediction] of the [mlr3forecasting::learner] on a [mlr3forecasting::task]
