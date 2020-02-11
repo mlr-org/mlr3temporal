@@ -151,7 +151,14 @@ load_task_petrol = function(id = "petrol") {
 }
 ```
 
+## Visualization
 
+This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
+To show it, we need to use the resamplind method and task which used for prediction. 
+
+```r
+autoplot(object = resample, task= TaskRegrForecast )
+```
 
 
 
