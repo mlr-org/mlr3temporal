@@ -55,7 +55,7 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resam
       ))
       ps$values = list(ratio = 2 / 3)
 
-      super$initialize(id = "holdout", param_set = ps, man = "mlr3::mlr_resamplings_holdout")
+      super$initialize(id = "forecast.holdout", param_set = ps, man = "mlr3::mlr_resamplings_holdout")
     },
 
     iters = 1L
