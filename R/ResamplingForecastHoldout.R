@@ -3,7 +3,7 @@
 #' @usage NULL
 #' @name mlr_forecast_resamplings_holdout
 #' @format [R6::R6Class] inheriting from [Resampling].
-#' @include Resampling.R
+#' @include ResamplingForecastHoldout.R
 #'
 #' @section Construction:
 #' ```
@@ -33,14 +33,14 @@
 #' @export
 #' @examples
 #'  #Create a task with 10 observations
-#' task = tsk("airpassengers")
+#' task = mlr3::tsk("airpassengers")
 #' task$filter(1:10)
 #'
 #' #Instantiate Resampling
-#' rfho = rsmp("forecast.holdout", ratio = 0.5)
+#' rfho = mlr3::rsmp("forecast.holdout", ratio = 0.5)
 #' rfho$instantiate(task)
 #'
-#' Individual sets:
+#' # Individual sets:
 #' rfho$train_set(1)
 #' rfho$test_set(1)
 #' intersect(rfho$train_set(1), rfho$test_set(1))
@@ -55,7 +55,7 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resam
       ))
       ps$values = list(ratio = 2 / 3)
 
-      super$initialize(id = "forecast.holdout", param_set = ps, man = "mlr3::mlr_resamplings_holdout")
+      super$initialize(id = "forecast.holdout", param_set = ps, man = "mlr3::mlr_resamplings_forecast.holdout")
     },
 
     iters = 1L
@@ -80,6 +80,3 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resam
       list(train = do.call(c, map(instances, "train")), test = do.call(c, map(instances, "test")))
     })
 )
-
-#' @include mlr_resamplings.R
-mlr_resamplings$add("forecast.holdout", ResamplingForecastHoldout)
