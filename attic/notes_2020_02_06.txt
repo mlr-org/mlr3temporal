@@ -1,13 +1,13 @@
 licencing for the data?
 include csv or dowload from internet
 
-slim the data down 
+slim the data down.
 
 multiple temps:
 min max mean
 
 multiple stations:
-2 cities min max avg temp 
+2 cities min max avg temp
 covariaates lon lat, elevation, fixed
 
 percitipation is variable covariate
@@ -21,7 +21,7 @@ use this pac. https://cran.r-project.org/web/packages/rnoaa/index.html
 ################################
 
 tests
-run autotest for forecasting 
+run autotest for forecasting
 
 runs on learner --------------------------------------------------------------------
 copy autotest but remove almost everything
@@ -49,12 +49,12 @@ task that is multi but learner is uni -> does mlr3 already check this
 is missing allowed , does it work? ->  is error
 -> put some NA in, check if error when running
 
-when data is missing inform user! 
+when data is missing inform user!
 
 check realisitic but edge cases everywhere is warning or error.
 
 -> this was autotest
-autotest (leraner) 
+autotest (leraner)
 	if()
 	if()
 	if()
@@ -95,16 +95,16 @@ CI to converter, test this!!!
 
 ------------------------------------------------------------------------
 in learners if want to know horizont
-n.ahead, 
+n.ahead,
 
 
 
 
-write downe we assume regular spaced data, aequidistant, 
+write downe we assume regular spaced data, aequidistant,
 
 idea 1:
 
-max- min / nrow = period, saved in task 
+max- min / nrow = period, saved in task
 
 
 
@@ -116,7 +116,7 @@ learner stores last date it was trained on, we can create next dates
 predict expects( task)
 
 
-we can have  
+we can have
 forecast(steps) which internally does task with correct dates
 
 -> make sure time steps match during prediction
@@ -141,7 +141,7 @@ vignette
 add climate data
 
 csv in package
-but section that shows how to downlaod everything manually 
+but section that shows how to downlaod everything manually
 
 ----------------------------------------------
 autoplot(task)
