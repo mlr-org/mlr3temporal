@@ -19,7 +19,7 @@ test_that("Construction", {
 test_that("Internally constructed Prediction", {
   task = tsk("airpassengers")
   lrn = lrn("forecast.average")
-  lrn$train(task)
-  p = lrn$predict(task)
+  lrn$train(task, 1:10)
+  p = lrn$predict(task, 11:20)
   expect_prediction_forecast(p)
 })
