@@ -49,3 +49,4 @@ autoplot.forecasting = function(
     grid = grid)
 }
 ```
+
