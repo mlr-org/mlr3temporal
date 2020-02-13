@@ -24,9 +24,8 @@ learner$train(task, row_ids = 1:100 )
 learner$model
 p=learner$predict(task, row_ids = 101:150)
 rr = rsmp("RollingWindowCV", fixed_window=F)
-r = rsmp("cv")
 rr$instantiate(task)
-resample = resample(task, learner, r, store_models = TRUE)
+resample = resample(task, learner, rr, store_models = TRUE)
 
 
 
