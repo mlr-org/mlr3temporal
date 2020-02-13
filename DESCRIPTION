@@ -30,9 +30,25 @@ Suggests:
     forecast,
     testthat,
     stats,
-    vars
+    vars,
+    knitr
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
 RoxygenNote: 7.0.2
-
+VignetteBuilder: knitr
+Collate: 
+    'DataBackendLong.R'
+    'LearnerForecast.R'
+    'LearnerForecastAverage.R'
+    'LearnerRegrForecastAutoArima.R'
+    'LearnerRegrForecastVAR.R'
+    'PredictionForecast.R'
+    'ResamplingForecastHoldout.R'
+    'ResamplingRollingWindowCV.R'
+    'TaskForecast.R'
+    'TaskRegrForecast.R'
+    'TaskRegrForecastAirPassengers.R'
+    'TaskRegrForecastPetrol.R'
+    'helper.R'
+    'zzz.R'
