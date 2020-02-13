@@ -10,7 +10,7 @@ vignette: >
 %\VignetteEncoding{UTF-8}
 ---
   
-  ```{r, include = FALSE}
+  ```r
 knitr::opts_chunk$set(
   cache = FALSE,
   collapse = TRUE,
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 ##Installation
   
-```{r setup}
+```r
 set.seed(123)
 install.packages("mlr3") ; install.packages("tsbox")
 library(mlr3);library(tsbox)
@@ -67,7 +67,7 @@ and the name of taget variable is used for calling during the regresion analysis
 For classification, the `TaskClassif` and for regression task `TaskRegr` has been used.
 
 
-```{r}
+```r
 # create learning task
 task = TaskRegrForecast$new(id = "id",backend = "data set",target = "target variable")
 print(task) # Gives a short summary of task
@@ -78,7 +78,7 @@ print(task) # Gives a short summary of task
 Thare are two tzpe of learner
 1- Auto.Arima Learner which is a LearnerRegrForecast for an (AR)I(MA) model implemented  in the  `forecast` package.
 
-```{r}
+```r
 # load learner and set hyperparameter
 Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
 
@@ -91,7 +91,7 @@ Learner_AutoArima$ParamInt$new$lower = 0
 
 2- Vector Autoregression Learner which is a LearnerRegrForecast for a vector autoregressive model implemented in th `var` package. 
 
-```{r}
+```r
 # load learner and set hyperparameter
 Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
 
@@ -105,30 +105,31 @@ Learner_AutoArima$ParamInt$new$lower = 1L
 ## train and predict
 
 # train/test split
-```{r}
+```r
 train_set = sample(task$nrow, 0.8 * task$nrow)
 test_set = setdiff(seq_len(task$nrow), train_set)
 ```
 # train the model
-```{r}
+```r
 learner$train(task, row_ids = train_set)
 ```
 
 
 # predict data
-```{r}
+```r
 prediction = learner$predict(task, row_ids = test_set)
 ```
 
 
 ## Resampling
-```{r}
+```r
 resampling = rsmp("cv", folds = 3L)
 resample = resample(task_iris, learner, resampling)
 resample$score(measure)
 ```
 
 ## Univariate Forecast Example
+```r
 load_task_AirPassengers = function(id = "airpassengers") {
   requireNamespace("datasets")
   b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
@@ -136,8 +137,11 @@ load_task_AirPassengers = function(id = "airpassengers") {
   b$hash = task$man = "mlr3forecasting::mlr_tasks_airpassengers"
   return(task)
 }
+```
+
 
 ## Multivariate Forecast Example
+```r
 load_task_petrol = function(id = "petrol") {
   requireNamespace("fma")
   b = as_data_backend.forecast(fma::petrol)
@@ -145,12 +149,16 @@ load_task_petrol = function(id = "petrol") {
   b$hash = task$man = "mlr3forecasting::mlr_tasks_petrol"
   return(task)
 }
+```
 
+## Visualization
 
+This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
+To show it, we need to use the resamplind method and task which used for prediction. 
 
-
-
-
+```r
+autoplot(object = resample, task= TaskRegrForecast )
+```
 
 
 
