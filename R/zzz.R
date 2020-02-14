@@ -42,6 +42,8 @@ register_mlr3 = function() {
 
   # resampling methods ---------------------------------------------------------
   x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
+  x$add("forecast.holdout", ResamplingForecastHoldout)
+  x$add("RollingWindowCV", ResamplingRollingWindowCV)
   # FIXME: Add resamplings here
 
   # measures --------------------------------------------------------------------
