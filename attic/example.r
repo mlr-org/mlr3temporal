@@ -23,3 +23,9 @@ learner =LearnerRegrForecastVAR$new()
 learner$train(task)
 learner$model
 p=learner$predict(task)
+
+
+
+### example autoplot
+
+#autoplot.forecasting()
