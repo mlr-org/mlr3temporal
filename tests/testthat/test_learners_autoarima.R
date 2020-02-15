@@ -10,8 +10,8 @@ test_that("autotest", {
 test_that("Basic Tests", {
   learner = LearnerRegrForecastAutoArima$new()
   tsk = mlr_tasks$get("airpassengers")
-  learner$train(tsk)
-  expect_prediction(learner$predict(tsk))
+  learner$train(tsk, 1:20)
+  expect_prediction(learner$predict(tsk, 21:30))
 
   rs = ResamplingCustom$new()
   rs$instantiate(tsk, train_sets = list(1:100), test_sets = list(101:144))

@@ -41,7 +41,7 @@ The field \code{task_type} is set to \code{"forecast"}.
 \examples{
 task = mlr3::tsk("airpassengers")
 learner=LearnerRegrForecastAutoArima$new()
-learner$train(task)
-p=learner$predict(task)
+learner$train(task, 1:30)
+p=learner$predict(task, 31:50)
 }
 \concept{Prediction}

@@ -1,23 +1,13 @@
 ---
-  title: "Forecasting time series in mlr3forecasting"
+title: "Forecasting time series in mlr3forecasting"
 author: "Arshadipour"
-output:
-  rmarkdown::html_vignette:
-  toc: true
+output: rmarkdown::html_vignette
+toc: true
 vignette: >
-  %\VignetteIndexEntry{ time series forecasting in mlr3}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{time series forecasting in mlr3}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-  
-  ```r
-knitr::opts_chunk$set(
-  cache = FALSE,
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 ##Installation
   
 ```r
@@ -159,8 +149,6 @@ To show it, we need to use the resamplind method and task which used for predict
 ```r
 autoplot(object = resample, task= TaskRegrForecast )
 ```
-
-
 
 
 

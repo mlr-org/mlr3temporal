@@ -8,6 +8,6 @@ test_that("autotest VAR", {
 test_that("Basic Tests", {
   learner = LearnerRegrForecastVAR$new()
   tsk = mlr_tasks$get("petrol")
-  learner$train(tsk)
-  expect_prediction(learner$predict(tsk))
+  learner$train(tsk, 1:20)
+  expect_prediction(learner$predict(tsk, 21:30))
 })

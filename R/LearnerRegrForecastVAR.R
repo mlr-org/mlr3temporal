@@ -49,7 +49,12 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
    },
 
    predict_internal = function(task) {
-     forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95)
+     if(length(task$feature_names)>0){
+       exogen = task$data(cols = task$feature_names)
+       forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95, dumvar=exogen)
+     } else{
+        forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95)
+     }
      response = data.table(
         sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"])
      )
