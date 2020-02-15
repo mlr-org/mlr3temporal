@@ -26,3 +26,5 @@ p=learner$predict(task, row_ids = 101:150)
 rr = rsmp("RollingWindowCV", fixed_window=F)
 rr$instantiate(task)
 resample = resample(task, learner, rr, store_models = TRUE)
+
+
