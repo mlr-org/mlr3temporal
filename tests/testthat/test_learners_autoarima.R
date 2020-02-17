@@ -1,8 +1,8 @@
 test_that("autotest", {
   learner = LearnerRegrForecastAutoArima$new()
   expect_learner(learner)
-  # result = run_autotest(learner) # FIXME: Forecasting needs its own autotest
-  # expect_true(result, info = result$error)
+  result = run_autotest(learner) # FIXME: Forecasting needs its own autotest
+  expect_true(result, info = result$error)
 })
 
 test_that("Basic Tests", {
