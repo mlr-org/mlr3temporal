@@ -1,14 +1,14 @@
 ---
 title: "Forecasting time series in mlr3forecasting"
-author: "Arshadipour"
+#author: "Arshadipour"
 output: rmarkdown::html_vignette
-toc: true
+#toc: true
 vignette: >
   %\VignetteIndexEntry{time series forecasting in mlr3}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-##Installation
+## Installation
   
 ```r
 set.seed(123)
