@@ -55,7 +55,7 @@ print(task) # Gives a short summary of task
 
 ## Learner
 
-Thare are two tzpe of learner
+Thare are two type of learner
 1- Auto.Arima Learner which is a LearnerRegrForecast for an (AR)I(MA) model implemented  in the  `forecast` package.
 
 ```r
@@ -98,9 +98,22 @@ prediction = learner$predict(task, row_ids = test_set)
 ```
 
 ## Resampling
+ There are two methods of resampling:
+
+1-Rolling Window Cross Validation Resampling which split data based on the folds. 
+The paprameteres which used are Number of folds, size of rolling window, forecasting horizon in the test set and flag for the fixed sized window.
+
 ```r
-resampling = rsmp("cv", folds = 3L)
-resample = resample(task_iris, learner, resampling)
+resampling = rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
+resample = resample(task, learner, resampling)
+resample$score(measure)
+```
+
+2-Holdout Resampling which split data into training and test data set based on the ratio parameter.
+
+```r
+resampling = rsmp("forecast.holdout", ratio = 0.5)
+resample = resample(task, learner, resampling)
 resample$score(measure)
 ```
 
