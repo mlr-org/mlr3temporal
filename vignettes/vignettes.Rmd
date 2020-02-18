@@ -1,6 +1,5 @@
 ---
 title: "Forecasting time series in mlr3forecasting"
-#author: "Arshadipour"
 output: rmarkdown::html_vignette
 #toc: true
 vignette: >
