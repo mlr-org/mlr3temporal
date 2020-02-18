@@ -46,7 +46,6 @@ Task include an arbitrary identifier for the task, used in plots and summaries. 
 and the name of taget variable is used for calling during the regresion analysis.
 For classification, the `TaskClassif` and for regression task `TaskRegr` has been used.
 
-
 ```r
 # create learning task
 task = TaskRegrForecast$new(id = "id",backend = "data set",target = "target variable")
