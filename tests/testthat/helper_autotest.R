@@ -14,9 +14,8 @@
 
 
 generate_generic_tasks = function(learner, proto) {
-  tasks = list()
   browser()
-
+  tasks = list()
   if (length(proto$feature_names) > 1L) {
     # individual tasks with each supported feature type
     for (ftype in learner$feature_types) {
@@ -101,54 +100,13 @@ generate_tasks = function(learner, N = 30L) {
   UseMethod("generate_tasks")
 }
 
-#' @export
-generate_tasks.LearnerClassif = function(learner, N = 30L) {
-  tasks = list()
-
-  # generate binary tasks
-  if ("twoclass" %in% learner$properties) {
-    target = factor(rep_len(head(LETTERS, 2L), N))
-    data = cbind(data.table::data.table(target = target), generate_data(learner, N))
-    task = mlr3::TaskClassif$new("proto", mlr3::as_data_backend(data), target = "target", positive = "A")
-    gen_tasks = generate_generic_tasks(learner, task)
-    #set names
-    lapply(gen_tasks, function(x) x$id = paste0(x$id, "_binary"))
-    gen_tasks = mlr3misc::set_names(gen_tasks, paste0(names(gen_tasks), "_binary"))
-    tasks = c(tasks, gen_tasks)
-  }
-
-  # generate multiclass tasks
-  if ("multiclass" %in% learner$properties) {
-    target = factor(rep_len(head(LETTERS, 3L), N))
-    data = cbind(data.table::data.table(target = target), generate_data(learner, N))
-    task = mlr3::TaskClassif$new("proto", mlr3::as_data_backend(data), target = "target")
-    gen_tasks = generate_generic_tasks(learner, task)
-    #set names
-    lapply(gen_tasks, function(x) x$id = paste0(x$id, "_multiclass"))
-    gen_tasks = mlr3misc::set_names(gen_tasks, paste0(names(gen_tasks), "_multiclass"))
-    tasks = c(tasks, gen_tasks)
-  }
-
-  # generate sanity task
-  with_seed(100, {
-    data = data.table::data.table(x = c(rnorm(100, 0, 1), rnorm(100, 10, 1)), y = rep(as.factor(c("A", "B")), each = 100))
-    data$unimportant = runif(nrow(data))
-  })
-  tasks$sanity = mlr3::TaskClassif$new("sanity", mlr3::as_data_backend(data), target = "y", positive = "A")
-
-  # sanity task, but with other label as positive class to detect label switches
-  tasks$sanity_switched = mlr3::TaskClassif$new("sanity_switched", mlr3::as_data_backend(data), target = "y", positive = "B")
-
-  tasks
-}
-registerS3method("generate_tasks", "LearnerClassif", generate_tasks.LearnerClassif)
-
-#' @export
-generate_tasks.LearnerRegr = function(learner, N = 30L) {
+generate_tasks.LearnerForecast = function(learner, N = 30L) {
+  browser()
   target = rnorm(N)
   data = cbind(data.table::data.table(target = target), generate_data(learner, N))
-  task = mlr3::TaskRegr$new("proto", mlr3::as_data_backend(data), target = "target")
-
+  task = TaskForecast$new("proto", ts(data), target = "target")
+  task$feature_names
+  task$feature_types
   tasks = generate_generic_tasks(learner, task)
 
   # generate sanity task
@@ -156,19 +114,18 @@ generate_tasks.LearnerRegr = function(learner, N = 30L) {
     data = data.table::data.table(x = c(rnorm(100, 0, 1), rnorm(100, 10, 1)), y = c(rep(0, 100), rep(1, 100)))
     data$unimportant = runif(nrow(data))
   })
-  task = mlr3misc::set_names(list(mlr3::TaskRegr$new("sanity", mlr3::as_data_backend(data), target = "y")), "sanity")
+  task = mlr3misc::set_names(list(TaskForecast$new("sanity", ts(data), target = "y")), "sanity")
   tasks = c(tasks, task)
 }
-registerS3method("generate_tasks", "LearnerRegr", generate_tasks.LearnerRegr)
+registerS3method("generate_tasks", "LearnerForecast", generate_tasks.LearnerForecast)
+
+
+
 
 sanity_check = function(prediction) {
   UseMethod("sanity_check")
 }
 
-sanity_check.PredictionClassif = function(prediction) {
-  prediction$score(mlr3::msr("classif.ce")) <= 0.3
-}
-registerS3method("sanity_check", "LearnerClassif", sanity_check.PredictionClassif)
 
 
 sanity_check.PredictionRegr = function(prediction) {

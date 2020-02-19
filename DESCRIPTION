@@ -24,7 +24,8 @@ Imports:
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
-    tsbox
+    tsbox,
+    ggplot2
 Suggests:
     fma,
     forecast,
