@@ -20,9 +20,7 @@ Authors@R:
        person(given = "Ava",
            family = "Arshadipour",
            role = "aut",
-           email = "a.arshadipour@campus.lmu.de")
-       )
-       
+           email = "a.arshadipour@campus.lmu.de"))       
 Description: Implements tasks, learners, resamplings and measures for forcasting tasks.
 URL: https://mlr3forecasting.mlr-org.com,
     https://github.com/mlr-org/mlr3forecasting
