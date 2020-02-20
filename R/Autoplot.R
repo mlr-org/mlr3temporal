@@ -24,7 +24,7 @@
 
 
 
-autoplot.TaskForecast = function(object) {
+autoplot.TaskForecast = function(object, ...) {
   data = data.table(object$data(), object$date())
   date = object$date_col
   target = object$target_names

@@ -4,7 +4,7 @@
 \alias{autoplot.TaskForecast}
 \title{Plot for Forecast Tasks}
 \usage{
-\method{autoplot}{TaskForecast}(object)
+\method{autoplot}{TaskForecast}(object, ...)
 }
 \arguments{
 \item{object}{(\link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}).}
