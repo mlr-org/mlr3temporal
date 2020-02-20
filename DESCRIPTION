@@ -39,9 +39,9 @@ Imports:
     tsbox,
     ggplot2,
     fma,
-    vars
+    vars,
+    forecast
 Suggests:
-    forecast,
     testthat,
     stats,
     knitr

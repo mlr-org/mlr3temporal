@@ -1,6 +1,24 @@
-# import Data -------------------------------------------------------------
+---
+title: "Demo - mlr3forecasting"
+author: "Cornelia Gruber"
+date: "20 2 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load and prepare data
 
 
+```{r load}
+library(mlr3forecasting)
+library(mlr3)
+library(ggplot2)
+library(forecast)
+
+# National Centers for Environmental Information, National Oceanic and Atmospheric Administration
 muc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/GM000004199.csv")
 nyc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/USW00094728.csv")
 
@@ -19,32 +37,58 @@ nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
 muc = na.omit(muc)
 nyc = na.omit(nyc)
 
+#precipitation
+
+head(muc)
+
+```
+
+## Generate Task
 
 
-# model --------------------------------------------------------------------
 
+```{r task}
 task = TaskRegrForecast$new(id = "muc",
-                            backend = ts(muc, start = muc_start, end = muc_end, frequency = 1),
+                            backend = ts(muc[-1], start = muc_start, end = muc_end, frequency = 1),
                             target = c("TAVG", "TMIN", "TMAX"))
+task$print()
+```
 
+## Learner
+
+```{r learner}
 learner = LearnerRegrForecastVAR$new()
 learner$train(task, row_ids = 1:130)
 learner$model
+
+```
+
+
+## Predict
+
+```{r predict}
 p = learner$predict(task, row_ids = 131:136)
 
+p$response
 p$se
+```
+
+## Rolling Window CV
+
+```{r rollingwindow}
 
 rr = rsmp("RollingWindowCV", fixed_window = F)
 rr$instantiate(task)
 resample = resample(task, learner, rr, store_models = TRUE)
 
-resample$predictions()
+resample$predictions()[1:2]
+```
 
-autoplot(task)
-task$col_roles
+## Plotting
 
+```{r plot}
 
-# autoarima ---------------------------------------------------------------
+autoplot(task) + ggtitle("MUC - Yearly Climate Data")
 
 task = TaskRegrForecast$new(id = "muc",
                             backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
@@ -52,22 +96,15 @@ task = TaskRegrForecast$new(id = "muc",
 
 
 learner = LearnerRegrForecastAutoArima$new()
-learner$train(task, row_ids = 1:130)
+learner$train(task, row_ids = 1:85)
 learner$model
-p = learner$predict(task, row_ids = 131:136)
+p = learner$predict(task, row_ids = 86:136)
 p$se
 
 
 checkresiduals(learner$model)
 
-autoplot(forecast(learner$model, xreg = as.matrix(task$data(cols = "PRCP", rows = 131:136 ))))
+autoplot(forecast(learner$model, xreg = as.matrix(task$data(cols = "PRCP", rows = 131:136 )))) + ylab("value")
+```
 
 
-# nyc ---------------------------------------------------------------------
-
-
-task = TaskRegrForecast$new(id = "nyc",
-                            backend = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1),
-                            target = c("TAVG", "TMIN", "TMAX"))
-
-autoplot(task) + ggtitle("NYC - Yearly Climate Data")
