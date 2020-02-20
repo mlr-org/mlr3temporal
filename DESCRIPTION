@@ -37,9 +37,9 @@ Imports:
     paradox,
     R6,
     tsbox,
-    ggplot2
+    ggplot2,
+    fma
 Suggests:
-    fma,
     forecast,
     testthat,
     stats,

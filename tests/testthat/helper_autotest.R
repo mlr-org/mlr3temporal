@@ -18,7 +18,8 @@ generate_generic_tasks = function(learner, proto) {
   if (length(proto$feature_names) > 1L) {
     # individual tasks with each supported feature type
     for (ftype in learner$feature_types) {
-      sel = proto$feature_types[ftype, "id", on = "type", with = FALSE][[1L]]
+      #choose only first
+      sel = proto$feature_types[ftype, "id", on = "type", with = FALSE][[1L]][1]
       tasks[[sprintf("feat_single_%s", ftype)]] = proto$clone()$select(sel)
     }
   }
@@ -105,15 +106,32 @@ generate_tasks = function(learner, N = 30L) {
 
 generate_tasks.LearnerForecast = function(learner, N = 30L) {
 
-  target = rnorm(N)
-  data = cbind(data.table::data.table(target = target), generate_data(learner, N), var2 = generate_data(learner, N)  )
-  tar_names = colnames(data)
+  exo1 = NULL
+  exo2 = NULL
+
+  if ("exogenous" %in% learner$properties){
+    exo1 = generate_data(learner, N)
+    exo2 = generate_data(learner, N)
+    colnames(exo2) = paste0(colnames(exo2), 2)
+  }
 
   if ("multivariate" %in% learner$properties) {
-    task = TaskForecast$new("proto", ts(data), target = tar_names[-2])
+    target1 = rnorm(N)
+    target2 = rnorm(N)
+    target3 = rnorm(N)
+    targets = data.table::data.table(target1, target2, target3)
+    tar_names = colnames(targets)
+    data = cbind(targets, exo1, exo2)
+
   } else {
-    task = TaskForecast$new("proto", ts(data), target = "target")
+    target1 = rnorm(N)
+    targets = data.table::data.table(target1)
+    tar_names = colnames(targets)
+    data = cbind(targets, exo1, exo2)
+
   }
+
+  task = TaskForecast$new("proto", ts(data), target = tar_names)
 
   tasks = generate_generic_tasks(learner, task)
 
