@@ -65,4 +65,5 @@ Collate:
     'TaskRegrForecastAirPassengers.R'
     'TaskRegrForecastPetrol.R'
     'helper.R'
+    'reexports.R'
     'zzz.R'
