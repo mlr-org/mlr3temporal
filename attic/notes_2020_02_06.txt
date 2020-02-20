@@ -1,0 +1,168 @@
+licencing for the data?
+include csv or dowload from internet
+
+slim the data down 
+
+multiple temps:
+min max mean
+
+multiple stations:
+2 cities min max avg temp 
+covariaates lon lat, elevation, fixed
+
+percitipation is variable covariate
+
+rest throw away
+
+
+use this pac. https://cran.r-project.org/web/packages/rnoaa/index.html
+
+
+################################
+
+tests
+run autotest for forecasting 
+
+runs on learner --------------------------------------------------------------------
+copy autotest but remove almost everything
+
+test for:
+do properties match? learner univariate run with all uni tasks
+
+what if only 1 or 10 observation
+
+all dates the same?
+ -> throw sensible error
+
+
+
+take task do different versions, run this
+
+
+
+auto arima can work with covariates do random stuff and look if it works
+
+
+task that is multi but learner is uni -> does mlr3 already check this
+
+
+is missing allowed , does it work? ->  is error
+-> put some NA in, check if error when running
+
+when data is missing inform user! 
+
+check realisitic but edge cases everywhere is warning or error.
+
+-> this was autotest
+autotest (leraner) 
+	if()
+	if()
+	if()
+-> test on first 30 values not on everything
+
+
+
+
+TASK ----------------------------------------------------------
+
+extra test for truth function
+(should work:
+maybe task supervised breaks the expect task function, does it break because of "truth"?
+create issue on mlr3
+)
+
+
+
+prediction -----------------------------------------
+works
+
+
+df[,1] it drops the dimensions
+
+check if datatypes are the same when subsetting a df with only one column
+
+what happens when i predict 1 ahead -> autotest
+
+
+when test set is only one observation
+
+
+
+
+CI to converter, test this!!!
+3 numeric values, where we know what should come out, test if equal
+
+
+------------------------------------------------------------------------
+in learners if want to know horizont
+n.ahead, 
+
+
+
+
+write downe we assume regular spaced data, aequidistant, 
+
+idea 1:
+
+max- min / nrow = period, saved in task 
+
+
+
+learner stores last date it was trained on, we can create next dates
+
+
+
+
+predict expects( task)
+
+
+we can have  
+forecast(steps) which internally does task with correct dates
+
+-> make sure time steps match during prediction
+-> we need to know if something goes wrong
+
+
+when training the learner we should check if problem with missing data arises,(horizont)
+-> person can do imputation step
+
+
+..... predict
+
+. .      ... -> data has missings
+
+
+
+
+
+---------------------
+vignette
+
+add climate data
+
+csv in package
+but section that shows how to downlaod everything manually 
+
+----------------------------------------------
+autoplot(task)
+-> ggplot with lineplot for every feature
+-> one plot per feature
+facet grid
+
+autoplot(task, prediction)
+->appends prediction and confidence intervals
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

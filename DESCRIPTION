@@ -37,13 +37,13 @@ Imports:
     paradox,
     R6,
     tsbox,
-    ggplot2
-Suggests:
+    ggplot2,
     fma,
-    forecast,
+    vars,
+    forecast
+Suggests:
     testthat,
     stats,
-    vars,
     knitr
 Encoding: UTF-8
 NeedsCompilation: no

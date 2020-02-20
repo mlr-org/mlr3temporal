@@ -21,12 +21,13 @@ register_mlr3 = function() {
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
       measure = "MeasureRegrForecast")),"type")
-  x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr, c("univariate", "multivariate")))
+  x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr,
+                                        c("univariate", "multivariate", "exogenous")))
   x$task_col_roles$forecast = x$task_col_roles$regr
   x$learner_predict_types$forecast = x$learner_predict_types$regr
   x$learner_properties$forecast = unique(c(x$learner_properties$forecast,
                                           x$learner_properties$regr,
-                                          c("univariate", "multivariate")))
+                                          c("univariate", "multivariate", "exogenous")))
   x$default_measures$forecast = "regr.mse"
   # tasks --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
