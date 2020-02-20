@@ -30,7 +30,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
        predict_types = c("response","se"),
        packages = "vars",
        param_set = ps,
-       properties = c("multivariate"),
+       properties = c("multivariate", "exogenous"),
        man = "mlr3forecasting::mlr_learners_regr.VAR"
      )
    },

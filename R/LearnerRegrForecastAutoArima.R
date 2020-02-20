@@ -46,7 +46,7 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
        predict_types = c("response", "se"),
        packages = "forecast",
        param_set = ps,
-       properties = "univariate",
+       properties = c("univariate", "exogenous"),
        man = "mlr3forecasting::mlr_learners_regr.AutoArima"
      )
 
