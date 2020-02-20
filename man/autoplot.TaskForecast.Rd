@@ -4,7 +4,7 @@
 \alias{autoplot.TaskForecast}
 \title{Plot for Forecast Tasks}
 \usage{
-\method{autoplot}{TaskForecast}(object)
+\method{autoplot}{TaskForecast}(object, ...)
 }
 \arguments{
 \item{object}{(\link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}).}
@@ -19,9 +19,13 @@ Additional argument, passed down to the underlying \code{geom} or plot functions
 Generates plots for \link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}
 }
 \examples{
+library(mlr3)
 library(mlr3forecasting)
+library(ggplot2)
 
 task = tsk("airpassengers")
+autoplot(task)
 
+task = tsk("petrol")
 autoplot(task)
 }

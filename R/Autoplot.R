@@ -12,7 +12,9 @@
 #' @return [ggplot2::ggplot()] object.
 #' @export
 #' @examples
+#' library(mlr3)
 #' library(mlr3forecasting)
+#' library(ggplot2)
 #'
 #' task = tsk("airpassengers")
 #' autoplot(task)
@@ -22,14 +24,14 @@
 
 
 
-autoplot.TaskForecast = function(object) {
+autoplot.TaskForecast = function(object, ...) {
   data = data.table(object$data(), object$date())
   date = object$date_col
   target = object$target_names
   data_long = melt(data, id.vars = date, measure.vars = target)
 
   ggplot(data_long, aes_string(x = date)) +
-    geom_line(aes(y = value, col = variable)) +
+    geom_line(aes_string(y = "value", col = "variable")) +
     xlab("")
 
 }
