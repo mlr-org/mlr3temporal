@@ -2,6 +2,7 @@
 #'
 #' @import data.table
 #' @import mlr3
+#' @import tsbox
 #'
 #' @usage NULL
 #' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised].
