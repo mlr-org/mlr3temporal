@@ -36,7 +36,8 @@ Imports:
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
-    tsbox
+    tsbox,
+    ggplot2
 Suggests:
     fma,
     forecast,
@@ -50,6 +51,7 @@ Roxygen: list(markdown = TRUE, r6 = FALSE)
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 Collate: 
+    'Autoplot.R'
     'DataBackendLong.R'
     'LearnerForecast.R'
     'LearnerForecastAverage.R'
