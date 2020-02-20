@@ -12,6 +12,7 @@
 #' @return [ggplot2::ggplot()] object.
 #' @export
 #' @examples
+#' library(mlr3)
 #' library(mlr3forecasting)
 #'
 #' task = tsk("airpassengers")
