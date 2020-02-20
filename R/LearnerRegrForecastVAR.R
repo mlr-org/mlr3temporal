@@ -50,8 +50,9 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
 
    predict_internal = function(task) {
      if(length(task$feature_names)>0){
-       exogen = task$data(cols = task$feature_names)
-       forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95, dumvar=exogen)
+       exogen =  task$data(cols = task$feature_names)
+       assign("exogen", "exogen", envir = .GlobalEnv)
+       forecast = invoke(predict, self$model, n.ahead = task$nrow,ci=0.95, dumvar=exogen)
      } else{
         forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95)
      }
