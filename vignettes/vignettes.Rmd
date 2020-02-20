@@ -1,14 +1,13 @@
 ---
 title: "Forecasting time series in mlr3forecasting"
-author: "Arshadipour"
 output: rmarkdown::html_vignette
-toc: true
+#toc: true
 vignette: >
   %\VignetteIndexEntry{time series forecasting in mlr3}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-##Installation
+## Installation
   
 ```r
 set.seed(123)
@@ -16,17 +15,11 @@ install.packages("mlr3") ; install.packages("tsbox")
 library(mlr3);library(tsbox)
 
 ```
-
 Install the development version from GitHub:
   
 remotes::install_github("mlr-org/mlr3forecasting")
 
-
-
 This vignette is an introduction to performing time series forecasting in **mlr3forecasting**.
-
-
-
 
 ## Introduction 
 Time sries analysis is a sub-field of supervised machine learning in which the aim is useing
@@ -38,9 +31,6 @@ Since the temporal data are not appropriate for the most machine learning algori
 for machin learning algorithm.
 Basically there are two major approaches to feed timeseries data into a regression method: the "rolling window"-approach and the
 "expanding window"-approach. Both methods use the last k values as features to predict the next value(s) in the timeseries.
-
-actually, the Lagged values of a timeseries can be used as features for a machine learning algorithm.
-
 
 Another method for reshaping temporal data is windowconversion using lagged and lagged differenced values. Supervised ML-Algorithms 
 usually expect the data to be in a tabular format: one row euqals one observation. The transformation to such a structure is called window-conversion.
@@ -56,7 +46,6 @@ Task include an arbitrary identifier for the task, used in plots and summaries. 
 and the name of taget variable is used for calling during the regresion analysis.
 For classification, the `TaskClassif` and for regression task `TaskRegr` has been used.
 
-
 ```r
 # create learning task
 task = TaskRegrForecast$new(id = "id",backend = "data set",target = "target variable")
@@ -65,7 +54,7 @@ print(task) # Gives a short summary of task
 
 ## Learner
 
-Thare are two tzpe of learner
+Thare are two type of learner
 1- Auto.Arima Learner which is a LearnerRegrForecast for an (AR)I(MA) model implemented  in the  `forecast` package.
 
 ```r
@@ -77,7 +66,6 @@ Learner_AutoArima$ParamInt$new$id = d
 Learner_AutoArima$ParamInt$new$default = 5
 Learner_AutoArima$ParamInt$new$lower = 0
 ```
-
 
 2- Vector Autoregression Learner which is a LearnerRegrForecast for a vector autoregressive model implemented in th `var` package. 
 
@@ -91,7 +79,6 @@ Learner_AutoArima$ParamInt$new$tags=train
 Learner_AutoArima$ParamInt$new$lower = 1L
 ```
 
-
 ## train and predict
 
 # train/test split
@@ -104,17 +91,28 @@ test_set = setdiff(seq_len(task$nrow), train_set)
 learner$train(task, row_ids = train_set)
 ```
 
-
 # predict data
 ```r
 prediction = learner$predict(task, row_ids = test_set)
 ```
 
-
 ## Resampling
+ There are two methods of resampling:
+
+1-Rolling Window Cross Validation Resampling which split data based on the folds. 
+The paprameteres which used are Number of folds, size of rolling window, forecasting horizon in the test set and flag for the fixed sized window.
+
 ```r
-resampling = rsmp("cv", folds = 3L)
-resample = resample(task_iris, learner, resampling)
+resampling = rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
+resample = resample(task, learner, resampling)
+resample$score(measure)
+```
+
+2-Holdout Resampling which split data into training and test data set based on the ratio parameter.
+
+```r
+resampling = rsmp("forecast.holdout", ratio = 0.5)
+resample = resample(task, learner, resampling)
 resample$score(measure)
 ```
 
@@ -129,7 +127,6 @@ load_task_AirPassengers = function(id = "airpassengers") {
 }
 ```
 
-
 ## Multivariate Forecast Example
 ```r
 load_task_petrol = function(id = "petrol") {
@@ -140,7 +137,6 @@ load_task_petrol = function(id = "petrol") {
   return(task)
 }
 ```
-
 ## Visualization
 
 This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
@@ -149,9 +145,4 @@ To show it, we need to use the resamplind method and task which used for predict
 ```r
 autoplot(object = resample, task= TaskRegrForecast )
 ```
-
-
-
-
-
 
