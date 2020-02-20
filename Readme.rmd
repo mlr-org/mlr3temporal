@@ -13,18 +13,11 @@ Install the development version from GitHub:
   
 remotes::install_github("mlr-org/mlr3forecasting")
 
-## Spatial tasks
+##  Tasks
 
 | Name     | Code              | Type    |
 | -------- | ----------------- | ------- |
 | Regression   | `TaskRegrForecast("data")`  | TaskRegr |
-
-## Spatial learner
-
-| Name     | Code              | Type    |
-| -------- | ----------------- | ------- |
-| Regression   | `TaskRegrForecast("data")`  | TaskRegr |
-
 
 ## Learner
 
@@ -96,6 +89,8 @@ autoplot(object = resample, task= TaskRegrForecast )
 
 ## More resources
 
-
+https://mlr3book.mlr-org.com/
 
 # References
+https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb
+
