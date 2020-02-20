@@ -29,7 +29,7 @@ autoplot.TaskForecast = function(object) {
   data_long = melt(data, id.vars = date, measure.vars = target)
 
   ggplot(data_long, aes_string(x = date)) +
-    geom_line(aes(y = value, col = variable)) +
+    geom_line(aes_string(y = "value", col = "variable")) +
     xlab("")
 
 }
