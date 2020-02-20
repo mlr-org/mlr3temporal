@@ -14,6 +14,7 @@
 #' @examples
 #' library(mlr3)
 #' library(mlr3forecasting)
+#' library(ggplot2)
 #'
 #' task = tsk("airpassengers")
 #' autoplot(task)

@@ -21,6 +21,7 @@ Generates plots for \link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskFor
 \examples{
 library(mlr3)
 library(mlr3forecasting)
+library(ggplot2)
 
 task = tsk("airpassengers")
 autoplot(task)
