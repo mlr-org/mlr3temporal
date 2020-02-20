@@ -1,3 +1,5 @@
+context("Learner Var")
+
 test_that("autotest VAR", {
   learner = LearnerRegrForecastVAR$new()
   expect_learner(learner)

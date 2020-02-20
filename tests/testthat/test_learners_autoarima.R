@@ -1,3 +1,5 @@
+context("LearnerAutoArima")
+
 test_that("autotest", {
   learner = LearnerRegrForecastAutoArima$new()
   expect_learner(learner)
