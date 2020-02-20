@@ -19,6 +19,7 @@ Additional argument, passed down to the underlying \code{geom} or plot functions
 Generates plots for \link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}
 }
 \examples{
+library(mlr3)
 library(mlr3forecasting)
 
 task = tsk("airpassengers")
