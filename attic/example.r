@@ -1,5 +1,6 @@
 library(digest)
 library(tsbox)
+library(ggplot2)
 ### Example univariate forecast
 
 df = ts_c(mdeaths,fdeaths)
@@ -9,6 +10,9 @@ learner$train(task, row_ids = 1:20)
 learner$model
 p = learner$predict(task, row_ids = 21:43)
 
+class(task)
+autoplot(task)
+
 ### Example 2
 
 task = tsk("airpassengers")
@@ -16,6 +20,10 @@ learner = LearnerForecastAverage$new()
 learner$train(task,row_ids = 1:143)
 learner$model
 p = learner$predict(task,row_ids = 144)
+learner$train(task)
+p = learner$predict(task)
+
+learner$
 
 ### Example multivariate forecasting
 task = tsk("petrol")
@@ -28,6 +36,5 @@ rr$instantiate(task)
 resample = resample(task, learner, rr, store_models = TRUE)
 
 
-class(task)
 
 

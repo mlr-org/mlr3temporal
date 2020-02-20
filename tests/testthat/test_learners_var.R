@@ -1,9 +1,10 @@
 test_that("autotest VAR", {
   learner = LearnerRegrForecastVAR$new()
   expect_learner(learner)
-  # result = run_autotest(learner)
-  # expect_true(result, info = result$error)
+  result = run_autotest(learner, exclude = "single")
+  expect_true(result, info = result$error)
 })
+
 
 test_that("Basic Tests", {
   learner = LearnerRegrForecastVAR$new()

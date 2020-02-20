@@ -1,3 +1,4 @@
+
 # Expansion of base::difftime for months
 time.frequency = function(time) {
   diff = diff(time)

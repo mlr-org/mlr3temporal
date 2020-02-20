@@ -14,7 +14,6 @@
 
 
 generate_generic_tasks = function(learner, proto) {
-  browser()
   tasks = list()
   if (length(proto$feature_names) > 1L) {
     # individual tasks with each supported feature type
@@ -24,8 +23,10 @@ generate_generic_tasks = function(learner, proto) {
     }
   }
 
+
   # task with all supported features types
   sel = proto$feature_types[list(learner$feature_types), "id", on = "type", with = FALSE][[1L]]
+
   tasks$feat_all = proto$clone()$select(sel)
 
   # task with missing values
@@ -54,9 +55,11 @@ generate_generic_tasks = function(learner, proto) {
 
   # task univariate
 
-  #task multivariate
-
-
+  #learner var
+  # if ("VAR" %in% learner$id) {
+  #   #remove single variable
+  #   tasks = tasks[!grepl("single", names(tasks))]
+  # }
 
 
   # make sure that task ids match list names
@@ -101,21 +104,34 @@ generate_tasks = function(learner, N = 30L) {
 }
 
 generate_tasks.LearnerForecast = function(learner, N = 30L) {
-  browser()
+
   target = rnorm(N)
-  data = cbind(data.table::data.table(target = target), generate_data(learner, N))
-  task = TaskForecast$new("proto", ts(data), target = "target")
-  task$feature_names
-  task$feature_types
+  data = cbind(data.table::data.table(target = target), generate_data(learner, N), var2 = generate_data(learner, N)  )
+  tar_names = colnames(data)
+
+  if ("multivariate" %in% learner$properties) {
+    task = TaskForecast$new("proto", ts(data), target = tar_names[-2])
+  } else {
+    task = TaskForecast$new("proto", ts(data), target = "target")
+  }
+
   tasks = generate_generic_tasks(learner, task)
 
-  # generate sanity task
-  with_seed(100, {
-    data = data.table::data.table(x = c(rnorm(100, 0, 1), rnorm(100, 10, 1)), y = c(rep(0, 100), rep(1, 100)))
-    data$unimportant = runif(nrow(data))
-  })
-  task = mlr3misc::set_names(list(TaskForecast$new("sanity", ts(data), target = "y")), "sanity")
-  tasks = c(tasks, task)
+  # # generate sanity task
+  # with_seed(100, {
+  #
+  #   data = data.table::data.table(x = c(rnorm(100, 0, 1), rnorm(100, 10, 1)), y = c(rep(0, 100), rep(1, 100)))
+  #   data$unimportant = runif(nrow(data))
+  # })
+  # if ("multivariate" %in% learner$properties) {
+  #   task = mlr3misc::set_names(list(TaskForecast$new("sanity", ts(data), target = colnames(data))), "sanity")
+  # } else {
+  #   task = mlr3misc::set_names(list(TaskForecast$new("sanity", ts(data), target = "y")), "sanity")
+  #
+  # }
+  # task = mlr3misc::set_names(list(TaskForecast$new("sanity", ts(data), target = colnames(data))), "sanity")
+  # tasks = c(tasks, task)
+  tasks
 }
 registerS3method("generate_tasks", "LearnerForecast", generate_tasks.LearnerForecast)
 
@@ -134,6 +150,7 @@ sanity_check.PredictionRegr = function(prediction) {
 registerS3method("sanity_check", "LearnerRegr", sanity_check.PredictionRegr)
 
 run_experiment = function(task, learner) {
+
   err = function(info, ...) {
     info = sprintf(info, ...)
     list(
@@ -149,6 +166,7 @@ run_experiment = function(task, learner) {
   prediction = NULL
   learner$encapsulate = c(train = "evaluate", predict = "evaluate")
 
+
   stage = "train()"
   ok = try(learner$train(task), silent = TRUE)
   if (inherits(ok, "try-error"))
@@ -159,40 +177,40 @@ run_experiment = function(task, learner) {
   if (is.null(learner$model))
     return(err("model is NULL"))
 
-  stage = "predict()"
-  prediction = try(learner$predict(task), silent = TRUE)
-  if (inherits(prediction, "try-error"))
-    return(err(as.character(prediction)))
-  log = learner$log[stage == "predict"]
-  if ("error" %in% log$class)
-    return(err("predict log has errors: %s", mlr3misc::str_collapse(log[class == "error", msg])))
-  msg = checkmate::check_class(prediction, "Prediction")
-  if (!isTRUE(msg))
-    return(err(msg))
-  if (prediction$task_type != learner$task_type)
-    return(err("learner and prediction have different task_type"))
-
-  allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
-  msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
-  if (!isTRUE(msg))
-    return(err(msg))
-
-  msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
-  if (!isTRUE(msg))
-    return(err(msg))
-
-  stage = "score()"
-  perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)
-  if (inherits(perf, "try-error"))
-    return(err(as.character(perf)))
-  msg = checkmate::check_numeric(perf, any.missing = FALSE)
-  if (!isTRUE(msg))
-    return(err(msg))
-
-  # run sanity check on sanity task
-  if (grepl("^sanity", task$id) && !sanity_check(prediction)) {
-    return(err("sanity check failed"))
-  }
+  # stage = "predict()"
+  # prediction = try(learner$predict(task), silent = TRUE)
+  # if (inherits(prediction, "try-error"))
+  #   return(err(as.character(prediction)))
+  # log = learner$log[stage == "predict"]
+  # if ("error" %in% log$class)
+  #   return(err("predict log has errors: %s", mlr3misc::str_collapse(log[class == "error", msg])))
+  # msg = checkmate::check_class(prediction, "Prediction")
+  # if (!isTRUE(msg))
+  #   return(err(msg))
+  # if (prediction$task_type != learner$task_type)
+  #   return(err("learner and prediction have different task_type"))
+#
+#   allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
+#   msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
+#   if (!isTRUE(msg))
+#     return(err(msg))
+#
+#   msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
+#   if (!isTRUE(msg))
+#     return(err(msg))
+#
+#   stage = "score()"
+#   perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)
+#   if (inherits(perf, "try-error"))
+#     return(err(as.character(perf)))
+#   msg = checkmate::check_numeric(perf, any.missing = FALSE)
+#   if (!isTRUE(msg))
+#     return(err(msg))
+#
+#   # run sanity check on sanity task
+#   if (grepl("^sanity", task$id) && !sanity_check(prediction)) {
+#     return(err("sanity check failed"))
+#   }
 
   if (grepl("^feat_all", task$id) && "importance" %in% learner$properties) {
     importance = learner$importance()
@@ -224,16 +242,20 @@ run_experiment = function(task, learner) {
 }
 
 run_autotest = function(learner, N = 30L, exclude = NULL, predict_types = learner$predict_types) {
+
   learner = learner$clone(deep = TRUE)
   id = learner$id
+
   tasks = generate_tasks(learner, N = N)
   if (!is.null(exclude))
     tasks = tasks[!grepl(exclude, names(tasks))]
+
 
   for (task in tasks) {
     for (predict_type in predict_types) {
       learner$id = sprintf("%s:%s", id, predict_type)
       learner$predict_type = predict_type
+
       run = run_experiment(task, learner)
       if (!run$ok)
         return(run)

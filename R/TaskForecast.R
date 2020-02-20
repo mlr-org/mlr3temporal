@@ -79,19 +79,3 @@ TaskForecast = R6::R6Class("TaskForecast",
     }
   )
 )
-
-
-
-
-autoplot.TaskForecast = function(object) {
-  data = data.table(object$data(), object$date())
-  date = object$date_col
-  target = object$target_names
-  data_long = melt(data, id.vars = date, measure.vars = target)
-
-  ggplot(data_long,
-         aes_string(x = date)) +
-    geom_line(aes(y = value, col = variable)) +
-    xlab("")
-
-}
