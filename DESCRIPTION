@@ -38,12 +38,12 @@ Imports:
     R6,
     tsbox,
     ggplot2,
-    fma
+    fma,
+    vars
 Suggests:
     forecast,
     testthat,
     stats,
-    vars,
     knitr
 Encoding: UTF-8
 NeedsCompilation: no
