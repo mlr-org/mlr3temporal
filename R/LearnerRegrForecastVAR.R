@@ -22,14 +22,14 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
    initialize = function() {
      ps = ParamSet$new(list(
        ParamInt$new(id = "p", default = 1, lower = 0L, tags = "train"),
-       ParamInt$new(id = "lag.max", default = NULL, lower = 1L, tags = "train",special_vals = list(NULL)),
-       ParamInt$new(id = "season", default = NULL, lower = 1L, tags = "train",special_vals = list(NULL))
+       ParamInt$new(id = "lag.max", default = NULL, lower = 1L, tags = "train", special_vals = list(NULL)),
+       ParamInt$new(id = "season", default = NULL, lower = 1L, tags = "train", special_vals = list(NULL))
       ))
 
      super$initialize(
        id = "VAR",
        feature_types = c("numeric"),
-       predict_types = c("response","se"),
+       predict_types = c("response", "se"),
        packages = "vars",
        param_set = ps,
        properties = c("multivariate", "exogenous"),
@@ -42,29 +42,29 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
      if ("weights" %in% task$properties) {
        pv = insert_named(pv, list(weights = task$weights$weight))
      }
-     if(length(task$feature_names)>0){
+     if(length(task$feature_names) > 0){
       exogen = task$data(cols = task$feature_names)
-      invoke(vars::VAR, y = task$data(rows = task$row_ids,cols=task$target_names), exogen=exogen,.args = pv)
+      invoke(vars::VAR, y = task$data(rows = task$row_ids, cols=task$target_names), exogen=exogen, .args = pv)
      }else{
-      invoke(vars::VAR, y = task$data(rows = task$row_ids,cols=task$target_names), .args = pv)
+      invoke(vars::VAR, y = task$data(rows = task$row_ids, cols=task$target_names), .args = pv)
      }
    },
 
    predict_internal = function(task) {
-     if(length(task$feature_names)>0){
+     if(length(task$feature_names) > 0){
        exogen =  task$data(cols = task$feature_names)
        assign("exogen", "exogen", envir = .GlobalEnv)
        forecast = invoke(predict, self$model, n.ahead = task$nrow,ci=0.95, dumvar=exogen)
      } else{
         forecast = invoke(predict, self$model, n.ahead = task$nrow, ci=0.95)
      }
-     response = data.table(
-        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"])
+     response = as.data.table(
+        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
      )
-     se = data.table(
-        sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95))
+     se = as.data.table(
+        sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95), simplify = FALSE)
      )
-     p=PredictionForecast$new(task = task, response = response, se = se)
+     p = PredictionForecast$new(task = task, response = response, se = se)
    }
  )
 )

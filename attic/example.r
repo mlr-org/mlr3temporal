@@ -25,7 +25,7 @@ task = tsk("petrol")
 learner = LearnerRegrForecastVAR$new()
 learner$train(task, row_ids = 1:100 )
 learner$model
-p = learner$predict(task, row_ids = 101:150)
+p = learner$predict(task, row_ids = 101)
 p$score(msr("forecast.mae"))
 rr = rsmp("RollingWindowCV", fixed_window = F)
 rr$instantiate(task)
