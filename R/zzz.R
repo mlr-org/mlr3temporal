@@ -22,7 +22,7 @@ register_mlr3 = function() {
       prediction = "PredictionRegrForecast",
       measure = "MeasureRegrForecast")),"type")
   x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr,
-                                        c("univariate", "multivariate", "exogenous")))
+                                        c("univariate", "multivariate", "exogenous", "missings")))
   x$task_col_roles$forecast = x$task_col_roles$regr
   x$learner_predict_types$forecast = x$learner_predict_types$regr
   x$learner_properties$forecast = unique(c(x$learner_properties$forecast,

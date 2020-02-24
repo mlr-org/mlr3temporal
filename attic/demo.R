@@ -12,7 +12,7 @@ nyc_start <- nyc$DATE[1]
 nyc_end <- nyc$DATE[nrow(nyc)]
 
 #keep information on station , temp and precipitation
-muc = muc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
+muc = muc[, c("DATE","PRCP", "TAVG", "TMIN", "TMAX")]
 nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
 
 

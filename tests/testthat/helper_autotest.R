@@ -30,23 +30,23 @@ generate_generic_tasks = function(learner, proto) {
 
   tasks$feat_all = proto$clone()$select(sel)
 
-  # task with missing values
-  if ("missings" %in% learner$properties) {
-    # one missing val in each feature
-    features = proto$feature_names
-    rows = sample(proto$nrow, length(features))
-    data = proto$data(cols = features)
-    for (j in seq_along(features))
-      data.table::set(data, rows[j], features[j], NA)
-    tasks$missings = proto$clone()$select(character())$cbind(data)
-
-    # no row with no missing -> complete.cases() won't help
-    features = sample(features, proto$nrow, replace = TRUE)
-    data = proto$data(cols = proto$feature_names)
-    for (i in seq_along(features))
-      data.table::set(data, i = i, j = features[i], NA)
-    tasks$missings_each_row = proto$clone()$select(character())$cbind(data)
-  }
+  # # task with missing values
+  # if ("missings" %in% learner$properties) {
+  #   # one missing val in each feature
+  #   features = proto$feature_names
+  #   rows = sample(proto$nrow, length(features))
+  #   data = proto$data(cols = features)
+  #   for (j in seq_along(features))
+  #     data.table::set(data, rows[j], features[j], NA)
+  #   tasks$missings = proto$clone()$select(character())$cbind(data)
+  #
+  #   # no row with no missing -> complete.cases() won't help
+  #   features = sample(features, proto$nrow, replace = TRUE)
+  #   data = proto$data(cols = proto$feature_names)
+  #   for (i in seq_along(features))
+  #     data.table::set(data, i = i, j = features[i], NA)
+  #   tasks$missings_each_row = proto$clone()$select(character())$cbind(data)
+  # }
 
   # task with weights
   if ("weights" %in% learner$properties) {
@@ -179,6 +179,9 @@ run_experiment = function(task, learner) {
     )
   }
 
+  N = task$nrow
+  N0.8 = as.integer(0.8*N)
+
   mlr3::assert_task(task)
   learner = mlr3::assert_learner(mlr3::as_learner(learner, clone = TRUE), task = task)
   prediction = NULL
@@ -187,6 +190,7 @@ run_experiment = function(task, learner) {
 
   stage = "train()"
   ok = try(learner$train(task), silent = TRUE)
+  #ok = try(learner$train(task, row_ids = 1:N0.8), silent = TRUE)
   if (inherits(ok, "try-error"))
     return(err(as.character(ok)))
   log = learner$log[stage == "train"]
@@ -195,8 +199,9 @@ run_experiment = function(task, learner) {
   if (is.null(learner$model))
     return(err("model is NULL"))
 
+
   # stage = "predict()"
-  # prediction = try(learner$predict(task), silent = TRUE)
+  # prediction = try(learner$predict(task, row_ids = N0.8+1:N), silent = TRUE)
   # if (inherits(prediction, "try-error"))
   #   return(err(as.character(prediction)))
   # log = learner$log[stage == "predict"]
@@ -207,16 +212,16 @@ run_experiment = function(task, learner) {
   #   return(err(msg))
   # if (prediction$task_type != learner$task_type)
   #   return(err("learner and prediction have different task_type"))
-#
-#   allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
-#   msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
-#   if (!isTRUE(msg))
-#     return(err(msg))
-#
-#   msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
-#   if (!isTRUE(msg))
-#     return(err(msg))
-#
+  #
+  # allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
+  # msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
+  # if (!isTRUE(msg))
+  #   return(err(msg))
+  #
+  # msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
+  # if (!isTRUE(msg))
+  #   return(err(msg))
+
 #   stage = "score()"
 #   perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)
 #   if (inherits(perf, "try-error"))
