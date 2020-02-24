@@ -57,6 +57,8 @@ Collate:
     'LearnerForecastAverage.R'
     'LearnerRegrForecastAutoArima.R'
     'LearnerRegrForecastVAR.R'
+    'MeasureForecast.R'
+    'MeasureForecastMAE.R'
     'PredictionForecast.R'
     'ResamplingForecastHoldout.R'
     'ResamplingRollingWindowCV.R'
