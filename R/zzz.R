@@ -20,7 +20,7 @@ register_mlr3 = function() {
       task = "TaskRegrForecast",
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
-      measure = "MeasureRegrForecast")),"type")
+      measure = "MeasureForecast")),"type")
   x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr,
                                         c("univariate", "multivariate", "exogenous")))
   x$task_col_roles$forecast = x$task_col_roles$regr
@@ -28,7 +28,8 @@ register_mlr3 = function() {
   x$learner_properties$forecast = unique(c(x$learner_properties$forecast,
                                           x$learner_properties$regr,
                                           c("univariate", "multivariate", "exogenous")))
-  x$default_measures$forecast = "regr.mse"
+  x$measure_properties$forecast = x$measure_properties$regr
+  x$default_measures$forecast = "forecast.mae"
   # tasks --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   x$add("airpassengers", load_task_AirPassengers)
@@ -49,6 +50,7 @@ register_mlr3 = function() {
 
   # measures --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_measures", ns = "mlr3")
+  x$add("forecast.mae", MeasureForecastMAE)
 }
 
 .onLoad = function(libname, pkgname) {

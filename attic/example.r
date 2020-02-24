@@ -8,7 +8,7 @@ learner = LearnerRegrForecastAutoArima$new()
 learner$train(task, row_ids = 1:20)
 learner$model
 p = learner$predict(task, row_ids = 21:43)
-
+p$score(msr("forecast.mae"))
 autoplot(task)
 
 ### Example 2
@@ -18,6 +18,7 @@ learner = LearnerForecastAverage$new()
 learner$train(task,row_ids = 1:143)
 learner$model
 p = learner$predict(task,row_ids = 144)
+p$score(msr("forecast.mae"))
 
 ### Example multivariate forecasting
 task = tsk("petrol")
@@ -25,6 +26,7 @@ learner = LearnerRegrForecastVAR$new()
 learner$train(task, row_ids = 1:100 )
 learner$model
 p = learner$predict(task, row_ids = 101:150)
+p$score(msr("forecast.mae"))
 rr = rsmp("RollingWindowCV", fixed_window = F)
 rr$instantiate(task)
 resample = resample(task, learner, rr, store_models = TRUE)
