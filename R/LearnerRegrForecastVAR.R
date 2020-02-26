@@ -38,6 +38,10 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
     },
 
     train_internal = function(task) {
+      span = range(task$date()[[task$date_col]])
+      self$date_span =
+          list(begin=list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
+      self$date_frequency = time.frequency(task$date()[[task$date_col]])
       pv = self$param_set$get_values(tags = "train")
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
@@ -51,9 +55,9 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
     },
 
     predict_internal = function(task) {
+
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
-      print(fitted_ids)
       if(length(predict_ids > 0)){
          if(length(task$feature_names) > 0){
            exogen =  task$data(cols = task$feature_names, rows = predict_ids)

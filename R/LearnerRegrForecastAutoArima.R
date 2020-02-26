@@ -53,6 +53,10 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
     },
 
     train_internal = function(task) {
+      span = range(task$date()[[task$date_col]])
+      self$date_span =
+        list(begin=list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
+      self$date_frequency = time.frequency(task$date()[[task$date_col]])
       pv = self$param_set$get_values(tags = "train")
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
@@ -86,13 +90,13 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
         colnames(response.se) = task$target_names
         se = rbind(
           as.data.table(
-            sapply(task$target_names, function(x) rep(NA,length(fitted_ids)), simplify = FALSE)),
+            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)),
           response.se
         )
       } else {
         response = self$fitted_values(fitted_ids)
         se = as.data.table(
-          sapply(task$target_names, function(x) rep(NA,length(fitted_ids)), simplify = FALSE)
+          sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)
         )
       }
       PredictionForecast$new(task = task, response = c(response),se = c(se))
