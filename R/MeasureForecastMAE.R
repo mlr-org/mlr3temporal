@@ -19,7 +19,7 @@ MeasureForecastMAE = R6Class("MeasureForecastMAE",
 
     score_internal = function(prediction, ...) {
 
-      mean(colMeans(abs(prediction$truth[, -c("row_id"), with = F] - prediction$response[, -c("row_id"), with = F])))
+      mean(colMeans(abs(prediction$truth[, -c("row_id"), with = F] - prediction$response[, -c("row_id"), with = F]), na.rm = TRUE))
 
     }
   )
