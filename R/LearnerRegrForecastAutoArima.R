@@ -72,34 +72,41 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
     },
 
     predict_internal = function(task) {
+
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
+
       if(length(predict_ids) > 0){
         if (length(task$feature_names) > 0) {
           newdata = as.matrix( task$data(cols = task$feature_names, rows = predict_ids))
           response.predict = invoke(forecast::forecast, self$model, xreg = newdata)
         } else {
-          response.predict = invoke(forecast::forecast, self$model, h = task$nrow)
+          response.predict = invoke(forecast::forecast, self$model, h = length(predict_ids))
         }
-        response.mean = as.data.table(as.numeric(response.predict$mean))
-        colnames(response.mean) = task$target_names
-        response = rbind(self$fitted_values(fitted_ids), response.mean)
-        response.se = as.data.table(as.numeric(
+
+        predict.mean = as.data.table(as.numeric(response.predict$mean))
+        colnames(predict.mean) = task$target_names
+        fitted.mean = self$fitted_values(fitted_ids)
+        colnames(fitted.mean) = task$target_names
+        response = rbind(fitted.mean, predict.mean)
+
+        predict.se = as.data.table(as.numeric(
           ci_to_se(width = response.predict$upper[,1] - response.predict$lower[,1], level = response.predict$level[1])
         ))
-        colnames(response.se) = task$target_names
-        se = rbind(
-          as.data.table(
-            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)),
-          response.se
-        )
+        colnames(predict.se) = task$target_names
+        fitted.se = as.data.table(
+          sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE))
+        se = rbind(fitted.se, predict.se)
+
       } else {
         response = self$fitted_values(fitted_ids)
         se = as.data.table(
           sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)
         )
       }
-      PredictionForecast$new(task = task, response = c(response),se = c(se))
+
+      p = PredictionForecast$new(task = task, response = response, se = se)
+
     }
   )
 )

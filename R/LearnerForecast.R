@@ -42,26 +42,20 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
       if(is.null(self$model)){
         stop("Model has not been trained yet")
       }
-     # if(!test_subset(row_ids,self$date_span$begin$row_id:self$date_span$end$row_id)){
-      #  stop("Model has not been trained on selected row_ids")
-      #}
+      if(!test_subset(row_ids,self$date_span$begin$row_id:self$date_span$end$row_id)){
+        stop("Model has not been trained on selected row_ids")
+      }
       n.row = self$date_span$end$row_id - self$date_span$begin$row_id + 1
       fitted = as.data.table(stats::fitted(self$model))
-      nn = n.row-nrow(fitted)
-    #  print(fitted)
-     # print(self$model$y)
-      #print(self$date_span)
-      #print(nn)
+      n = n.row-nrow(fitted)
       fitted = rbind(
         as.data.table(
-          sapply(names(fitted), function(x) rep(NA,nn), simplify = FALSE)
+          sapply(names(fitted), function(x) rep(NA,n), simplify = FALSE)
         ),
         fitted
       )
-      if(ncol(fitted)==1){
-        colnames(fitted) = learner$state$train_task$target_names
-      }
-      fitted[row_ids - self$date_span$begin$row_id + 1]
+
+      fitted[row_ids - self$date_span$begin$row_id + 1,]
 
     }
   )
