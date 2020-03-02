@@ -33,6 +33,8 @@
 #'
 #' @references
 #' \cite{mlr3}{bischl_2012}
+#' paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
+#        autoregressive time series prediction, Computational Statistics and Data Analysis 120 (2018) 70–83.
 #'
 #' @template seealso_resampling
 #' @export
