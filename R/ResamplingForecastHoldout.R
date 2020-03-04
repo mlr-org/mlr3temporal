@@ -35,7 +35,7 @@
 #' task$filter(1:10)
 #'
 #' #Instantiate Resampling
-#' rfho = mlr3::rsmp("forecast.holdout", ratio = 0.5)
+#' rfho = mlr3::rsmp("forecastHoldout", ratio = 0.5)
 #' rfho$instantiate(task)
 #'
 #' # Individual sets:
