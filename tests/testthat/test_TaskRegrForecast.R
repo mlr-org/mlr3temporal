@@ -6,7 +6,7 @@ test_that("Basic properties", {
   expect_task(task)
   expect_task_supervised(task)
 
-  expect_da
+
   dt = task$head(3)
   expect_data_table(dt, nrows = 3, ncols = 1, col.names = "named")
   dt = task$head(0L)
@@ -23,4 +23,29 @@ test_that("printing works", {
   expect_output(print(task))
   expect_output(print(task$truth()))
 })
+
+
+test_that("task data has expected column names", {
+
+  data = data.table(target = rnorm(30), exo1 = rnorm(30))
+  task = TaskRegrForecast$new(id = "test",
+                              backend = ts(data),
+                              target = "target")
+
+  expect_equal(colnames(data), colnames(task$data()))
+})
+
+
+
+test_that("task data has expected column types", {
+
+  data = data.table(target = rnorm(30), exo1 = rnorm(30))
+  task = TaskRegrForecast$new(id = "test",
+                              backend = ts(data),
+                              target = "target")
+
+  expect_equal(task$col_info[colnames(data)[1], type], class(data[[1]]) )
+  expect_equal(task$col_info[colnames(data)[2], type], class(data[[2]]) )
+})
+
 
