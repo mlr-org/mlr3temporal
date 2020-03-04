@@ -26,8 +26,8 @@ test_that("Exogenous Variables", {
   backend = fma::petrol
   tsk = TaskRegrForecast$new(id = "ex", backend = backend, target = c("Chemicals", "Coal"))
   learner = LearnerRegrForecastVAR$new()
-  learner$train(task, row_ids = 1:10 )
-  p = learner$predict(task, row_ids = 7:15)
+  learner$train(tsk, row_ids = 1:10 )
+  p = learner$predict(tsk, row_ids = 7:15)
   expect_prediction(p)
   forecast = learner$forecast(task = tsk, h = 10, new_data = tsk$data(rows = 12:21, cols = tsk$feature_names))
   expect_prediction(forecast)

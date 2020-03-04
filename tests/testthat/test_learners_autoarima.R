@@ -23,12 +23,12 @@ test_that("Basic Tests", {
 
 
 test_that("SE Predict type",{
-  task = TaskRegrForecast$new(id = "se", backend = ts_c(mdeaths, fdeaths), target = "mdeaths")
+  tsk = TaskRegrForecast$new(id = "se", backend = ts_c(mdeaths, fdeaths), target = "mdeaths")
   learner = lrn("forecast.auto.arima")
   learner$predict_type = "se"
-  learner$train(task, 1:10)
-  expect_prediction_forecast(learner$predict(task, 5:15))
-  forecast = learner$forecast(task = tsk, h = 10)
+  learner$train(tsk, 1:10)
+  expect_prediction_forecast(learner$predict(tsk, 5:15))
+  forecast = learner$forecast(task = tsk, h = 10, new_data = tsk$data(rows = 11:20, cols = "fdeaths"))
   expect_prediction(forecast)
   expect_equal(length(forecast$row_ids), 10)
   })
