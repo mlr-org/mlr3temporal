@@ -1,6 +1,7 @@
 #' @title Average Learner
 #'
-#' @name mlr_learners_regr.Average
+#' @usage NULL
+#' @name mlr_learners_regr.average
 #' @format [R6::R6Class] inheriting from [mlr3forecasting::LearnerForecast].
 #'
 #' @section Construction:
@@ -19,9 +20,10 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
     initialize = function() {
       super$initialize(
         id = "forecast.average",
-        feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
+        feature_types = "numeric",
         predict_types = c("response"),
-        man = "mlr3forecasting::mlr_learners_forecast.average"
+        packages = "base",
+        man = "mlr3forecasting::mlr_learners_regr.average"
       )
     },
 
