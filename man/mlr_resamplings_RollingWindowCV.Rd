@@ -42,7 +42,7 @@ Flag for fixed sized window. If FALSE an expanding window is used.
 \examples{
  #Create a task with 10 observations
 task = mlr3::tsk("airpassengers")
-task$filter(1:10)
+task$filter(1:20)
 
 #Instantiate Resampling
 rfho = mlr3::rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)

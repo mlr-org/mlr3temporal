@@ -62,7 +62,7 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
       }
       self$data$tab$truth = data.table(
         row_id = row_ids,
-        assert_data_table(truth, types = c("numeric"), null.ok = TRUE, nrows = n)
+        assert_data_table(truth, types = c("numeric"), null.ok = TRUE, nrows = n,)
       )
 
       if (!is.null(response)) {
@@ -72,7 +72,7 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
         }
         self$data$tab$response = data.table(
           row_id = row_ids,
-          assert_data_table(response, types = c("numeric"), null.ok = TRUE, nrows = n, any.missing = FALSE)
+          assert_data_table(response, types = c("numeric", "logical"), null.ok = TRUE, nrows = n, any.missing = TRUE)
         )
       }
 
@@ -83,7 +83,7 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
         }
         self$data$tab$se = data.table(
           row_id = row_ids,
-          assert_data_table(se, types = c("numeric"), null.ok = TRUE, nrows = n, any.missing = FALSE)
+          assert_data_table(se, types = c("numeric", "logical"), null.ok = TRUE, nrows = n, any.missing = TRUE)
         )
       }
 
