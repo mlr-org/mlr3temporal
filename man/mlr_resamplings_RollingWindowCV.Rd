@@ -58,6 +58,7 @@ rfho$instance #  list
 }
 \references{
 \cite{mlr3}{bischl_2012}
+paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
 }
 \seealso{
 \link[mlr3misc:Dictionary]{Dictionary} of \link[=Resampling]{Resamplings}: \link{mlr_resamplings}

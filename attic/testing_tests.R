@@ -26,7 +26,7 @@ p = learner$predict(task, row_ids = 21:43)
 
 
 task = tsk("airpassengers")
-learner=LearnerForecastAverage$new()
+learner=LearnerRegrForecastAverage$new()
 learner$train(task,row_ids =  1:143)
 learner$model
 p=learner$predict(task,row_ids =14)
