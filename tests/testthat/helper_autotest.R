@@ -131,8 +131,8 @@ generate_tasks.LearnerForecast = function(learner, N = 30L) {
 
   }
 
-  task = TaskForecast$new("proto", ts(data), target = tar_names)
-  #task = TaskRegrForecast$new("proto", ts(data), target = tar_names)
+  #task = TaskForecast$new("proto", ts(data), target = tar_names)
+  task = TaskRegrForecast$new("proto", ts(data), target = tar_names)
 
 
 
@@ -182,8 +182,6 @@ run_experiment = function(task, learner) {
     )
   }
 
-  N = task$nrow
-  N0.8 = as.integer(0.8*N)
 
   mlr3::assert_task(task)
   learner = mlr3::assert_learner(mlr3::as_learner(learner, clone = TRUE), task = task)
@@ -201,6 +199,7 @@ run_experiment = function(task, learner) {
   if (is.null(learner$model))
     return(err("model is NULL"))
 
+  browser()
   stage = "predict()"
   prediction = try(learner$predict(task), silent = TRUE)
   if (inherits(prediction, "try-error"))
