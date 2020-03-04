@@ -19,3 +19,4 @@ test_that("Basic Tests", {
   expect_prediction(forecast)
   expect_equal(length(forecast$row_ids), 10)
 })
+

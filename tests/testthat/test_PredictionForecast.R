@@ -19,6 +19,7 @@ test_that("Construction", {
 test_that("Confidence Intervals", {
   task = tsk("petrol")
   lrn = LearnerRegrForecastVAR$new()
+  lrn$predict_type = "se"
   lrn$train(task, 1:29)
   p = lrn$predict(task, 30:40)
   ci = p$conf_int(level = 90)
