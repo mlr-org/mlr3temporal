@@ -30,7 +30,6 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
       span = range(task$date()[[task$date_col]])
       self$date_span =
         list(begin = list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
-      self$date_frequency = time.frequency(task$date()[[task$date_col]])
       x = task$data(cols = task$target_names)[[1L]]
       mean(x)
     },
