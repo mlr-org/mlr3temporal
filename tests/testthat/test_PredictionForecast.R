@@ -38,5 +38,22 @@ test_that("Internally constructed Prediction", {
   expect_prediction_forecast(p)
 })
 
+test_that("Combine Predictions", {
+  task = tsk("airpassengers")
+  lrn = lrn("forecast.average")
+  lrn$train(task, 1:10)
+  p1 = lrn$predict(task, 1:10)
+  p2 = lrn$predict(task, 11:20)
+  expect_prediction_forecast(c(p1,p2))
+
+  task = tsk("petrol")
+  lrn = lrn("forecast.VAR")
+  lrn$predict_type = "se"
+  lrn$train(task, 1:10)
+  p1 = lrn$predict(task, 1:10)
+  p2 = lrn$predict(task, 11:20)
+  expect_prediction_forecast(c(p1,p2))
+})
+
 
 
