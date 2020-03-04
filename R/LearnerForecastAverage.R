@@ -9,7 +9,7 @@
 #' ```
 #'
 #' @description
-#' A LearnerRegrForecast for model based on average implemented in [mlr3::mlr_learners_forecast.average] in mlr3.
+#' A LearnerRegrForecast for model based on average implemented in [forecast::average] in mlr3.
 #'
 #'
 #' @template seealso_learner
