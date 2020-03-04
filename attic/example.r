@@ -23,9 +23,9 @@ p$score(msr("forecast.mae"))
 ### Example multivariate forecasting
 task = tsk("petrol")
 learner = LearnerRegrForecastVAR$new()
-learner$train(task, row_ids = 1:6 )
+learner$train(task, row_ids = 1:16 )
 learner$model
-p = learner$predict(task, row_ids = 7:11)
+p = learner$predict(task, row_ids = 17:28)
 p$score(msr("forecast.mae"))
 rr = rsmp("forecast.holdout")
 rr$instantiate(task)
