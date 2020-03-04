@@ -38,6 +38,10 @@
 #'   Access to the stored standard error.
 #'
 #' The field `task_type` is set to `"forecast"`.
+#' @section Methods:
+#' All Methods from [Prediction], and additionally:
+#' * `conf_int(level)`\cr
+#'   Access to the stored predicted response.
 #'
 #' @family Prediction
 #' @export
@@ -101,6 +105,19 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
         catf("%s for %i observations:", format(self), nrow(data))
         print(data, nrows = 10L, topn = 3L, class = FALSE, row.names = FALSE, print.keys = FALSE)
       }
+    },
+
+    conf_int = function(level = 95){
+      assert_integerish(level, lower = 0, upper = 100)
+      lapply(colnames(self$response)[-1], function(x)
+        setnames(
+          data.table(upper = self$response[, ..x]  + se_to_ci(se = self$se[, ..x], level),
+            lower = self$response[, ..x]  - se_to_ci(se = self$se[, ..x], level)
+            ),
+          c(paste0(eval(x),"_upper_", eval(level)),
+            paste0(eval(x),"_lower_", eval(level))
+          ))
+      )
     }
   ),
 

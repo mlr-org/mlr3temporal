@@ -38,6 +38,15 @@ Access to the stored standard error.
 The field \code{task_type} is set to \code{"forecast"}.
 }
 
+\section{Methods}{
+
+All Methods from \link{Prediction}, and additionally:
+\itemize{
+\item \code{conf_int(level)}\cr
+Access to the stored predicted response.
+}
+}
+
 \examples{
 task = mlr3::tsk("airpassengers")
 learner=LearnerRegrForecastAutoArima$new()

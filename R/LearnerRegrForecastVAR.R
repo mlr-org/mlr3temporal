@@ -54,40 +54,42 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
     },
 
     predict_internal = function(task) {
-
+      se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
 
       if(length(predict_ids > 0)){
 
-         if(length(task$feature_names) > 0){
-           exogen =  task$data(cols = task$feature_names, rows = predict_ids)
-           assign("exogen", "exogen", envir = .GlobalEnv)
-           forecast = invoke(predict, self$model, n.ahead = length(predict_ids), ci=0.95, dumvar = exogen)
-         } else{
-           forecast = invoke(predict, self$model, n.ahead = length(predict_ids), ci=0.95)
-         }
+        if(length(task$feature_names) > 0){
+          exogen =  task$data(cols = task$feature_names, rows = predict_ids)
+          assign("exogen", "exogen", envir = .GlobalEnv)
+          forecast = invoke(predict, self$model, n.ahead = length(predict_ids), ci=0.95, dumvar = exogen)
+        } else{
+          forecast = invoke(predict, self$model, n.ahead = length(predict_ids), ci=0.95)
+        }
 
-         response = rbind(self$fitted_values(fitted_ids),
-           as.data.table(
-             sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
-           )
-         )
-
-         se = rbind(
+        response = rbind(self$fitted_values(fitted_ids),
+          as.data.table(
+            sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
+          )
+        )
+        if(self$predict_type == "se"){
+          se = rbind(
             as.data.table(
               sapply(names(forecast$fcst), function(x) rep(NA,length(fitted_ids)), simplify = FALSE)),
             as.data.table(
               sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95), simplify = FALSE)
             )
           )
-
+        }
         } else{
 
-         response = self$fitted_values(fitted_ids)
-         se = as.data.table(
-           sapply(names(response), function(x) rep(NA,length(fitted_ids)), simplify = FALSE)
-         )
+        response = self$fitted_values(fitted_ids)
+          if(self$predict_type == "se"){
+            se = as.data.table(
+              sapply(names(response), function(x) rep(NA,length(fitted_ids)), simplify = FALSE)
+          )
+        }
 
       }
 
