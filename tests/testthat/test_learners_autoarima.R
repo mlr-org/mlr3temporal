@@ -19,6 +19,8 @@ test_that("Basic Tests", {
   res = resample(tsk, learner, rs)
   res$prediction()
   expect_resample_result(res)
+  forecast = learner$forecast(task = tsk, h = 10, new_data = tsk$data(rows = 11:20, cols = "fdeaths"))
+  expect_prediction_forecast(forecast)
 })
 
 
