@@ -42,6 +42,5 @@ test_that("param_vals", {
   expect_true(r$is_instantiated)
   expect_identical(r$iters, 1L)
   expect_equal(intersect (r$test_set(1),r$train_set(1)), integer(0))
-  expect_integerish(r$test_set(1), len = 3)
   expect_resampling(r)
 })
