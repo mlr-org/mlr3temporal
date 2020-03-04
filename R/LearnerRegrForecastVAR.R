@@ -111,7 +111,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
       truth = copy(response)
       truth[,colnames(truth) := 0]
       p = PredictionForecast$new(task, response = response, se = se, truth = truth,
-                                 row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id+h) )
+                                 row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
     }
   )
 )
