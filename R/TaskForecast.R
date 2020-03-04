@@ -48,10 +48,14 @@
 TaskForecast = R6::R6Class("TaskForecast",
   inherit = TaskSupervised,
   public = list(
-    initialize = function(id, backend, target) {
+    initialize = function(id, backend, target, time_col = NULL) {
       assert_character(target)
+      if(inherits(backend, "data.frame")){
+        assert_subset(time_col, colnames(backend))
+        backend = df_to_backend(backend, target, time_col)
+      }
       if (!inherits(backend, "DataBackend"))
-        backend = as_data_backend(ts_dts(backend))
+        backend = as_data_backend(ts_dts(backend), target)
       super$initialize(id = id, task_type = "forecast", backend = backend, target = target)
       private$.col_roles$feature = setdiff(private$.col_roles$feature, self$date_col)
     },

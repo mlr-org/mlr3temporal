@@ -75,6 +75,7 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
       }
       n.row = self$date_span$end$row_id - self$date_span$begin$row_id + 1
       fitted = as.data.table(stats::fitted(self$model))
+      fitted[, colnames(fitted) := lapply(.SD ,function(x) as.numeric(x))]
       n = n.row-nrow(fitted)
       fitted = rbind(
         as.data.table(
