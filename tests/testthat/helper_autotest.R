@@ -14,7 +14,6 @@
 
 
 generate_generic_tasks = function(learner, proto) {
-  browser()
   tasks = list()
   if (length(proto$feature_names) > 1L) {
     # individual tasks with each supported feature type

@@ -20,7 +20,6 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
     initialize = function() {
       super$initialize(
         id = "forecast.average",
-        feature_types = "numeric",
         predict_types = c("response"),
         packages = "base",
         man = "mlr3forecasting::mlr_learners_regr.average"
