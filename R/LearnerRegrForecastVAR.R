@@ -115,5 +115,4 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
                                  row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id+h) )
     }
   )
-  )
 )
