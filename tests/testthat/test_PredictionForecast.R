@@ -39,7 +39,7 @@ test_that("Internally constructed Prediction", {
 })
 
 
-test_that("Fitted values"){
+test_that("Fitted values", {
   task = tsk("airpassengers")
   lrn = lrn("forecast.auto.arima")
   lrn$train(task, 1:10)
@@ -48,5 +48,5 @@ test_that("Fitted values"){
   lrn = lrn("forecast.VAR")
   lrn$train(task, 1:10)
   expect_data_table(lrn$fitted_values(row_ids = 3:7), types = "numeric", nrows = 5, ncols = 4)
-}
+})
 
