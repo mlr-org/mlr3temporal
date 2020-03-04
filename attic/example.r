@@ -14,7 +14,7 @@ autoplot(task)
 ### Example 2
 
 task = tsk("airpassengers")
-learner = LearnerForecastAverage$new()
+learner = LearnerRegrForecastAverage$new()
 learner$train(task,row_ids = 1:100)
 learner$model
 p = learner$predict(task,row_ids = 101:122)
