@@ -46,7 +46,7 @@ TaskRegrForecast = R6::R6Class("TaskRegrForecast",
       # Initialize the task and properties
       super$initialize(id = id, backend = (backend), target = target)
       self$properties = union(self$properties, if (length(self$target_names) == 1L) "univariate" else "multivariate")
-      assert_true(all(self$col_info[id %in% self$target_names]$type == "numeric"))
+      assert_true(all(self$col_info[id %in% self$target_names]$type %in% c("numeric", "double", "integer")))
     }
   )
 )
