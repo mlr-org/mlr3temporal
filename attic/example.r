@@ -3,7 +3,7 @@ library(tsbox)
 ### Example univariate forecast
 df = ts_c(mdeaths, fdeaths)
 
-task = TaskRegrForecast$new(id = "forecast", backend = df, targer = "mdeaths")
+task = TaskRegrForecast$new(id = "forecast", backend = df, target = "mdeaths")
 learner = LearnerRegrForecastAutoArima$new()
 learner$train(task, row_ids = 1:20)
 learner$model
