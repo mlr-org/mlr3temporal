@@ -83,7 +83,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
             )
           )
 
-      } else{
+        } else{
 
          response = self$fitted_values(fitted_ids)
          se = as.data.table(
@@ -94,6 +94,26 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
 
       p = PredictionForecast$new(task = task, response = response, se = se)
 
+    },
+
+    forecast = function(h = 10, task, new_data = NULL) {
+      if(length(task$feature_names)>0){
+        newdata = as.matrix(new_data)
+        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95, dumvar = newdata)
+      } else{
+        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95)
       }
+      response = as.data.table(
+        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
+      )
+      se = as.data.table(
+          sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95), simplify = FALSE)
+        )
+      truth = copy(response)
+      truth[,colnames(truth) := 0]
+      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
+                                 row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id+h) )
+    }
+  )
   )
 )
