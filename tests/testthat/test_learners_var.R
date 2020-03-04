@@ -9,8 +9,16 @@ test_that("autotest VAR", {
 
 
 test_that("Basic Tests", {
+  task = tsk("petrol")
   learner = LearnerRegrForecastVAR$new()
-  tsk = mlr_tasks$get("petrol")
-  learner$train(tsk, 1:20)
-  expect_prediction(learner$predict(tsk, 21:30))
+  learner$train(task, row_ids = 1:6 )
+  p = learner$predict(task, row_ids = 7:11)
+  expect_prediction(p)
+
+  rr = rsmp("forecast.holdout")
+  rr$instantiate(task)
+  res = resample(task, learner, rr, store_models = TRUE)
+  res$prediction()
+  #expect_resample_result(res)
 })
+

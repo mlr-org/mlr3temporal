@@ -31,7 +31,7 @@ See \link{Resampling}.
 \item \code{folds} :: \code{integer(1)}\cr
 Number of folds.
 \item \code{window_size} :: \code{integer(1)}\cr
-Size of the rolling window.
+(Minimal) Size of the rolling window.
 \item \code{horizon} :: \code{integer(1)}\cr
 Forecasting horizon in the test sets.
 \item \code{fixed_window} :: \code{logial(1)}\cr
@@ -58,6 +58,7 @@ rfho$instance #  list
 }
 \references{
 \cite{mlr3}{bischl_2012}
+paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
 }
 \seealso{
 \link[mlr3misc:Dictionary]{Dictionary} of \link[=Resampling]{Resamplings}: \link{mlr_resamplings}

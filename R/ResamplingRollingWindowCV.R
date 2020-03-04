@@ -25,7 +25,7 @@
 #' * `folds` :: `integer(1)`\cr
 #'   Number of folds.
 #' * `window_size` :: `integer(1)`\cr
-#'   Size of the rolling window.
+#'   (Minimal) Size of the rolling window.
 #' * `horizon` :: `integer(1)`\cr
 #'   Forecasting horizon in the test sets.
 #' * `fixed_window` :: `logial(1)`\cr
@@ -80,14 +80,14 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
       ids = sort(ids)
       if(self$param_set$values$fixed_window){
         train_start =
-          ids[ids <= (max(ids)-self$param_set$values$horizon-self$param_set$values$window_size+1)]
+          ids[ids <= (max(ids) - self$param_set$values$horizon - self$param_set$values$window_size + 1)]
         s = sample(train_start, self$param_set$values$folds)
         s = sort(s)
         train_ids = lapply(s,
-          function(x) x:(x+self$param_set$values$window_size-1))
+          function(x) x:(x + self$param_set$values$window_size - 1))
       } else {
         train_end =
-          ids[ids <= (max(ids)-self$param_set$values$horizon) & ids >= 10]
+          ids[ids <= (max(ids) - self$param_set$values$horizon) & ids >= self$param_set$values$window_size]
         s = sample(train_end, self$param_set$values$folds)
         s = sort(s)
         train_ids = lapply(s, function(x) min(ids):x)
