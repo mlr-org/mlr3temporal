@@ -33,13 +33,15 @@
 #'
 #' @references
 #' \cite{mlr3}{bischl_2012}
+#' paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
+#        autoregressive time series prediction, Computational Statistics and Data Analysis 120 (2018) 70–83.
 #'
 #' @template seealso_resampling
 #' @export
 #' @examples
 #'  #Create a task with 10 observations
 #' task = mlr3::tsk("airpassengers")
-#' task$filter(1:10)
+#' task$filter(1:20)
 #'
 #' #Instantiate Resampling
 #' rfho = mlr3::rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
@@ -84,11 +86,11 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
         train_ids = lapply(s,
           function(x) x:(x+self$param_set$values$window_size-1))
       } else {
-        train_start =
-          ids[ids <= (max(ids)-self$param_set$values$horizon)]
-        s = sample(train_start, self$param_set$values$folds)
+        train_end =
+          ids[ids <= (max(ids)-self$param_set$values$horizon) & ids >= 10]
+        s = sample(train_end, self$param_set$values$folds)
         s = sort(s)
-        train_ids = lapply(s, function(x) min(train_start):x)
+        train_ids = lapply(s, function(x) min(ids):x)
       }
       test_ids = lapply(train_ids,
         function(x) (max(x)+1):(max(x)+self$param_set$values$horizon))

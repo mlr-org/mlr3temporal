@@ -1,31 +1,33 @@
 library(digest)
 library(tsbox)
 ### Example univariate forecast
+df = ts_c(mdeaths, fdeaths)
 
-df = ts_c(mdeaths,fdeaths)
-task = TaskRegrForecast$new(id = "a",backend = df,target = "mdeaths")
+task = TaskRegrForecast$new(id = "forecast", backend = df, target = "mdeaths")
 learner = LearnerRegrForecastAutoArima$new()
 learner$train(task, row_ids = 1:20)
 learner$model
-p = learner$predict(task, row_ids = 21:43)
-
+p = learner$predict(task, row_ids = 21:30)
+p$score(msr("forecast.mae"))
 autoplot(task)
 
 ### Example 2
 
 task = tsk("airpassengers")
 learner = LearnerForecastAverage$new()
-learner$train(task,row_ids = 1:143)
+learner$train(task,row_ids = 1:100)
 learner$model
-p = learner$predict(task,row_ids = 144)
+p = learner$predict(task,row_ids = 101:122)
+p$score(msr("forecast.mae"))
 
 ### Example multivariate forecasting
 task = tsk("petrol")
 learner = LearnerRegrForecastVAR$new()
-learner$train(task, row_ids = 1:100 )
+learner$train(task, row_ids = 1:6 )
 learner$model
-p = learner$predict(task, row_ids = 101:150)
-rr = rsmp("RollingWindowCV", fixed_window = F)
+p = learner$predict(task, row_ids = 7:11)
+p$score(msr("forecast.mae"))
+rr = rsmp("forecast.holdout")
 rr$instantiate(task)
 resample = resample(task, learner, rr, store_models = TRUE)
 
