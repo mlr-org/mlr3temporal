@@ -1,26 +1,5 @@
 context("Resampling")
 
-test_that("re-instantiating", {
-  t1 = tsk("petrol")
-  t2 = tsk("airpassengers")
-  r = rsmp("RollingWindowCV", folds = 2)
-
-  expect_resampling(r$instantiate(t1), task = t1)
-  expect_resampling(r$instantiate(t2), task = t2)
-
-  r = rsmp("forecastHoldout", ratio = 0.5)
-
-  expect_resampling(r$instantiate(t1), task = t1)
-  expect_resampling(r$instantiate(t2), task = t2)
-
-
-  r = rsmp("custom")
-  expect_error(r$instantiate(t1), "missing")
-
-  expect_resampling(r$instantiate(t1, train_sets = list(1), test_sets = list(1)), task = t1)
-  expect_resampling(r$instantiate(t2, train_sets = list(1), test_sets = list(2)), task = t2)
-})
-
 test_that("param_vals", {
   task = tsk("petrol")
   r = rsmp("RollingWindowCV", folds = 10L, horizon = 3L, window_size = 5L, fixed_window = FALSE)
