@@ -47,7 +47,7 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
       truth = copy(response)
       truth[,colnames(truth) := 0]
       p = PredictionForecast$new(task, response = response, truth = truth,
-        row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id + h) )
+        row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id + h) )
     }
   )
 )
