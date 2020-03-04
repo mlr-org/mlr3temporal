@@ -3,6 +3,7 @@ context("Forecasting Task")
 test_that("Basic properties", {
   task = tsk("airpassengers")
 
+
   expect_task(task)
   expect_task_supervised(task)
 
@@ -46,6 +47,23 @@ test_that("task data has expected column types", {
 
   expect_equal(task$col_info[colnames(data)[1], type], class(data[[1]]) )
   expect_equal(task$col_info[colnames(data)[2], type], class(data[[2]]) )
+})
+
+test_that("construction from data frame", {
+  data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
+  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a","b"), time_col = "t")
+  assert_task(task, task_properties = "multivariate")
+
+  data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
+  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a"), time_col = "t")
+  assert_task(task, task_properties = "univariate")
+})
+
+test_that("Target name for single timeseries", {
+
+  task = TaskRegrForecast$new(id = "target_names", backend = mdeaths, target ="abc" )
+  expect_equal(task$target_names, "abc")
+
 })
 
 

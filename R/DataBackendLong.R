@@ -198,9 +198,12 @@ DataBackendLong = R6::R6Class("DataBackendLong",
 )
 
 #' @export
-as_data_backend.dts = function(data) {
+as_data_backend.dts = function(data, target = NULL) {
   if(ncol(data) == 2){
-    data$id = "target"
+    if(is.null(target)){
+      target = "target"
+    }
+    data$id = target
     cname = attr(data,"cname")
     cname$id = "id"
     setattr(data, "cname", cname)
@@ -218,14 +221,4 @@ as_data_backend.forecast = function(data) {
   as_data_backend(tsbox::ts_dts(data))
 }
 
-# # Helper function for conversion.
-# df_to_backend = function(data, target, date_col) {
-#   setDT(data)
-#   assert_subset(date_col, names(data))
-#   assert_subset(target, names(data))
-#   assert_data_table(data[, setdiff(names(data), date_col), with = FALSE], types = "numeric")
-#   backend = (melt(data, id.vars = date_col, variable.factor = FALSE))
-#   backend$value = as.numeric(backend$value)
-#   backend[[date_col]] = as.POSIXct(backend[[date_col]])
-#   return(backend)
-# }
+
