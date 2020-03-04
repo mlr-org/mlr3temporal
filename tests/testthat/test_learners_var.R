@@ -13,25 +13,24 @@ test_that("Basic Tests", {
   learner = LearnerRegrForecastVAR$new()
   learner$train(task, row_ids = 1:6 )
   p = learner$predict(task, row_ids = 7:11)
-  expect_prediction(p)
+  expect_prediction_forecast(p)
 
   rr = rsmp("forecastHoldout")
   rr$instantiate(task)
   res = resample(task, learner, rr, store_models = TRUE)
   res$prediction()
   expect_resample_result(res)
+  forecast = learner$forecast(task = task, h = 10, new_data = task$data(rows = 11:20, cols = "fdeaths"))
+  expect_prediction_forecast(forecast)
 })
 
 test_that("Exogenous Variables", {
   backend = fma::petrol
   tsk = TaskRegrForecast$new(id = "ex", backend = backend, target = c("Chemicals", "Coal"))
   learner = LearnerRegrForecastVAR$new()
+  learner$predict_type = "se"
   learner$train(tsk, row_ids = 1:10 )
   p = learner$predict(tsk, row_ids = 7:15)
-  expect_prediction(p)
-  forecast = learner$forecast(task = tsk, h = 10, new_data = tsk$data(rows = 12:21, cols = tsk$feature_names))
-  expect_prediction(forecast)
-  expect_equal(length(forecast$row_ids), 10)
-
+  expect_prediction_forecast(p)
 })
 

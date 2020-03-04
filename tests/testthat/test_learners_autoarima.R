@@ -22,15 +22,12 @@ test_that("Basic Tests", {
 })
 
 
-test_that("SE Predict type",{
+test_that("Exogenous Variables",{
   tsk = TaskRegrForecast$new(id = "se", backend = ts_c(mdeaths, fdeaths), target = "mdeaths")
   learner = lrn("forecast.auto.arima")
   learner$predict_type = "se"
   learner$train(tsk, 1:10)
   expect_prediction_forecast(learner$predict(tsk, 5:15))
-  forecast = learner$forecast(task = tsk, h = 10, new_data = tsk$data(rows = 11:20, cols = "fdeaths"))
-  expect_prediction(forecast)
-  expect_equal(length(forecast$row_ids), 10)
   })
 
 test_that("Expected Errors",{
@@ -40,9 +37,6 @@ test_that("Expected Errors",{
   expect_error(learner$fitted_values(row_ids = 1:10), "Model has not been trained")
   learner$train(tsk, 1:20)
   expect_error(learner$fitted_values(row_ids = 19:22), "Model has not been trained on selected row_ids")
-
   expect_error(learner$predict(tsk, c(21, 13, 1)), "consecutive row_ids")
   expect_error(learner$predict(tsk, c(22:30)), "timesteps do not match")
-
-
 })
