@@ -14,7 +14,7 @@ test_that("Basic Tests", {
   fitted_values = learner$fitted_values(row_ids = 5:10)
   expect_data_table(fitted_values, nrows = 6, ncols = length(tsk$target_names), types = "numeric" )
   expect_prediction(learner$predict(tsk, 21:30))
-  forecast = learner$forecast(task = tsk, h=10)
+  forecast = learner$forecast(task = tsk, h = 10)
   expect_prediction(forecast)
   expect_equal(length(forecast$row_ids), 10)
   rs = ResamplingCustom$new()

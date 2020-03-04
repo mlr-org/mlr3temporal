@@ -11,3 +11,4 @@ test_that("petrol", {
   expect_task(tsk)
   expect_subset("multivariate", tsk$properties)
 })
+

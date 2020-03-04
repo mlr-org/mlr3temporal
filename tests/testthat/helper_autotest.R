@@ -199,7 +199,6 @@ run_experiment = function(task, learner) {
   if (is.null(learner$model))
     return(err("model is NULL"))
 
-  browser()
   stage = "predict()"
   prediction = try(learner$predict(task), silent = TRUE)
   if (inherits(prediction, "try-error"))
