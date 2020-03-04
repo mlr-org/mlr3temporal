@@ -21,4 +21,3 @@ se_to_ci = function(se, level){
    backend[[date_col]] = as.POSIXct(backend[[date_col]])
    return(backend)
  }
-

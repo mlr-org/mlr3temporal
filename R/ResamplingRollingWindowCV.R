@@ -65,7 +65,7 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
       ))
       ps$values = list(window_size = 10L, horizon = 5L, folds = 10L, fixed_window = TRUE)
 
-      super$initialize(id = "cv", param_set = ps, man = "mlr3::mlr_resamplings_RollingWindowCV")
+      super$initialize(id = "cv", param_set = ps, man = "mlr3forecasting::mlr_resamplings_RollingWindowCV")
     }
   ),
 

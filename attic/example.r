@@ -7,9 +7,10 @@ task = TaskRegrForecast$new(id = "forecast", backend = df, target = "fdeaths")
 
 learner = LearnerRegrForecastAutoArima$new()
 learner$predict_type = "se"
-learner$train(task, row_ids = 1:20)
+learner$predict_types
+learner$train(task, row_ids = c(1:3))
 learner$model
-p = learner$predict(task, row_ids = 21:30)
+p = learner$predict(task, row_ids = 22:30)
 p$score(msr("forecast.mae"))
 autoplot(task)
 
@@ -44,21 +45,7 @@ l$train(task)
 l$predict(task)
 d = mdeaths
 
-n = TaskRegrForecast$new(id = "a", backend = d, target = "targxet")
 
 
 
 
-
-
-
-
-data = data.table(target = 4)
-task = TaskRegrForecast$new(id = "one_row", backend = ts(data), target = "target")
-learner = LearnerRegrForecastAutoArima$new()
-learner$train(task)
-learner$fitted_values()
-
-obwohl das hier schon funktioniert:
-  mod = auto.arima(data)
-forecast(mod)
