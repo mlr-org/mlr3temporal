@@ -56,7 +56,6 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
       span = range(task$date()[[task$date_col]])
       self$date_span =
         list(begin=list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
-      self$date_frequency = time.frequency(task$date()[[task$date_col]])
       pv = self$param_set$get_values(tags = "train")
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
@@ -72,7 +71,7 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
     },
 
     predict_internal = function(task) {
-
+      se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
 
@@ -89,24 +88,47 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
         fitted.mean = self$fitted_values(fitted_ids)
         colnames(fitted.mean) = task$target_names
         response = rbind(fitted.mean, predict.mean)
-
-        predict.se = as.data.table(as.numeric(
-          ci_to_se(width = response.predict$upper[,1] - response.predict$lower[,1], level = response.predict$level[1])
-        ))
-        colnames(predict.se) = task$target_names
-        fitted.se = as.data.table(
-          sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE))
-        se = rbind(fitted.se, predict.se)
-
+        if(self$predict_type == "se"){
+          predict.se = as.data.table(as.numeric(
+            ci_to_se(width = response.predict$upper[,1] - response.predict$lower[,1], level = response.predict$level[1])
+          ))
+          colnames(predict.se) = task$target_names
+          fitted.se = as.data.table(
+            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE))
+          se = rbind(fitted.se, predict.se)
+        }
       } else {
         response = self$fitted_values(fitted_ids)
-        se = as.data.table(
-          sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)
-        )
+        if(self$predict_type == "se"){
+          se = as.data.table(
+            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2),length(fitted_ids)), simplify = FALSE)
+          )
+        }
       }
 
       p = PredictionForecast$new(task = task, response = response, se = se)
 
+    },
+
+    forecast = function(h = 10, task, new_data = NULL) {
+      if(length(task$feature_names)>0){
+        newdata = as.matrix(new_data)
+        forecast = invoke(forecast::forecast, self$model, xreg = newdata)
+      } else{
+        forecast = invoke(forecast::forecast, self$model, h = h)
+      }
+      response = as.data.table(as.numeric(forecast$mean))
+      colnames(response) = task$target_names
+
+      se = as.data.table(as.numeric(
+        ci_to_se(width = forecast$upper[,1] - forecast$lower[,1], level = forecast$level[1])
+      ))
+      colnames(se) = task$target_names
+
+      truth = copy(response)
+      truth[,colnames(truth) := 0]
+      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
+        row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
     }
   )
 )
