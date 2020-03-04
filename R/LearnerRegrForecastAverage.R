@@ -1,6 +1,7 @@
 #' @title Average Learner
 #'
-#' @name mlr_learners_regr.Average
+#' @usage NULL
+#' @name mlr_learners_regr.average
 #' @format [R6::R6Class] inheriting from [mlr3forecasting::LearnerForecast].
 #'
 #' @section Construction:
@@ -19,10 +20,11 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
     initialize = function() {
       super$initialize(
         id = "forecast.average",
-        feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
         predict_types = c("response"),
+        packages = "base",
+        man = "mlr3forecasting::mlr_learners_regr.average",
         properties = c("univariate"),
-        man = "mlr3forecasting::mlr_learners_forecast.average"
+
       )
     },
 
@@ -45,7 +47,7 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage", inherit =
       truth = copy(response)
       truth[,colnames(truth) := 0]
       p = PredictionForecast$new(task, response = response, truth = truth,
-        row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id+h) )
+        row_ids = (learner$date_span$end$row_id+1):(learner$date_span$end$row_id + h) )
     }
   )
 )

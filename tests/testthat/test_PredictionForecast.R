@@ -37,3 +37,6 @@ test_that("Internally constructed Prediction", {
   p = lrn$predict(task, 11:20)
   expect_prediction_forecast(p)
 })
+
+
+

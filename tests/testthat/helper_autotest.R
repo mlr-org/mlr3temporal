@@ -109,7 +109,7 @@ generate_tasks.LearnerForecast = function(learner, N = 30L) {
   exo1 = NULL
   exo2 = NULL
 
-  if ("exogenous" %in% learner$properties){
+  if ("exogenous" %in% learner$properties) {
     exo1 = generate_data(learner, N)
     exo2 = generate_data(learner, N)
     colnames(exo2) = paste0(colnames(exo2), 2)
@@ -124,14 +124,17 @@ generate_tasks.LearnerForecast = function(learner, N = 30L) {
     data = cbind(targets, exo1, exo2)
 
   } else {
-    target1 = rnorm(N)
-    targets = data.table::data.table(target1)
+    target = rnorm(N)
+    targets = data.table::data.table(target)
     tar_names = colnames(targets)
     data = cbind(targets, exo1, exo2)
 
   }
 
-  task = TaskForecast$new("proto", ts(data), target = tar_names)
+  #task = TaskForecast$new("proto", ts(data), target = tar_names)
+  task = TaskRegrForecast$new("proto", ts(data), target = tar_names)
+
+
 
   tasks = generate_generic_tasks(learner, task)
 
@@ -179,8 +182,6 @@ run_experiment = function(task, learner) {
     )
   }
 
-  N = task$nrow
-  N0.8 = as.integer(0.8*N)
 
   mlr3::assert_task(task)
   learner = mlr3::assert_learner(mlr3::as_learner(learner, clone = TRUE), task = task)
@@ -190,7 +191,6 @@ run_experiment = function(task, learner) {
 
   stage = "train()"
   ok = try(learner$train(task), silent = TRUE)
-  #ok = try(learner$train(task, row_ids = 1:N0.8), silent = TRUE)
   if (inherits(ok, "try-error"))
     return(err(as.character(ok)))
   log = learner$log[stage == "train"]
@@ -199,28 +199,27 @@ run_experiment = function(task, learner) {
   if (is.null(learner$model))
     return(err("model is NULL"))
 
+  stage = "predict()"
+  prediction = try(learner$predict(task), silent = TRUE)
+  if (inherits(prediction, "try-error"))
+    return(err(as.character(prediction)))
+  log = learner$log[stage == "predict"]
+  if ("error" %in% log$class)
+    return(err("predict log has errors: %s", mlr3misc::str_collapse(log[class == "error", msg])))
+  msg = checkmate::check_class(prediction, "Prediction")
+  if (!isTRUE(msg))
+    return(err(msg))
+  if (prediction$task_type != learner$task_type)
+    return(err("learner and prediction have different task_type"))
 
-  # stage = "predict()"
-  # prediction = try(learner$predict(task, row_ids = N0.8+1:N), silent = TRUE)
-  # if (inherits(prediction, "try-error"))
-  #   return(err(as.character(prediction)))
-  # log = learner$log[stage == "predict"]
-  # if ("error" %in% log$class)
-  #   return(err("predict log has errors: %s", mlr3misc::str_collapse(log[class == "error", msg])))
-  # msg = checkmate::check_class(prediction, "Prediction")
-  # if (!isTRUE(msg))
-  #   return(err(msg))
-  # if (prediction$task_type != learner$task_type)
-  #   return(err("learner and prediction have different task_type"))
-  #
-  # allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
-  # msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
-  # if (!isTRUE(msg))
-  #   return(err(msg))
-  #
-  # msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
-  # if (!isTRUE(msg))
-  #   return(err(msg))
+  allowed_types = mlr3::mlr_reflections$learner_predict_types[[learner$task_type]][[learner$predict_type]]
+  msg = checkmate::check_subset(prediction$predict_types, allowed_types, empty.ok = FALSE)
+  if (!isTRUE(msg))
+    return(err(msg))
+
+  msg = checkmate::check_subset(learner$predict_type, prediction$predict_types, empty.ok = FALSE)
+  if (!isTRUE(msg))
+    return(err(msg))
 
 #   stage = "score()"
 #   perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)

@@ -9,14 +9,16 @@ test_that("autotest VAR", {
 
 
 test_that("Basic Tests", {
+  task = tsk("petrol")
   learner = LearnerRegrForecastVAR$new()
-  tsk = mlr_tasks$get("petrol")
-  learner$train(tsk, 1:20)
-  forecast = learner$forecast(task = tsk, h=10)
-  fitted_values = learner$fitted_values(row_ids = 5:10)
-  expect_data_table(fitted_values, nrows = 6, ncols = length(tsk$target_names), types = "numeric" )
-  expect_prediction(learner$predict(tsk, 21:30))
-  expect_prediction(forecast)
-  expect_equal(length(forecast$row_ids), 10)
+  learner$train(task, row_ids = 1:6 )
+  p = learner$predict(task, row_ids = 7:11)
+  expect_prediction(p)
+
+  rr = rsmp("forecast.holdout")
+  rr$instantiate(task)
+  res = resample(task, learner, rr, store_models = TRUE)
+  res$prediction()
+  #expect_resample_result(res)
 })
 
