@@ -131,7 +131,6 @@ generate_tasks.LearnerForecast = function(learner, N = 30L) {
 
   }
 
-  #task = TaskForecast$new("proto", ts(data), target = tar_names)
   task = TaskRegrForecast$new("proto", ts(data), target = tar_names)
 
 
@@ -221,13 +220,13 @@ run_experiment = function(task, learner) {
   if (!isTRUE(msg))
     return(err(msg))
 
-#   stage = "score()"
-#   perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)
-#   if (inherits(perf, "try-error"))
-#     return(err(as.character(perf)))
-#   msg = checkmate::check_numeric(perf, any.missing = FALSE)
-#   if (!isTRUE(msg))
-#     return(err(msg))
+  stage = "score()"
+  perf = try(prediction$score(mlr3::default_measures(learner$task_type)), silent = TRUE)
+  if (inherits(perf, "try-error"))
+    return(err(as.character(perf)))
+  msg = checkmate::check_numeric(perf, any.missing = FALSE)
+  if (!isTRUE(msg))
+    return(err(msg))
 #
 #   # run sanity check on sanity task
 #   if (grepl("^sanity", task$id) && !sanity_check(prediction)) {

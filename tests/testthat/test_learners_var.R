@@ -34,3 +34,30 @@ test_that("Exogenous Variables", {
   expect_prediction_forecast(p)
 })
 
+
+
+
+test_that("needs exogenous or multivariare", {
+  data = data.table(target = 4)
+  task = TaskRegrForecast$new(id = "one row, one col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastVAR$new()
+  expect_error(learner$train(task))
+})
+
+
+
+test_that("one row, two col, if var fails, train fails", {
+  data = data.frame(target = rnorm(1), col2 = rnorm(1))
+  task = TaskRegrForecast$new(id = "one row, two col", backend = ts(data), target = c("target", "col2"))
+  learner = LearnerRegrForecastVAR$new()
+
+  test = try(VAR(data), silent = TRUE)
+  if (inherits(test, "try-error")) {
+    expect_error(learner$train(task))
+  }
+
+})
+
+
+
+
