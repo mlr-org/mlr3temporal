@@ -14,6 +14,15 @@ test_that("param_vals", {
   expect_integerish(r$test_set(10), len = 3)
   expect_resampling(r)
 
+  r$param_set$values$fixed_window=TRUE
+  r$instantiate(task)
+  expect_true(r$is_instantiated)
+  expect_identical(r$iters, 10L)
+  expect_equal(intersect (r$test_set(1),r$train_set(1)), integer(0))
+  expect_integerish(r$test_set(10), len = 3)
+  expect_integerish(r$train_set(10), len = 5)
+  expect_resampling(r)
+
   task = tsk("petrol")
   r = rsmp("forecastHoldout", ratio = 0.7)
   expect_identical(r$param_set$values$ratio, 0.7)

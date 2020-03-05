@@ -186,13 +186,19 @@ c.PredictionForecast = function(..., keep_duplicates = TRUE) {
   tab = list()
   tab$truth = map_dtr(dots, function(p) p$data$tab$truth, .fill = FALSE)
   tab$response = map_dtr(dots, function(p) p$data$tab$response, .fill = FALSE)
-  tab$se = map_dtr(dots, function(p) p$data$tab$se, .fill = FALSE)
-
+  tab$se = NULL
+  if("se" %in% predict_types[[1]]){
+    tab$se = map_dtr(dots, function(p) p$data$tab$se, .fill = FALSE)
+  }
   if (!keep_duplicates) {
     tab$truth = unique(tab$truth, by = "row_id", fromLast = TRUE)
     tab$response = unique(tab$truth, by = "row_id", fromLast = TRUE)
-    tab$se = unique(tab$truth, by = "row_id", fromLast = TRUE)
+    if(predict_types[[1]] == "se"){
+      tab$se = unique(tab$truth, by = "row_id", fromLast = TRUE)
+    }
   }
+  PredictionForecast$new(row_ids = tab$truth$row_id, truth = tab$truth[,-1],
+                         response = tab$response[,-1], se = tab$se[,-1])
 
- PredictionForecast$new(row_ids = tab$truth$row_id, truth = tab$truth[,-1], response = tab$response[,-1], se = tab$se[,-1])
+
 }

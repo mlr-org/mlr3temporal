@@ -12,5 +12,6 @@ test_that("Basic Tests", {
   tsk = mlr_tasks$get("airpassengers")
   learner$train(tsk)
   expect_prediction(learner$predict(tsk))
-
+  forecast = learner$forecast(task = tsk, h = 10)
+  expect_prediction_forecast(forecast)
 })
