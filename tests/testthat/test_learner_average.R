@@ -12,6 +12,32 @@ test_that("Basic Tests", {
   tsk = mlr_tasks$get("airpassengers")
   learner$train(tsk)
   expect_prediction(learner$predict(tsk))
-  forecast = learner$forecast(task = tsk, h = 10)
-  expect_prediction_forecast(forecast)
+
+})
+
+
+test_that("one row, one col", {
+  data = data.table(target = 4)
+  task = TaskRegrForecast$new(id = "one row, one col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAverage$new()
+  learner$train(task)
+  learner$predict(task)
+})
+
+
+
+test_that("no exogenous vars", {
+  data = data.frame(target = rnorm(1), col2 = rnorm(1))
+  task = TaskRegrForecast$new(id = "one row, two col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAverage$new()
+  expect_error(learner$train(task))
+})
+
+
+test_that("two row, one col", {
+  data = data.frame(target = rnorm(2))
+  task = TaskRegrForecast$new(id = "two row, two col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAverage$new()
+  learner$train(task)
+  learner$predict(task)
 })

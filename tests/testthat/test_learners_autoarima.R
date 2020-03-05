@@ -42,3 +42,34 @@ test_that("Expected Errors",{
   expect_error(learner$predict(tsk, c(21, 13, 1)), "consecutive row_ids")
   expect_error(learner$predict(tsk, c(22:30)), "timesteps do not match")
 })
+
+
+
+test_that("one row, one col", {
+  data = data.table(target = 4)
+  task = TaskRegrForecast$new(id = "one row, one col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAutoArima$new()
+  learner$train(task)
+  learner$predict(task)
+})
+
+
+
+test_that("one row, two col", {
+  data = data.frame(target = rnorm(1), col2 = rnorm(1))
+  task = TaskRegrForecast$new(id = "one row, two col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAutoArima$new()
+  learner$train(task)
+  learner$predict(task)
+})
+
+
+test_that("two row, one col", {
+  data = data.frame(target = rnorm(2))
+  task = TaskRegrForecast$new(id = "two row, two col", backend = ts(data), target = "target")
+  learner = LearnerRegrForecastAutoArima$new()
+  learner$train(task)
+  learner$predict(task)
+})
+
+
