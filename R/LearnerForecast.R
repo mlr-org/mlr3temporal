@@ -29,7 +29,6 @@
 LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
   public = list(
     date_span = NULL,
-    date_frequency = NULL,
     initialize = function(id, param_set = ParamSet$new(), predict_types = "response",
       feature_types = character(), properties = character(), data_formats = "data.table",
       packages = character(), man = NA_character_) {
@@ -46,9 +45,6 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
         stop("Model needs to be trained on consecutive row_ids.")
       }
       super$train(task, row_ids)
-      if(length(self$date_frequency)>1){
-        warning("The timestamps are not equidistant.")
-      }
     },
 
     predict = function(task, row_ids = NULL) {
@@ -75,6 +71,7 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
       }
       n.row = self$date_span$end$row_id - self$date_span$begin$row_id + 1
       fitted = as.data.table(stats::fitted(self$model))
+      fitted[, colnames(fitted) := lapply(.SD ,function(x) as.numeric(x))]
       n = n.row-nrow(fitted)
       fitted = rbind(
         as.data.table(
