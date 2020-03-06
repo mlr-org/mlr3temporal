@@ -2,14 +2,14 @@
 
 This package provide prediction for mlr3
 
-## mlr3forecasting Workflow
+## Descreption
+Time series forecasting is an important area of machine learning. It is important because there are so many prediction problems that involve a time component. However, while the time component adds additional information, it also makes time series problems more difficult to handle compared to many other prediction tasks. Here we will implement a time series forecasting model using machine learning workflow and then try to evaluate the model predictions. Based on workflow, datset will split into non-overlapping training and test sets and then We are interested in models (based on training set) for prediction( based on test set) using supervised learner. Evaluation will be done using resampling method for time series data.
+
 ![Overal overview of project ](link-to-image)
 
   ## Installation
 Before starting, install the following required packages:
 ```r
-set.seed(123)
-library(mlr3forecasting)
 install.packages("mlr3") ; install.packages("tsbox")
 library(mlr3);library(tsbox);
 library(ggplot2)
