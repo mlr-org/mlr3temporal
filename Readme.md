@@ -86,6 +86,8 @@ load_task_petrol = function(id = "petrol") {
   return(task)
 }
 ```
+![Multivatiate prediction](https://github.com/mlr-org/mlr3forecasting/blob/Descreption/multi%20forecasting.jpeg)
+
 ## Visualization
 
 This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
