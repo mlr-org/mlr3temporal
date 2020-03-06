@@ -94,7 +94,10 @@ To show it, we need to use the resamplind method and task which used for predict
 ```r
 autoplot(object = resample, task= TaskRegrForecast )
 ```
-
+## Contributing
+We welcome contributions!! Please search before creating a new issue and then, Feel free to add related issues .
+Forecasters try to take care to maintain the existing coding style.
+You may also contribute in several ways like creating new features, fixing bugs, improving documentation and examples or translating any document to your language.
 
 ## More resources
 
