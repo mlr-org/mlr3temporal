@@ -5,7 +5,7 @@ This package provide prediction for mlr3
 ## Descreption
 Time series forecasting is an important area of machine learning. It is important because there are so many prediction problems that involve a time component. However, while the time component adds additional information, it also makes time series problems more difficult to handle compared to many other prediction tasks. Here we will implement a time series forecasting model using machine learning workflow and then try to evaluate the model predictions. Based on workflow, datset will split into non-overlapping training and test sets and then We are interested in models (based on training set) for prediction( based on test set) using supervised learner. Evaluation will be done using resampling method for time series data.
 
-![Overal overview of project ](link-to-image)
+![Overal overview of project ](https://github.com/mlr-org/mlr3forecasting/blob/Descreption/workflow.PNG)
 
   ## Installation
 Before starting, install the following required packages:
