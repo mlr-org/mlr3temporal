@@ -137,6 +137,9 @@ load_task_petrol = function(id = "petrol") {
   return(task)
 }
 ```
+## Climate data Example
+https://github.com/mlr-org/mlr3forecasting/blob/master/attic/climate_data.R
+
 ## Visualization
 
 This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
