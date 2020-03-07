@@ -13,7 +13,7 @@ MeasureForecastMAE = R6Class("MeasureForecastMAE",
         id = id,
         range = c(0, Inf),
         minimize = TRUE,
-        packages = "mlr3forecast"
+        packages = "mlr3forecasting"
       )
     },
 
