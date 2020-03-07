@@ -9,10 +9,10 @@ Forecasting for mlr3
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
 <!-- badges: end -->
 
-This package extends the [mlr3](https://github.com/mlr-org/mlr3) package
+Time series analysis accounts for the fact that data points taken over time may have an internal structure (such as autocorrelation, trend or seasonal variation) that should be accounted for. This package extends the [mlr3](https://github.com/mlr-org/mlr3) package
 framework by timeseries prediction and resampling methods.
 
-![](man/multi_timeseries.png)<!-- -->
+![](man/multi_timeseries.png)<!-- .element height="50%" width="50%" -->
 
 ## Installation
 
@@ -90,4 +90,9 @@ resample = resample(task, learner, rr, store_models = TRUE)
 resample$predictions()
 ```
 
+## More resources
+
+For detailed information on how to get started with {mlr3} please read the 
+[mlr3 book](https://mlr3book.mlr-org.com/) and consult the
+[Vignette](https://mlr3forecasting.mlr-org.com/articles/vignettes.html) for more examples of mlr3forecasting.
 
