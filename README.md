@@ -24,21 +24,37 @@ remotes::install_github("mlr-org/mlr3forecasting")
 ```
 
 ## Forecasting
+Currently the following methods are implemented:
 
-### Forecasting tasks
+### Tasks
 
-| Name          | Code                   | Type                    |
-|---------------|------------------------|-------------------------|
-| airpassengers | `tsk("airpassengers")` | Univariate Timeseries   |
-| petrol        | `tsk("petrol")`        | Multivariate Timeseries |
+| Id                                                                                          | Code                 | Type                    |
+|---------------------------------------------------------------------------------------------|----------------------|-------------------------|
+| [airpassengers](https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_airpassengers.html) | tsk("airpassengers") | Univariate Timeseries   |
+| [petrol](https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_petrol.html)               | tsk("petrol")        | Multivariate Timeseries |
 
-### Forecasting Learners
+### Learners
 
 | Id                                                                                               | Learner               | Package                                                 |
 |--------------------------------------------------------------------------------------------------|-----------------------|---------------------------------------------------------|
 | [auto.arima](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.AutoArima.html)     | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
 | [forecast.average](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.Average.html) | Average               | base                                                    |
 | [VAR](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.VAR.html)                  | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
+
+
+### Measures
+
+| Id                                                                                           | Measure             | Package |
+|----------------------------------------------------------------------------------------------|---------------------|---------|
+| [forecast.mae](https://mlr3forecasting.mlr-org.com/reference/mlr_measures_forecast.mae.html) | Mean Absolute Error | base    |
+
+### Resampling Methods
+
+| Id                                                                                                    | Resampling                     | Package |
+|-------------------------------------------------------------------------------------------------------|--------------------------------|---------|
+| [forecastHoldout](https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html) | Holdout                        | base    |
+| [cv](https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html)              | Rolling Window CrossValidation | base    |
+
 
 
 ## Code Example
@@ -92,7 +108,7 @@ resample$predictions()
 
 ## More resources
 
-For detailed information on how to get started with {mlr3} please read the 
+For detailed information on how to get started with `mlr3` please read the 
 [mlr3 book](https://mlr3book.mlr-org.com/) and consult the
 [Vignette](https://mlr3forecasting.mlr-org.com/articles/vignettes.html) for more examples of mlr3forecasting.
 
