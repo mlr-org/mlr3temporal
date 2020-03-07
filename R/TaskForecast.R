@@ -8,9 +8,9 @@
 #' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised].
 #'
 #' @description
-#' This task specializes [Task] and [TaskSupervised] for forecasting regression problems.
+#' This task specializes [Task] and [TaskSupervised] for forecasting problems.
 #' The target column is assumed to be numeric.
-#' The `task_type` is set to `"regr"` `.
+#' The `task_type` is set to `"forecast"` `.
 
 #'
 #' @section Construction:
@@ -32,7 +32,7 @@
 #'   Name of the target column(s).
 #'
 #' @section Fields:
-#' All methods from [TaskSupervised] and [TaskRegr], and additionally:
+#' All methods from [TaskSupervised], and additionally:
 #' * `date_col` :: `character(1)`\cr
 #'   Name of the date column.
 #

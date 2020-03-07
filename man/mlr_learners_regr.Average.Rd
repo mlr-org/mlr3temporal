@@ -13,6 +13,15 @@ A LearnerRegrForecast model based on average values implemented in \code{\link[b
 }
 }
 
+\section{Methods}{
+
+See \link{LearnerForecast}, additionally:
+\itemize{
+\item \code{forecast(h = 10, task, new_data)}  :: \code{data.table}\cr
+Returns forecasts after the last training instance.
+}
+}
+
 \seealso{
 \link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}: \link[mlr3:mlr_learners]{mlr3::mlr_learners}
 }

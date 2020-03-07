@@ -8,7 +8,10 @@
 #' ```
 #' LearnerRegrForecastAverage$new()
 #' ```
-#'
+#' @section Methods:
+#' See [LearnerForecast], additionally:
+#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
+#' Returns forecasts after the last training instance.
 #' @description
 #' A LearnerRegrForecast model based on average values implemented in [base::mean()] in package \CRANpkg{base}.
 #'

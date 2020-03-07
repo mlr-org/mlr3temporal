@@ -1,148 +1,138 @@
 ---
-title: "Forecasting time series in mlr3forecasting"
+title: "Vignette - mlr3forecasting"
+author: "Cornelia Gruber"
 output: rmarkdown::html_vignette
-#toc: true
 vignette: >
   %\VignetteIndexEntry{time series forecasting in mlr3}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-## Installation
-  
-```r
-set.seed(123)
-install.packages("mlr3") ; install.packages("tsbox")
-library(mlr3);library(tsbox)
 
-```
-Install the development version from GitHub:
-  
-remotes::install_github("mlr-org/mlr3forecasting")
-
-This vignette is an introduction to performing time series forecasting in **mlr3forecasting**.
-
-## Introduction 
-Time sries analysis is a sub-field of supervised machine learning in which the aim is useing
-prior time steps to predict the next time step. By using window conversion which reconstruct data, time series datasets turn into a supervised learning problem. It is possible to increase the width of window to include more previous time steps and it can be used for more than one observation at one time which called multivariate time series.
-
-
-## Usage
-Since the temporal data are not appropriate for the most machine learning algorithms, we need to reform data to the right shape
-for machin learning algorithm.
-Basically there are two major approaches to feed timeseries data into a regression method: the "rolling window"-approach and the
-"expanding window"-approach. Both methods use the last k values as features to predict the next value(s) in the timeseries.
-
-Another method for reshaping temporal data is windowconversion using lagged and lagged differenced values. Supervised ML-Algorithms 
-usually expect the data to be in a tabular format: one row euqals one observation. The transformation to such a structure is called window-conversion.
-
-```r
-Data_ reformating = windowConversion(data, date.col="date", lag = c(1L,2L), diff.lag = c(1L), diff.diff = c(1L))
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Tasks
+## Load and prepare data
 
-Task include an arbitrary identifier for the task, used in plots and summaries. Backend allows control over how data is accessed 
-and the name of taget variable is used for calling during the regresion analysis.
-For classification, the `TaskClassif` and for regression task `TaskRegr` has been used.
 
-```r
-# create learning task
-task = TaskRegrForecast$new(id = "id",backend = "data set",target = "target variable")
-print(task) # Gives a short summary of task
+```{r load}
+library(mlr3forecasting)
+library(mlr3)
+library(ggplot2)
+library(forecast)
+
+# National Centers for Environmental Information, National Oceanic and Atmospheric Administration
+
+
+muc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/GM000004199.csv")
+nyc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/USW00094728.csv")
+
+
+
+muc = muc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
+nyc = nyc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
+
+nyc[is.na(nyc$TAVG),]
+# remove first year
+nyc = nyc[-1,]
+
+muc_start <- muc$DATE[1]
+muc_end <- muc$DATE[nrow(muc)]
+
+nyc_start <- nyc$DATE[1]
+nyc_end <- nyc$DATE[nrow(nyc)]
+
+#nyc check missing
+all_years = nyc_start:nyc_end
+missing_years = setdiff(all_years, nyc$DATE)
+
+#add missing years
+all_years = muc_start:muc_end
+missing_years = setdiff(all_years, muc$DATE)
+
+missing_years_df = data.frame(DATE = missing_years, PRCP = NA, TAVG = NA, TMIN = NA, TMAX = NA) 
+
+muc = rbind(muc, missing_years_df)
+muc = muc[order(muc$DATE),]
+
+
+head(muc)
+#keep information on station , temp and precipitation
+muc = muc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
+nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
+
+
+
+muc_ts = ts(muc, start = muc_start, end = muc_end, frequency = 1)
+nyc_ts = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1)
+
+
+
+```
+
+## Generate Task
+
+
+
+```{r task}
+task = TaskRegrForecast$new(id = "nyc",
+                            backend = nyc_ts,
+                            target = c("TAVG", "TMIN", "TMAX"))
+task$print()
 ```
 
 ## Learner
 
-Thare are two type of learner
-1- Auto.Arima Learner which is a LearnerRegrForecast for an (AR)I(MA) model implemented  in the  `forecast` package.
+```{r learner}
+learner = LearnerRegrForecastVAR$new()
+learner$train(task, row_ids = 1:140)
+learner$model
 
-```r
-# load learner and set hyperparameter
-Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
-
-#set hyperpatameters
-Learner_AutoArima$ParamInt$new$id = d
-Learner_AutoArima$ParamInt$new$default = 5
-Learner_AutoArima$ParamInt$new$lower = 0
 ```
 
-2- Vector Autoregression Learner which is a LearnerRegrForecast for a vector autoregressive model implemented in th `var` package. 
 
-```r
-# load learner and set hyperparameter
-Learner_AutoArima  = LearnerRegrForecastAutoArima$new()
+## Predict
 
-#set hyperpatameters
-Learner_AutoArima$ParamInt$new$id = lag.max
-Learner_AutoArima$ParamInt$new$tags=train
-Learner_AutoArima$ParamInt$new$lower = 1L
+```{r predict}
+p = learner$predict(task, row_ids = 141:150)
+
+p$response
+p$se
 ```
 
-## train and predict
+## Rolling Window CV
 
-# train/test split
-```r
-train_set = sample(task$nrow, 0.8 * task$nrow)
-test_set = setdiff(seq_len(task$nrow), train_set)
-```
-# train the model
-```r
-learner$train(task, row_ids = train_set)
-```
+```{r rollingwindow}
 
-# predict data
-```r
-prediction = learner$predict(task, row_ids = test_set)
+rr = rsmp("RollingWindowCV", fixed_window = F)
+rr$instantiate(task)
+resample = resample(task, learner, rr, store_models = TRUE)
+
+resample$predictions()[1:2]
 ```
 
-## Resampling
- There are two methods of resampling:
+## Plotting
 
-1-Rolling Window Cross Validation Resampling which split data based on the folds. 
-The paprameteres which used are Number of folds, size of rolling window, forecasting horizon in the test set and flag for the fixed sized window.
+```{r plot}
 
-```r
-resampling = rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
-resample = resample(task, learner, resampling)
-resample$score(measure)
+autoplot(task) + ggtitle("NYC - Yearly Climate Data")
+
+task = TaskRegrForecast$new(id = "muc",
+                            backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
+                            target = "TAVG")
+
+autoplot(task) + ggtitle("MUC - Yearly Climate Data")
+
+learner = LearnerRegrForecastAutoArima$new()
+learner$train(task, row_ids = 1:85)
+learner$model
+p = learner$predict(task, row_ids = 86:136)
+p$se
+
+
+checkresiduals(learner$model)
+
+autoplot(forecast(learner$model, xreg = as.matrix(task$data(cols = "PRCP", rows = 131:136 )))) + ylab("value")
 ```
 
-2-Holdout Resampling which split data into training and test data set based on the ratio parameter.
-
-```r
-resampling = rsmp("forecast.holdout", ratio = 0.5)
-resample = resample(task, learner, resampling)
-resample$score(measure)
-```
-
-## Univariate Forecast Example
-```r
-load_task_AirPassengers = function(id = "airpassengers") {
-  requireNamespace("datasets")
-  b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
-  task = TaskRegrForecast$new(id, b, target = "target")
-  b$hash = task$man = "mlr3forecasting::mlr_tasks_airpassengers"
-  return(task)
-}
-```
-
-## Multivariate Forecast Example
-```r
-load_task_petrol = function(id = "petrol") {
-  requireNamespace("fma")
-  b = as_data_backend.forecast(fma::petrol)
-  task = TaskRegrForecast$new(id, b, target = c("Chemicals", "Coal", "Petrol", "Vehicles"))
-  b$hash = task$man = "mlr3forecasting::mlr_tasks_petrol"
-  return(task)
-}
-```
-## Visualization
-
-This package follows the {mlr3} idea  for visualisation and use the  `autoplot()` methods.
-To show it, we need to use the resamplind method and task which used for prediction. 
-
-```r
-autoplot(object = resample, task= TaskRegrForecast )
-```
 

@@ -13,14 +13,20 @@ Learners are build around the three following key parts:
 \item A \link[paradox:ParamSet]{paradox::ParamSet} which stores meta-information about available hyperparameters, and also stores hyperparameter settings.
 \item Meta-information about the requirements and capabilities of the learner.
 \item The fitted model stored in field \verb{$model}, available after calling \verb{$train()}.
-}
-
-More classification and regression learners are implemented in the add-on package \CRANpkg{mlr3learners}.
-More (experimental) learners can be found on GitHub: \url{https://github.com/mlr3forecasting/}.
 A guide on how to extend \CRANpkg{mlr3} with custom learners can be found in the \href{https://mlr3book.mlr-org.com}{mlr3book}.
+}
 }
 \section{Construction}{
 \preformatted{LearnerForecast$new()
+}
+}
+
+\section{Methods}{
+
+See \link{Learner}, additionally:
+\itemize{
+\item \code{fitted_values(row_ids = NULL)}  :: \code{data.table}\cr
+Returns the fitted values of the trained model.
 }
 }
 

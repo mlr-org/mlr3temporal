@@ -19,11 +19,12 @@
 #' * A [paradox::ParamSet] which stores meta-information about available hyperparameters, and also stores hyperparameter settings.
 #' * Meta-information about the requirements and capabilities of the learner.
 #' * The fitted model stored in field `$model`, available after calling `$train()`.
-#'
-#' More classification and regression learners are implemented in the add-on package \CRANpkg{mlr3learners}.
-#' More (experimental) learners can be found on GitHub: \url{https://github.com/mlr3forecasting/}.
 #' A guide on how to extend \CRANpkg{mlr3} with custom learners can be found in the [mlr3book](https://mlr3book.mlr-org.com).
 #'
+#' @section Methods:
+#' See [Learner], additionally:
+#' * `fitted_values(row_ids = NULL)`  :: `data.table`\cr
+#'   Returns the fitted values of the trained model.
 #' @template seealso_learner
 #' @export
 LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
