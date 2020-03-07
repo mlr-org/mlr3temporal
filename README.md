@@ -12,6 +12,8 @@ Forecasting for mlr3
 This package extends the [mlr3](https://github.com/mlr-org/mlr3) package
 framework by timeseries prediction and resampling methods.
 
+![](man/multi_timeseries.png)<!-- -->
+
 ## Installation
 
 Install the development version from
