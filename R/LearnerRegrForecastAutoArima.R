@@ -3,7 +3,7 @@
 #' @import forecast
 #' @usage NULL
 #' @name mlr_learners_regr.AutoArima
-#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
+#' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
 #' @section Construction:
 #' ```
@@ -11,7 +11,10 @@
 #' mlr_learners$get("regr.rpart")
 #' lrn("regr.rpart")
 #' ```
-#'
+#' @section Methods:
+#' See [LearnerForecast], additionally:
+#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
+#' Returns forecasts after the last training instance.
 #' @description
 #' A LearnerRegrForecast for an (AR)I(MA) model implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
 #'

@@ -4,7 +4,7 @@
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.VAR
-#' @format [R6::R6Class] inheriting from [mlr3::LearnerRegr].
+#' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
 #' @section Construction:
 #' ```
@@ -14,7 +14,10 @@
 #' @description
 #' A LearnerRegrForecast for a vector autoregressive model implemented in [vars::VAR] in package \CRANpkg{var}.
 #'
-#'
+#' @section Methods:
+#' See [LearnerForecast], additionally:
+#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
+#' Returns forecasts after the last training instance.
 #' @template seealso_learner
 #' @export
 LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,

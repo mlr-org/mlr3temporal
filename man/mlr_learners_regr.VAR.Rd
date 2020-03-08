@@ -4,12 +4,21 @@
 \alias{mlr_learners_regr.VAR}
 \alias{LearnerRegrForecastVAR}
 \title{Vector Autoregression Learner}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:LearnerRegr]{mlr3::LearnerRegr}.}
+\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.}
 \description{
 A LearnerRegrForecast for a vector autoregressive model implemented in \link[vars:VAR]{vars::VAR} in package \CRANpkg{var}.
 }
 \section{Construction}{
 \preformatted{LearnerRegrForecastVAR$new()
+}
+}
+
+\section{Methods}{
+
+See \link{LearnerForecast}, additionally:
+\itemize{
+\item \code{forecast(h = 10, task, new_data)}  :: \code{data.table}\cr
+Returns forecasts after the last training instance.
 }
 }
 

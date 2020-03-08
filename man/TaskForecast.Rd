@@ -5,9 +5,9 @@
 \title{Forecast Task}
 \format{\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}.}
 \description{
-This task specializes \link{Task} and \link{TaskSupervised} for forecasting regression problems.
+This task specializes \link{Task} and \link{TaskSupervised} for forecasting problems.
 The target column is assumed to be numeric.
-The \code{task_type} is set to \code{"regr"} `.
+The \code{task_type} is set to \code{"forecast"} `.
 }
 \section{Construction}{
 \preformatted{t = TaskRegrForecast$new(id, backend, target, date_col)
@@ -27,7 +27,7 @@ Name of the target column(s).
 
 \section{Fields}{
 
-All methods from \link{TaskSupervised} and \link{TaskRegr}, and additionally:
+All methods from \link{TaskSupervised}, and additionally:
 \itemize{
 \item \code{date_col} :: \code{character(1)}\cr
 Name of the date column.
