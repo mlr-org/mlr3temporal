@@ -3,31 +3,18 @@
 \name{LearnerForecast}
 \alias{LearnerForecast}
 \title{LearnerForecast}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:LearnerRegr]{mlr3::LearnerRegr}.}
+\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:Learner]{mlr3::Learner}.}
 \description{
-A LearnerForecast for for learner objects like \link{LearnerRegr}.
-
-Learners are build around the three following key parts:
-\itemize{
-\item Methods \verb{$train()} and \verb{$predict()} which call internal methods.
-\item A \link[paradox:ParamSet]{paradox::ParamSet} which stores meta-information about available hyperparameters, and also stores hyperparameter settings.
-\item Meta-information about the requirements and capabilities of the learner.
-\item The fitted model stored in field \verb{$model}, available after calling \verb{$train()}.
-A guide on how to extend \CRANpkg{mlr3} with custom learners can be found in the \href{https://mlr3book.mlr-org.com}{mlr3book}.
-}
+This Learner specializes Learner for forecasting problems. The \code{task_type} is set to \code{"forecast"}.
 }
 \section{Construction}{
-\preformatted{LearnerForecast$new()
-}
+\preformatted{LearnerForecast$new(id, param_set = ParamSet$new(),
+     predict_types = character(),
+     feature_types = character(), properties = character(),
+     packages = character())
 }
 
-\section{Methods}{
-
-See \link{Learner}, additionally:
-\itemize{
-\item \code{fitted_values(row_ids = NULL)}  :: \code{data.table}\cr
-Returns the fitted values of the trained model.
-}
+For a description of the arguments, see \link[mlr3:Learner]{mlr3::Learner}.`
 }
 
 \seealso{
