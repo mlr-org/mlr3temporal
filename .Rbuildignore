@@ -16,3 +16,6 @@
 mlr-ci
 .circleci
 ^paper$
+^\.ccache$
+^\.github$
+^clang-.*
