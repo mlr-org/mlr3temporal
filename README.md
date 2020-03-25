@@ -3,8 +3,7 @@
 Forecasting for mlr3
 
 <!-- badges: start -->
-[![Build Status](https://img.shields.io/travis/mlr-org/mlr3forecasting/master?label=Linux&logo=travis&style=flat-square)](https://travis-ci.org/mlr-org/mlr3forecasting)
-[![R CMD Check via {tic}](https://img.shields.io/github/workflow/status/mlr-org/mlr3forecasting/R%20CMD%20Check%20via%20%7Btic%7D?logo=github&label=R%20CMD%20Check%20via%20{tic}&style=flat-square)](https://github.com/mlr-org/mlr3forecasting/actions)
+[![R CMD Check via {tic}](https://github.com/mlr-org/mlr3forecasting/workflows/R%20CMD%20Check%20via%20{tic}/badge.svg?branch=master)](https://github.com/mlr-org/mlr3forecasting/actions)
 [![CRAN Status Badge](https://www.r-pkg.org/badges/version-ago/mlr3forecasting)](https://cran.r-project.org/package=mlr3forecasting)
 [![codecov](https://codecov.io/gh/mlr-org/mlr3forecasting/branch/master/graph/badge.svg)](https://codecov.io/gh/mlr-org/mlr3forecasting)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
