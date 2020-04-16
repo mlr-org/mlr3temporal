@@ -19,3 +19,5 @@ mlr-ci
 ^\.ccache$
 ^\.github$
 ^clang-.*
+^\.lintr$
+^\.vscode$
