@@ -1,10 +1,11 @@
 do_package_checks(error_on = "warning")
 
-if (ci_has_env("BUILD_PKGDOWN")) {
+if (ci_on_ghactions() && ci_has_env("BUILD_PKGDOWN")) {
+  # creates pkgdown site and pushes to gh-pages branch
+  # only for the runner with the "BUILD_PKGDOWN" env var set
   get_stage("install") %>%
     add_step(step_install_github("mlr-org/mlr3pkgdowntemplate"))
   do_pkgdown(orphan = TRUE)
 }
-
 # get_stage("after_success") %>%
 #  add_code_step(system("bash ./inst/trigger-mlr3book.sh"))
