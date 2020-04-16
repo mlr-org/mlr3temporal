@@ -1,7 +1,7 @@
 Package: mlr3forecasting
 Type: Package
 Title: Forecasting for 'mlr3'
-Version: 0.1.0
+Version: 0.1.0.9000
 Date: 2019-12-11
 Authors@R:
     c(person(given = "Michel",
