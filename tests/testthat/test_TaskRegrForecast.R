@@ -50,20 +50,37 @@ test_that("task data has expected column types", {
 })
 
 test_that("construction from data frame", {
-  data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
+  data = data.frame(a = runif(1:100), b = runif(1:100), t = Sys.time() + 1:100)
   task = TaskRegrForecast$new(id = "df", backend = data, target = c("a","b"), time_col = "t")
   assert_task(task, task_properties = "multivariate")
 
-  data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
+  data = data.frame(a = runif(1:100), b = runif(1:100), t = Sys.time() + 1:100)
   task = TaskRegrForecast$new(id = "df", backend = data, target = c("a"), time_col = "t")
   assert_task(task, task_properties = "univariate")
 })
 
 test_that("Target name for single timeseries", {
 
-  task = TaskRegrForecast$new(id = "target_names", backend = mdeaths, target ="abc" )
+  task = TaskRegrForecast$new(id = "target_names", backend = mdeaths, target = "abc" )
   expect_equal(task$target_names, "abc")
 
 })
 
+test_that("rbind", {
 
+  df1 = window(mdeaths,end = c(1977,12))
+  df2 = window(mdeaths,start = c(1978,1))
+  task = TaskRegrForecast$new(id = "forecast", backend = df1)
+  task$rbind(data = df2)
+
+})
+
+
+test_that("cbind", {
+
+  df1 = mdeaths
+  df2 = fdeaths
+  task = TaskRegrForecast$new(id = "forecast", backend = df1)
+  task$cbind(data = df2)
+
+})
