@@ -3,7 +3,7 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   vignettes: vignettes.html
-last_built: 2020-05-03T05:14Z
+last_built: 2020-05-04T04:43Z
 urls:
   reference: https://mlr3forecasting.mlr-org.com/reference
   article: https://mlr3forecasting.mlr-org.com/articles
