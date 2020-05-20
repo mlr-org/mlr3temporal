@@ -3,7 +3,9 @@
 \name{mlr_tasks_airpassengers}
 \alias{mlr_tasks_airpassengers}
 \title{AirPassengers Forecast Task}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskRegrForecast}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskRegrForecast}.
+}
 \description{
 A forecasting task for the \link[datasets:AirPassengers]{datasets::AirPassengers} data set.
 }

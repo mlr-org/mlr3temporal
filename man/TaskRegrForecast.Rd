@@ -3,7 +3,9 @@
 \name{TaskRegrForecast}
 \alias{TaskRegrForecast}
 \title{Forecast Regression Task}
-\format{\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}/\link{TaskForecast}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}/\link{TaskForecast}.
+}
 \description{
 This task specializes \link{Task} and \link{TaskSupervised} for forecasting regression problems.
 The target column is assumed to be numeric.

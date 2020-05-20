@@ -4,7 +4,9 @@
 \alias{mlr_learners_regr.AutoArima}
 \alias{LearnerRegrForecastAutoArima}
 \title{Auto.Arima Learner}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.
+}
 \description{
 A LearnerRegrForecast for an (AR)I(MA) model implemented in \link[forecast:auto.arima]{forecast::auto.arima} in package \CRANpkg{forecast}.
 }

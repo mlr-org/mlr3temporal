@@ -220,5 +220,3 @@ as_data_backend.forecast = function(data) {
   require_namespaces("tsbox")
   as_data_backend(tsbox::ts_dts(data))
 }
-
-

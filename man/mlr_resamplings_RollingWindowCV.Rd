@@ -4,7 +4,9 @@
 \alias{mlr_resamplings_RollingWindowCV}
 \alias{ResamplingRollingWindowCV}
 \title{Rolling Window Cross Validation Resampling}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.
+}
 \description{
 Splits data using a \code{folds}-folds (default: 10 folds) rolling window cross-validation.
 }

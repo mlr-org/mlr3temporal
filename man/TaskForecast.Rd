@@ -3,7 +3,9 @@
 \name{TaskForecast}
 \alias{TaskForecast}
 \title{Forecast Task}
-\format{\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}.
+}
 \description{
 This task specializes \link{Task} and \link{TaskSupervised} for forecasting problems.
 The target column is assumed to be numeric.
@@ -17,7 +19,6 @@ The \code{task_type} is set to \code{"forecast"} `.
 Identifier for the task.
 \item \code{backend} :: \link{DataBackend}\cr
 Either a \link{DataBackendLong}, a object of class \code{ts} or a \code{data.frame} with specified date column
-
 or any object which is convertible to a DataBackend with \code{as_data_backend()}.
 E.g., a object of class  \code{dts} will be converted to a \link{DataBackendLong}.
 \item \code{target} :: \code{character(n)}\cr

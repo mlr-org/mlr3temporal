@@ -3,7 +3,9 @@
 \name{PredictionForecast}
 \alias{PredictionForecast}
 \title{Prediction Object for Forecasting}
-\format{\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Prediction}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Prediction}.
+}
 \description{
 This object wraps the predictions returned by a learner of class LearnerForecast, i.e.
 the predicted response and standard error.

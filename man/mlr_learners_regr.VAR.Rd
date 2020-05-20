@@ -4,7 +4,9 @@
 \alias{mlr_learners_regr.VAR}
 \alias{LearnerRegrForecastVAR}
 \title{Vector Autoregression Learner}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.
+}
 \description{
 A LearnerRegrForecast for a vector autoregressive model implemented in \link[vars:VAR]{vars::VAR} in package \CRANpkg{var}.
 }
