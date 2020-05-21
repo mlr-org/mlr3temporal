@@ -3,7 +3,9 @@
 \name{MeasureForecast}
 \alias{MeasureForecast}
 \title{Forecast Regression Measure}
-\format{\link[R6:R6Class]{R6::R6Class} object inheriting from \link[mlr3:Measure]{mlr3::Measure}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} object inheriting from \link[mlr3:Measure]{mlr3::Measure}.
+}
 \description{
 This measure specializes \link[mlr3:Measure]{mlr3::Measure} for forecast regression problems.
 The \code{task_type} is set to \code{"forecast"}.

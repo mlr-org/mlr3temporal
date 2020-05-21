@@ -4,7 +4,9 @@
 \alias{mlr_learners_regr.average}
 \alias{LearnerRegrForecastAverage}
 \title{Average Learner}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3forecasting:LearnerForecast]{mlr3forecasting::LearnerForecast}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3forecasting:LearnerForecast]{mlr3forecasting::LearnerForecast}.
+}
 \description{
 A LearnerRegrForecast model based on average values implemented in \code{\link[base:mean]{base::mean()}} in package \CRANpkg{base}.
 }

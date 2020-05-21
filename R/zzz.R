@@ -1,4 +1,4 @@
-#' @rawNamespace import(data.table, except = transpose)
+#' @import data.table
 #' @import paradox
 #' @import mlr3misc
 #' @import checkmate
@@ -14,13 +14,14 @@ NULL
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
-  x$task_types = setkeyv(rbind(x$task_types,
-    data.table(type = "forecast",
+  x$task_types = rbind(x$task_types, data.table(
+      type = "forecast",
       package = "mlr3forecasting",
       task = "TaskRegrForecast",
       learner = "LearnerRegrForecast",
       prediction = "PredictionRegrForecast",
-      measure = "MeasureForecast")),"type")
+      measure = "MeasureForecast"))
+  setkeyv(x$task_types, "type")
   x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr,
                                         c("univariate", "multivariate", "exogenous", "missings")))
   x$task_col_roles$forecast = x$task_col_roles$regr

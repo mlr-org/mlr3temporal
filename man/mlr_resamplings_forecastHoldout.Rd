@@ -4,7 +4,9 @@
 \alias{mlr_resamplings_forecastHoldout}
 \alias{ResamplingForecastHoldout}
 \title{Forecast Holdout Resampling}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.
+}
 \description{
 Splits data into a training set and a test set.
 Parameter \code{ratio} determines the ratio of observation going into the training set (default: 2/3).

@@ -4,7 +4,9 @@
 \alias{mlr_measures_forecast.mae}
 \alias{MeasureForecastMAE}
 \title{Mean Absolute Error Measure}
-\format{\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecast}.}
+\format{
+\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecast}.
+}
 \description{
 Mean Absolute Error Measure
 }

@@ -3,7 +3,9 @@
 \name{LearnerForecast}
 \alias{LearnerForecast}
 \title{LearnerForecast}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:Learner]{mlr3::Learner}.}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:Learner]{mlr3::Learner}.
+}
 \description{
 This Learner specializes Learner for forecasting problems. The \code{task_type} is set to \code{"forecast"}.
 }

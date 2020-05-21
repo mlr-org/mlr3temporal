@@ -3,7 +3,9 @@
 \name{DataBackendLong}
 \alias{DataBackendLong}
 \title{DataBackend}
-\format{\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:DataBackend]{mlr3::DataBackend}}
+\format{
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:DataBackend]{mlr3::DataBackend}
+}
 \description{
 DataBackend for timeseries in long-format
 
