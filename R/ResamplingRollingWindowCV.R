@@ -76,7 +76,7 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
   ),
 
   private = list(
-    .sample = function(ids) {
+    .sample = function(ids, ...) {
       ids = sort(ids)
       if(self$param_set$values$fixed_window){
         train_start =

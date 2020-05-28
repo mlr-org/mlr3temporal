@@ -60,7 +60,7 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resam
   ),
 
   private = list(
-    .sample = function(ids) {
+    .sample = function(ids, ...) {
       nr = round(length(ids) * self$param_set$values$ratio)
       ii = ids[1:nr]
       list(train = ii, test = setdiff(ids, ii))
