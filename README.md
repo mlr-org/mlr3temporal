@@ -5,8 +5,7 @@ Forecasting for mlr3
 
 <!-- badges: start -->
 
-[![R CMD Check via
-{tic}](https://github.com/mlr-org/mlr3forecasting/workflows/R%20CMD%20Check%20via%20%7Btic%7D/badge.svg?branch=master)](https://github.com/mlr-org/mlr3forecasting/actions)
+[![tic](https://github.com/mlr-org/mlr3forecasting/workflows/tic/badge.svg?branch=master)](https://github.com/mlr-org/mlr3forecasting/actions)
 [![CRAN Status
 Badge](https://www.r-pkg.org/badges/version-ago/mlr3forecasting)](https://cran.r-project.org/package=mlr3forecasting)
 [![codecov](https://codecov.io/gh/mlr-org/mlr3forecasting/branch/master/graph/badge.svg)](https://codecov.io/gh/mlr-org/mlr3forecasting)
