@@ -254,32 +254,32 @@
 <pre><code>## [[1]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      28      11.99       8.28      15.70      11.14448      7.211087
-##      29      12.80       9.32      16.28      11.06162      7.145681
-##      30      12.19       8.49      15.89      11.02056      7.090468
-##      31      12.31       8.40      16.22      11.02657      7.101719
-##      32      11.35       7.85      14.85      10.99440      7.080405
+##      14      10.09       6.24      13.94      11.98072      8.218928
+##      15      11.24       7.55      14.94      11.02227      7.011148
+##      16      10.31       6.37      14.25      11.24611      7.325380
+##      17      10.70       6.58      14.82      11.19579      7.265850
+##      18      10.52       6.43      14.61      11.05602      7.096889
 ##  response.TMAX
-##       15.07246
-##       14.97793
-##       14.94836
-##       14.95026
-##       14.90721
+##       15.73622
+##       15.03634
+##       15.16343
+##       15.12523
+##       15.01300
 ## 
 ## [[2]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      31      12.31       8.40      16.22      11.70070      7.889993
-##      32      11.35       7.85      14.85      11.51987      7.705001
-##      33      11.65       8.10      15.19      11.51270      7.721152
-##      34      11.67       8.12      15.23      11.62224      7.877671
-##      35      10.48       6.75      14.22      11.46029      7.630023
+##      16      10.31       6.37      14.25      11.23162      7.396733
+##      17      10.70       6.58      14.82      11.00973      7.099333
+##      18      10.52       6.43      14.61      10.98880      7.066307
+##      19       9.69       5.70      13.67      11.04921      7.113089
+##      20      11.55       7.76      15.34      11.10423      7.151107
 ##  response.TMAX
-##       15.51076
-##       15.33446
-##       15.30415
-##       15.36730
-##       15.28941</code></pre>
+##       15.06068
+##       14.92045
+##       14.90994
+##       14.98654
+##       15.05885</code></pre>
 </div>
 <div id="plotting" class="section level2">
 <h2 class="hasAnchor">
@@ -292,8 +292,9 @@
                             <span class="kw">target</span> <span class="kw">=</span> <span class="st">"TAVG"</span>)
 
 <span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="no">task</span>) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"MUC - Yearly Climate Data"</span>)</pre></body></html></div>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="vignettes_files/figure-html/plot-2.png" width="700"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">learner</span> <span class="kw">=</span> <span class="no">LearnerRegrForecastAutoArima</span>$<span class="fu">new</span>()
+<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">learner</span> <span class="kw">=</span> <span class="no">LearnerRegrForecastAutoArima</span>$<span class="fu">new</span>()
 <span class="no">learner</span>$<span class="fu">train</span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">85</span>)
 <span class="no">learner</span>$<span class="no">model</span></pre></body></html></div>
 <pre><code>## Series: task$data(rows = task$row_ids, cols = task$target_names) 
@@ -306,12 +307,12 @@
 ## 
 ## sigma^2 estimated as 0.4615:  log likelihood=-80.94
 ## AIC=171.88   AICc=172.64   BIC=184.1</code></pre>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">p</span> <span class="kw">=</span> <span class="no">learner</span>$<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">86</span>:<span class="fl">136</span>)
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">p</span> <span class="kw">=</span> <span class="no">learner</span>$<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">86</span>:<span class="fl">136</span>)
 <span class="no">p</span>$<span class="no">se</span></pre></body></html></div>
 <pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
 ## [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
 ## [51] NA</code></pre>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/forecast/man/checkresiduals.html">checkresiduals</a></span>(<span class="no">learner</span>$<span class="no">model</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/forecast/man/checkresiduals.html">checkresiduals</a></span>(<span class="no">learner</span>$<span class="no">model</span>)</pre></body></html></div>
 <p><img src="vignettes_files/figure-html/plot-3.png" width="700"></p>
 <pre><code>## 
 ##  Ljung-Box test
@@ -320,7 +321,7 @@
 ## Q* = 4.9348, df = 6, p-value = 0.5522
 ## 
 ## Model df: 4.   Total lags used: 10</code></pre>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="no">learner</span>$<span class="no">model</span>, <span class="kw">xreg</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">task</span>$<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="st">"PRCP"</span>, <span class="kw">rows</span> <span class="kw">=</span> <span class="fl">131</span>:<span class="fl">136</span> )))) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="no">learner</span>$<span class="no">model</span>, <span class="kw">xreg</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">task</span>$<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="st">"PRCP"</span>, <span class="kw">rows</span> <span class="kw">=</span> <span class="fl">131</span>:<span class="fl">136</span> )))) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)</pre></body></html></div>
 <p><img src="vignettes_files/figure-html/plot-4.png" width="700"></p>
 </div>
   </div>
