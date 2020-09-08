@@ -147,7 +147,7 @@ The task_type is set to &quot;forecast&quot; `." />
     </div>
 
     <div class="ref-description">
-    <p>This task specializes Task and TaskSupervised for forecasting problems.
+    <p>This task specializes <a href='https://mlr3.mlr-org.com/reference/Task.html'>Task</a> and <a href='https://mlr3.mlr-org.com/reference/TaskSupervised.html'>TaskSupervised</a> for forecasting problems.
 The target column is assumed to be numeric.
 The <code>task_type</code> is set to <code>"forecast"</code> `.</p>
     </div>
@@ -156,17 +156,18 @@ The <code>task_type</code> is set to <code>"forecast"</code> `.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6::R6Class</a> object inheriting from Task/TaskSupervised.</p>
+    <p><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6::R6Class</a> object inheriting from <a href='https://mlr3.mlr-org.com/reference/Task.html'>Task</a>/<a href='https://mlr3.mlr-org.com/reference/TaskSupervised.html'>TaskSupervised</a>.</p>
     <h2 class="hasAnchor" id="construction"><a class="anchor" href="#construction"></a>Construction</h2>
 
     
-<pre><span class='no'>t</span> <span class='kw'>=</span> <span class='no'>TaskRegrForecast</span>$<span class='fu'>new</span>(<span class='no'>id</span>, <span class='no'>backend</span>, <span class='no'>target</span>, <span class='no'>date_col</span>)</pre>
+<pre><span class='kw'>t</span> <span class='op'>=</span> <span class='kw'>TaskRegrForecast</span><span class='op'>$</span><span class='fu'>new</span>(<span class='kw'>id</span>, <span class='kw'>backend</span>, <span class='kw'>target</span>, <span class='kw'>date_col</span>)
+</pre>
 <ul>
 <li><p><code>id</code> :: <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
 Identifier for the task.</p></li>
-<li><p><code>backend</code> :: DataBackend<br />
+<li><p><code>backend</code> :: <a href='https://mlr3.mlr-org.com/reference/DataBackend.html'>DataBackend</a><br />
 Either a <a href='DataBackendLong.html'>DataBackendLong</a>, a object of class <code>ts</code> or a <code>data.frame</code> with specified date column
-or any object which is convertible to a DataBackend with <code>as_data_backend()</code>.
+or any object which is convertible to a DataBackend with <code><a href='https://mlr3.mlr-org.com/reference/as_data_backend.html'>as_data_backend()</a></code>.
 E.g., a object of class  <code>dts</code> will be converted to a <a href='DataBackendLong.html'>DataBackendLong</a>.</p></li>
 <li><p><code>target</code> :: <code><a href='https://rdrr.io/r/base/character.html'>character(n)</a></code><br />
 Name of the target column(s).</p></li>
@@ -176,7 +177,7 @@ Name of the target column(s).</p></li>
 
     
 
-<p>All methods from TaskSupervised, and additionally:</p><ul>
+<p>All methods from <a href='https://mlr3.mlr-org.com/reference/TaskSupervised.html'>TaskSupervised</a>, and additionally:</p><ul>
 <li><p><code>date_col</code> :: <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
 Name of the date column.</p></li>
 </ul>
@@ -185,7 +186,7 @@ Name of the date column.</p></li>
 
     
 
-<p>See TaskSupervised, additionally:</p><ul>
+<p>See <a href='https://mlr3.mlr-org.com/reference/TaskSupervised.html'>TaskSupervised</a>, additionally:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/base/date.html'>date(row_ids = NULL)</a></code>  :: <code>data.table</code><br />
 (<code><a href='https://rdrr.io/r/base/integer.html'>integer()</a></code> | <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code>) -&gt; named <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code><br />
 Returns the <code>date</code> column.</p></li>
@@ -212,7 +213,7 @@ Returns the <code>date</code> column.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

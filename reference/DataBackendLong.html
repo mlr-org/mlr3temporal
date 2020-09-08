@@ -154,10 +154,10 @@ See DataBackendDataTable or DataBackendMatrix for exemplary implementations of t
     <p>DataBackend for timeseries in long-format</p>
 <p>Data Backends provide a layer of abstraction for various data storage systems.
 It is not recommended to work directly with the DataBackend.
-Instead, all data access is handled transparently via the Task.</p>
+Instead, all data access is handled transparently via the <a href='https://mlr3.mlr-org.com/reference/Task.html'>Task</a>.</p>
 <p>To connect to out-of-memory database management systems such as SQL servers, see <a href='https://CRAN.R-project.org/package=mlr3db'><span class="pkg">mlr3db</span></a>.</p>
 <p>The required set of fields and methods to implement a custom DataBackend is listed in the respective sections.
-See DataBackendDataTable or DataBackendMatrix for exemplary implementations of the interface.</p>
+See <a href='https://mlr3.mlr-org.com/reference/DataBackendDataTable.html'>DataBackendDataTable</a> or <a href='https://mlr3.mlr-org.com/reference/DataBackendMatrix.html'>DataBackendMatrix</a> for exemplary implementations of the interface.</p>
     </div>
 
 
@@ -169,12 +169,13 @@ See DataBackendDataTable or DataBackendMatrix for exemplary implementations of t
 
     
 
-<p>Note: This object is typically constructed via a derived classes, e.g. DataBackendDataTable or DataBackendMatrix,
-or via the S3 method <code>as_data_backend()</code>.</p><pre><span class='no'>DataBackend</span>$<span class='fu'>new</span>(<span class='no'>data</span>, <span class='kw'>primary_key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data_formats</span> <span class='kw'>=</span> <span class='st'>"data.table"</span>)</pre>
+<p>Note: This object is typically constructed via a derived classes, e.g. <a href='https://mlr3.mlr-org.com/reference/DataBackendDataTable.html'>DataBackendDataTable</a> or <a href='https://mlr3.mlr-org.com/reference/DataBackendMatrix.html'>DataBackendMatrix</a>,
+or via the S3 method <code><a href='https://mlr3.mlr-org.com/reference/as_data_backend.html'>as_data_backend()</a></code>.</p><pre><span class='kw'>DataBackend</span><span class='op'>$</span><span class='fu'>new</span>(<span class='kw'>data</span>, primary_key = <span class='kw'>NULL</span>, data_formats = <span class='st'>"data.table"</span>)
+</pre>
 <ul>
 <li><p><code>data</code> :: <code>any</code><br />
 The format of the input data depends on the specialization.
-E.g., DataBackendDataTable expects a <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> and DataBackendMatrix expects a <code><a href='https://rdrr.io/pkg/Matrix/man/Matrix.html'>Matrix::Matrix()</a></code>
+E.g., <a href='https://mlr3.mlr-org.com/reference/DataBackendDataTable.html'>DataBackendDataTable</a> expects a <code><a href='https://Rdatatable.gitlab.io/data.table/reference/data.table.html'>data.table::data.table()</a></code> and <a href='https://mlr3.mlr-org.com/reference/DataBackendMatrix.html'>DataBackendMatrix</a> expects a <code><a href='https://rdrr.io/pkg/Matrix/man/Matrix.html'>Matrix::Matrix()</a></code>
 constructed with the <a href='https://CRAN.R-project.org/package=Matrix'><span class="pkg">Matrix</span></a> package.</p></li>
 <li><p><code>primary_key</code> :: <code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code><br />
 Each DataBackend needs a way to address rows, which is done via a column of unique values, referenced here by <code>primary_key</code>.
@@ -251,7 +252,7 @@ Non-existing rows and columns are silently ignored.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

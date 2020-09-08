@@ -111,53 +111,59 @@
 <div id="load-and-prepare-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-and-prepare-data" class="anchor"></a>Load and prepare data</h2>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mlr3forecasting</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mlr3forecasting.mlr-org.com">mlr3forecasting</a></span>)
+</pre></div>
 <pre><code>## Registered S3 method overwritten by 'quantmod':
 ##   method            from
 ##   as.zoo.data.frame zoo</code></pre>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mlr3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">forecast</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mlr3.mlr-org.com">mlr3</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://pkg.robjhyndman.com/forecast">forecast</a></span>)
 
 <span class="co"># National Centers for Environmental Information, National Oceanic and Atmospheric Administration</span>
 
 
-<span class="no">muc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/GM000004199.csv"</span>)
-<span class="no">nyc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/USW00094728.csv"</span>)
+<span class="kw">muc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/GM000004199.csv"</span>)
+<span class="kw">nyc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/USW00094728.csv"</span>)
 
 
 
-<span class="no">muc</span> <span class="kw">=</span> <span class="no">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
-<span class="no">nyc</span> <span class="kw">=</span> <span class="no">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
+<span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
+<span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 
-<span class="no">nyc</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">nyc</span>$<span class="no">TAVG</span>),]</pre></body></html></div>
+<span class="kw">nyc</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">nyc</span><span class="op">$</span><span class="kw">TAVG</span>),]
+</pre></div>
 <pre><code>##     DATE   PRCP TAVG TMIN TMAX
 ## 1   1869 1149.9   NA   NA   NA
 ## 152 2020     NA   NA   NA   NA</code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># remove first year</span>
-<span class="no">nyc</span> <span class="kw">=</span> <span class="no">nyc</span>[-<span class="fl">1</span>,]
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># remove first year</span>
+<span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[<span class="op">-</span><span class="fl">1</span>,]
 
-<span class="no">muc_start</span> <span class="kw">&lt;-</span> <span class="no">muc</span>$<span class="no">DATE</span>[<span class="fl">1</span>]
-<span class="no">muc_end</span> <span class="kw">&lt;-</span> <span class="no">muc</span>$<span class="no">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">muc</span>)]
+<span class="kw">muc_start</span> <span class="op">&lt;-</span> <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fl">1</span>]
+<span class="kw">muc_end</span> <span class="op">&lt;-</span> <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">muc</span>)]
 
-<span class="no">nyc_start</span> <span class="kw">&lt;-</span> <span class="no">nyc</span>$<span class="no">DATE</span>[<span class="fl">1</span>]
-<span class="no">nyc_end</span> <span class="kw">&lt;-</span> <span class="no">nyc</span>$<span class="no">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">nyc</span>)]
+<span class="kw">nyc_start</span> <span class="op">&lt;-</span> <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fl">1</span>]
+<span class="kw">nyc_end</span> <span class="op">&lt;-</span> <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">nyc</span>)]
 
 <span class="co">#nyc check missing</span>
-<span class="no">all_years</span> <span class="kw">=</span> <span class="no">nyc_start</span>:<span class="no">nyc_end</span>
-<span class="no">missing_years</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="no">all_years</span>, <span class="no">nyc</span>$<span class="no">DATE</span>)
+<span class="kw">all_years</span> <span class="op">=</span> <span class="kw">nyc_start</span><span class="op">:</span><span class="kw">nyc_end</span>
+<span class="kw">missing_years</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="kw">all_years</span>, <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>)
 
 <span class="co">#add missing years</span>
-<span class="no">all_years</span> <span class="kw">=</span> <span class="no">muc_start</span>:<span class="no">muc_end</span>
-<span class="no">missing_years</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="no">all_years</span>, <span class="no">muc</span>$<span class="no">DATE</span>)
+<span class="kw">all_years</span> <span class="op">=</span> <span class="kw">muc_start</span><span class="op">:</span><span class="kw">muc_end</span>
+<span class="kw">missing_years</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="kw">all_years</span>, <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>)
 
-<span class="no">missing_years_df</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">DATE</span> <span class="kw">=</span> <span class="no">missing_years</span>, <span class="kw">PRCP</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">TAVG</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">TMIN</span> <span class="kw">=</span> <span class="fl">NA</span>, <span class="kw">TMAX</span> <span class="kw">=</span> <span class="fl">NA</span>)
+<span class="kw">missing_years_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(DATE = <span class="kw">missing_years</span>, PRCP = <span class="fl">NA</span>, TAVG = <span class="fl">NA</span>, TMIN = <span class="fl">NA</span>, TMAX = <span class="fl">NA</span>) 
 
-<span class="no">muc</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">muc</span>, <span class="no">missing_years_df</span>)
-<span class="no">muc</span> <span class="kw">=</span> <span class="no">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">muc</span>$<span class="no">DATE</span>),]
+<span class="kw">muc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">muc</span>, <span class="kw">missing_years_df</span>)
+<span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>),]
 
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">muc</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">muc</span>)
+</pre></div>
 <pre><code>##   DATE   PRCP TAVG TMIN  TMAX
 ## 1 1879  864.7 6.37 2.10 10.64
 ## 2 1880 1172.7 8.24 3.96 12.52
@@ -165,22 +171,26 @@
 ## 4 1882  982.6 8.22 3.80 12.63
 ## 5 1883  887.4 7.78 3.63 11.94
 ## 6 1884  801.9 8.55 4.23 12.87</code></pre>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co">#keep information on station , temp and precipitation</span>
-<span class="no">muc</span> <span class="kw">=</span> <span class="no">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
-<span class="no">nyc</span> <span class="kw">=</span> <span class="no">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="co">#keep information on station , temp and precipitation</span>
+<span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
+<span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 
 
 
-<span class="no">muc_ts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="no">muc</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="no">muc_start</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">muc_end</span>, <span class="kw">frequency</span> <span class="kw">=</span> <span class="fl">1</span>)
-<span class="no">nyc_ts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="no">nyc</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="no">nyc_start</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">nyc_end</span>, <span class="kw">frequency</span> <span class="kw">=</span> <span class="fl">1</span>)</pre></body></html></div>
+<span class="kw">muc_ts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw">muc</span>, start = <span class="kw">muc_start</span>, end = <span class="kw">muc_end</span>, frequency = <span class="fl">1</span>)
+<span class="kw">nyc_ts</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw">nyc</span>, start = <span class="kw">nyc_start</span>, end = <span class="kw">nyc_end</span>, frequency = <span class="fl">1</span>)
+</pre></div>
 </div>
 <div id="generate-task" class="section level2">
 <h2 class="hasAnchor">
 <a href="#generate-task" class="anchor"></a>Generate Task</h2>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">task</span> <span class="kw">=</span> <span class="no">TaskRegrForecast</span>$<span class="fu">new</span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"nyc"</span>,
-                            <span class="kw">backend</span> <span class="kw">=</span> <span class="no">nyc_ts</span>,
-                            <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>))
-<span class="no">task</span>$<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(id = <span class="st">"nyc"</span>,
+                            backend = <span class="kw">nyc_ts</span>,
+                            target = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>))
+<span class="kw">task</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>()
+</pre></div>
 <pre><code>## &lt;TaskRegrForecast:nyc&gt; (151 x 4)
 ## * Target: TAVG, TMIN, TMAX
 ## * Properties: multivariate
@@ -190,9 +200,11 @@
 <div id="learner" class="section level2">
 <h2 class="hasAnchor">
 <a href="#learner" class="anchor"></a>Learner</h2>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">learner</span> <span class="kw">=</span> <span class="no">LearnerRegrForecastVAR</span>$<span class="fu">new</span>()
-<span class="no">learner</span>$<span class="fu">train</span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">140</span>)
-<span class="no">learner</span>$<span class="no">model</span></pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">learner</span> <span class="op">=</span> <span class="kw">LearnerRegrForecastVAR</span><span class="op">$</span><span class="fu">new</span>()
+<span class="kw">learner</span><span class="op">$</span><span class="fu">train</span>(<span class="kw">task</span>, row_ids = <span class="fl">1</span><span class="op">:</span><span class="fl">140</span>)
+<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>
+</pre></div>
 <pre><code>## 
 ## VAR Estimation Results:
 ## ======================= 
@@ -226,9 +238,11 @@
 <div id="predict" class="section level2">
 <h2 class="hasAnchor">
 <a href="#predict" class="anchor"></a>Predict</h2>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">p</span> <span class="kw">=</span> <span class="no">learner</span>$<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">141</span>:<span class="fl">150</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="kw">p</span> <span class="op">=</span> <span class="kw">learner</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="kw">task</span>, row_ids = <span class="fl">141</span><span class="op">:</span><span class="fl">150</span>)
 
-<span class="no">p</span>$<span class="no">response</span></pre></body></html></div>
+<span class="kw">p</span><span class="op">$</span><span class="kw">response</span>
+</pre></div>
 <pre><code>##     row_id     TAVG     TMIN     TMAX
 ##  1:    141 12.18238 8.278473 16.08544
 ##  2:    142 12.39421 8.536479 16.25221
@@ -240,63 +254,73 @@
 ##  8:    148 12.10114 8.016975 16.18420
 ##  9:    149 12.30878 8.292957 16.32444
 ## 10:    150 12.28554 8.264854 16.30535</code></pre>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">p</span>$<span class="no">se</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="kw">p</span><span class="op">$</span><span class="kw">se</span>
+</pre></div>
 <pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
 </div>
 <div id="rolling-window-cv" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rolling-window-cv" class="anchor"></a>Rolling Window CV</h2>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">rr</span> <span class="kw">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span>(<span class="st">"RollingWindowCV"</span>, <span class="kw">fixed_window</span> <span class="kw">=</span> <span class="no">F</span>)
-<span class="no">rr</span>$<span class="fu">instantiate</span>(<span class="no">task</span>)
-<span class="no">resample</span> <span class="kw">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span>(<span class="no">task</span>, <span class="no">learner</span>, <span class="no">rr</span>, <span class="kw">store_models</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="kw">rr</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html">rsmp</a></span>(<span class="st">"RollingWindowCV"</span>, fixed_window = <span class="kw">F</span>)
+<span class="kw">rr</span><span class="op">$</span><span class="fu">instantiate</span>(<span class="kw">task</span>)
+<span class="kw">resample</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/resample.html">resample</a></span>(<span class="kw">task</span>, <span class="kw">learner</span>, <span class="kw">rr</span>, store_models = <span class="fl">TRUE</span>)
 
-<span class="no">resample</span>$<span class="fu">predictions</span>()[<span class="fl">1</span>:<span class="fl">2</span>]</pre></body></html></div>
+<span class="kw">resample</span><span class="op">$</span><span class="fu">predictions</span>()[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>]
+</pre></div>
 <pre><code>## [[1]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      12      11.23       7.27      15.20      10.42355      6.430590
-##      13      10.95       7.29      14.61      11.12191      7.123177
-##      14      10.09       6.24      13.94      10.75957      6.847536
-##      15      11.24       7.55      14.94      11.08152      7.038189
-##      16      10.31       6.37      14.25      10.73723      6.794939
+##      24      10.39       6.56      14.23      11.35143      7.487948
+##      25      11.64       7.91      15.37      10.99811      7.068191
+##      26      11.68       7.66      15.69      10.89502      6.954756
+##      27      12.00       8.21      15.80      10.90534      6.971313
+##      28      11.99       8.28      15.70      10.94923      7.021228
 ##  response.TMAX
-##       14.42022
-##       15.11214
-##       14.67179
-##       15.11932
-##       14.67839
+##       15.21621
+##       14.92540
+##       14.83391
+##       14.83742
+##       14.87543
 ## 
 ## [[2]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      28      11.99       8.28      15.70      11.14448      7.211087
-##      29      12.80       9.32      16.28      11.06162      7.145681
-##      30      12.19       8.49      15.89      11.02056      7.090468
-##      31      12.31       8.40      16.22      11.02657      7.101719
-##      32      11.35       7.85      14.85      10.99440      7.080405
+##      36      11.90       8.28      15.52      10.87807      6.997361
+##      37      12.77       9.18      16.35      11.04328      7.119161
+##      38      11.60       8.04      15.15      11.09452      7.235412
+##      39      12.79       9.36      16.21      11.11950      7.227102
+##      40      12.04       8.63      15.45      11.10647      7.208479
 ##  response.TMAX
-##       15.07246
-##       14.97793
-##       14.94836
-##       14.95026
-##       14.90721</code></pre>
+##       14.75446
+##       14.96702
+##       14.95257
+##       15.01089
+##       15.00336</code></pre>
 </div>
 <div id="plotting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting" class="anchor"></a>Plotting</h2>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="no">task</span>) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"NYC - Yearly Climate Data"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="kw">task</span>) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"NYC - Yearly Climate Data"</span>)
+</pre></div>
 <pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="vignettes_files/figure-html/plot-1.png" width="700"></p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">task</span> <span class="kw">=</span> <span class="no">TaskRegrForecast</span>$<span class="fu">new</span>(<span class="kw">id</span> <span class="kw">=</span> <span class="st">"muc"</span>,
-                            <span class="kw">backend</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="no">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"PRCP"</span>)], <span class="kw">start</span> <span class="kw">=</span> <span class="no">muc_start</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="no">muc_end</span>, <span class="kw">frequency</span> <span class="kw">=</span> <span class="fl">1</span>),
-                            <span class="kw">target</span> <span class="kw">=</span> <span class="st">"TAVG"</span>)
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(id = <span class="st">"muc"</span>,
+                            backend = <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"PRCP"</span>)], start = <span class="kw">muc_start</span>, end = <span class="kw">muc_end</span>, frequency = <span class="fl">1</span>),
+                            target = <span class="st">"TAVG"</span>)
 
-<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="no">task</span>) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"MUC - Yearly Climate Data"</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="kw">task</span>) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"MUC - Yearly Climate Data"</span>)
+</pre></div>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="vignettes_files/figure-html/plot-2.png" width="700"></p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">learner</span> <span class="kw">=</span> <span class="no">LearnerRegrForecastAutoArima</span>$<span class="fu">new</span>()
-<span class="no">learner</span>$<span class="fu">train</span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">85</span>)
-<span class="no">learner</span>$<span class="no">model</span></pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="kw">learner</span> <span class="op">=</span> <span class="kw">LearnerRegrForecastAutoArima</span><span class="op">$</span><span class="fu">new</span>()
+<span class="kw">learner</span><span class="op">$</span><span class="fu">train</span>(<span class="kw">task</span>, row_ids = <span class="fl">1</span><span class="op">:</span><span class="fl">85</span>)
+<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>
+</pre></div>
 <pre><code>## Series: task$data(rows = task$row_ids, cols = task$target_names) 
 ## Regression with ARIMA(0,0,2) errors 
 ## 
@@ -307,12 +331,16 @@
 ## 
 ## sigma^2 estimated as 0.4615:  log likelihood=-80.94
 ## AIC=171.88   AICc=172.64   BIC=184.1</code></pre>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">p</span> <span class="kw">=</span> <span class="no">learner</span>$<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="no">task</span>, <span class="kw">row_ids</span> <span class="kw">=</span> <span class="fl">86</span>:<span class="fl">136</span>)
-<span class="no">p</span>$<span class="no">se</span></pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit">
+<span class="kw">p</span> <span class="op">=</span> <span class="kw">learner</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(<span class="kw">task</span>, row_ids = <span class="fl">86</span><span class="op">:</span><span class="fl">136</span>)
+<span class="kw">p</span><span class="op">$</span><span class="kw">se</span>
+</pre></div>
 <pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
 ## [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
 ## [51] NA</code></pre>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/forecast/man/checkresiduals.html">checkresiduals</a></span>(<span class="no">learner</span>$<span class="no">model</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb26"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/checkresiduals.html">checkresiduals</a></span>(<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>)
+</pre></div>
 <p><img src="vignettes_files/figure-html/plot-3.png" width="700"></p>
 <pre><code>## 
 ##  Ljung-Box test
@@ -321,7 +349,9 @@
 ## Q* = 4.9348, df = 6, p-value = 0.5522
 ## 
 ## Model df: 4.   Total lags used: 10</code></pre>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="no">learner</span>$<span class="no">model</span>, <span class="kw">xreg</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">task</span>$<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="st">"PRCP"</span>, <span class="kw">rows</span> <span class="kw">=</span> <span class="fl">131</span>:<span class="fl">136</span> )))) + <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit">
+<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>, xreg = <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw">task</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(cols = <span class="st">"PRCP"</span>, rows = <span class="fl">131</span><span class="op">:</span><span class="fl">136</span> )))) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)
+</pre></div>
 <p><img src="vignettes_files/figure-html/plot-4.png" width="700"></p>
 </div>
   </div>
@@ -341,7 +371,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

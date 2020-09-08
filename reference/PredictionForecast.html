@@ -154,11 +154,12 @@ the predicted response and standard error.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6::R6Class</a> object inheriting from Prediction.</p>
+    <p><a href='https://rdrr.io/pkg/R6/man/R6Class.html'>R6::R6Class</a> object inheriting from <a href='https://mlr3.mlr-org.com/reference/Prediction.html'>Prediction</a>.</p>
     <h2 class="hasAnchor" id="construction"><a class="anchor" href="#construction"></a>Construction</h2>
 
     
-<pre><span class='no'>p</span> <span class='kw'>=</span> <span class='no'>PredictionForecast</span>$<span class='fu'>new</span>(<span class='kw'>task</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>row_ids</span> <span class='kw'>=</span> <span class='no'>task</span>$<span class='no'>row_ids</span>, <span class='kw'>truth</span> <span class='kw'>=</span> <span class='no'>task</span>$<span class='fu'>truth</span>(), <span class='kw'>response</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<pre><span class='kw'>p</span> <span class='op'>=</span> <span class='kw'>PredictionForecast</span><span class='op'>$</span><span class='fu'>new</span>(task = <span class='kw'>NULL</span>, row_ids = <span class='kw'>task</span><span class='op'>$</span><span class='kw'>row_ids</span>, truth = <span class='kw'>task</span><span class='op'>$</span><span class='fu'>truth</span>(), response = <span class='kw'>NULL</span>, se = <span class='kw'>NULL</span>)
+</pre>
 <ul>
 <li><p><code>task</code> :: <a href='TaskRegrForecast.html'>TaskRegrForecast</a><br />
 Task, used to extract defaults for <code>row_ids</code> and <code>truth</code>.</p></li>
@@ -176,7 +177,7 @@ Object of numeric standard erros that can be coerced to a data.table.</p></li>
 
     
 
-<p>All fields from Prediction, and additionally:</p><ul>
+<p>All fields from <a href='https://mlr3.mlr-org.com/reference/Prediction.html'>Prediction</a>, and additionally:</p><ul>
 <li><p><code>response</code> :: <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code><br />
 Access to the stored predicted response.</p></li>
 <li><p><code>se</code> :: <code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code><br />
@@ -188,17 +189,18 @@ Access to the stored standard error.</p></li>
 
     
 
-<p>All Methods from Prediction, and additionally:</p><ul>
+<p>All Methods from <a href='https://mlr3.mlr-org.com/reference/Prediction.html'>Prediction</a>, and additionally:</p><ul>
 <li><p><code>conf_int(level)</code><br />
 Access to the stored predicted response.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>task</span> <span class='kw'>=</span> <span class='kw pkg'>mlr3</span><span class='kw ns'>::</span><span class='fu'><a href='https://mlr3.mlr-org.com/reference/mlr_sugar.html'>tsk</a></span>(<span class='st'>"airpassengers"</span>)
-<span class='no'>learner</span><span class='kw'>=</span><span class='no'>LearnerRegrForecastAutoArima</span>$<span class='fu'>new</span>()
-<span class='no'>learner</span>$<span class='fu'>train</span>(<span class='no'>task</span>, <span class='fl'>1</span>:<span class='fl'>30</span>)
-<span class='no'>p</span><span class='kw'>=</span><span class='no'>learner</span>$<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>task</span>, <span class='fl'>31</span>:<span class='fl'>50</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>task</span> <span class='op'>=</span> <span class='kw'>mlr3</span>::<span class='fu'><a href='https://mlr3.mlr-org.com/reference/mlr_sugar.html'>tsk</a></span>(<span class='st'>"airpassengers"</span>)
+<span class='kw'>learner</span><span class='op'>=</span><span class='kw'>LearnerRegrForecastAutoArima</span><span class='op'>$</span><span class='fu'>new</span>()
+<span class='kw'>learner</span><span class='op'>$</span><span class='fu'>train</span>(<span class='kw'>task</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>30</span>)
+<span class='kw'>p</span><span class='op'>=</span><span class='kw'>learner</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='kw'>task</span>, <span class='fl'>31</span><span class='op'>:</span><span class='fl'>50</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +216,7 @@ Access to the stored predicted response.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
