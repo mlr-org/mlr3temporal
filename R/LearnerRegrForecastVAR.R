@@ -40,7 +40,28 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
       )
     },
 
-    train_internal = function(task) {
+    forecast = function(h = 10, task, new_data = NULL) {
+      if(length(task$feature_names)>0){
+        newdata = as.matrix(new_data)
+        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95, dumvar = newdata)
+      } else{
+        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95)
+      }
+      response = as.data.table(
+        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
+      )
+      se = as.data.table(
+          sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95), simplify = FALSE)
+        )
+      truth = copy(response)
+      truth[,colnames(truth) := 0]
+      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
+                                 row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
+    }
+  ), 
+
+  private = list(
+    .train = function(task) {
       span = range(task$date()[[task$date_col]])
       self$date_span =
           list(begin=list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
@@ -56,7 +77,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
       }
     },
 
-    predict_internal = function(task) {
+    .predict = function(task) {
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
@@ -98,25 +119,6 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR", inherit = LearnerForecast,
 
       p = PredictionForecast$new(task = task, response = response, se = se)
 
-    },
-
-    forecast = function(h = 10, task, new_data = NULL) {
-      if(length(task$feature_names)>0){
-        newdata = as.matrix(new_data)
-        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95, dumvar = newdata)
-      } else{
-        forecast = invoke(predict, self$model, n.ahead = h, ci=0.95)
-      }
-      response = as.data.table(
-        sapply(names(forecast$fcst), function(x) forecast$fcst[[x]][,"fcst"], simplify = FALSE)
-      )
-      se = as.data.table(
-          sapply(names(forecast$fcst), function(x) ci_to_se(width=2*forecast$fcst[[x]][,"CI"], level = 95), simplify = FALSE)
-        )
-      truth = copy(response)
-      truth[,colnames(truth) := 0]
-      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
-                                 row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
     }
   )
 )

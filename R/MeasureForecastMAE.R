@@ -15,12 +15,12 @@ MeasureForecastMAE = R6Class("MeasureForecastMAE",
         minimize = TRUE,
         packages = "mlr3forecasting"
       )
-    },
+    }
+  ), 
 
-    score_internal = function(prediction, ...) {
-
+  private = list(
+    .score = function(prediction, ...) {
       mean(colMeans(abs(prediction$truth[, -c("row_id"), with = F] - prediction$response[, -c("row_id"), with = F]), na.rm = TRUE))
-
     }
   )
 )

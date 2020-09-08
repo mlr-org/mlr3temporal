@@ -55,7 +55,31 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
       )
     },
 
-    train_internal = function(task) {
+
+    forecast = function(h = 10, task, new_data = NULL) {
+      if(length(task$feature_names)>0){
+        newdata = as.matrix(new_data)
+        forecast = invoke(forecast::forecast, self$model, xreg = newdata)
+      } else{
+        forecast = invoke(forecast::forecast, self$model, h = h)
+      }
+      response = as.data.table(as.numeric(forecast$mean))
+      colnames(response) = task$target_names
+
+      se = as.data.table(as.numeric(
+        ci_to_se(width = forecast$upper[,1] - forecast$lower[,1], level = forecast$level[1])
+      ))
+      colnames(se) = task$target_names
+
+      truth = copy(response)
+      truth[,colnames(truth) := 0]
+      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
+        row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
+    }
+  ), 
+
+  private = list(
+    .train = function(task) {
       span = range(task$date()[[task$date_col]])
       self$date_span =
         list(begin=list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
@@ -73,7 +97,7 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
       }
     },
 
-    predict_internal = function(task) {
+    .predict = function(task) {
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
@@ -110,28 +134,5 @@ LearnerRegrForecastAutoArima  = R6::R6Class("LearnerRegrForecastAutoArima ",
       }
 
       p = PredictionForecast$new(task = task, response = response, se = se)
-
-    },
-
-    forecast = function(h = 10, task, new_data = NULL) {
-      if(length(task$feature_names)>0){
-        newdata = as.matrix(new_data)
-        forecast = invoke(forecast::forecast, self$model, xreg = newdata)
-      } else{
-        forecast = invoke(forecast::forecast, self$model, h = h)
-      }
-      response = as.data.table(as.numeric(forecast$mean))
-      colnames(response) = task$target_names
-
-      se = as.data.table(as.numeric(
-        ci_to_se(width = forecast$upper[,1] - forecast$lower[,1], level = forecast$level[1])
-      ))
-      colnames(se) = task$target_names
-
-      truth = copy(response)
-      truth[,colnames(truth) := 0]
-      p = PredictionForecast$new(task, response = response, se = se, truth = truth,
-        row_ids = (self$date_span$end$row_id+1):(self$date_span$end$row_id+h) )
     }
-  )
 )
