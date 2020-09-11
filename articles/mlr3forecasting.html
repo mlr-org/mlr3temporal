@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vignette - mlr3forecasting • mlr3forecasting</title>
+<title>Time Series forecasting with mlr3 • mlr3forecasting</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <link href="../extra.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Vignette - mlr3forecasting">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Time Series forecasting with mlr3">
 <meta property="og:description" content="mlr3forecasting">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -48,17 +48,8 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/vignettes.html">Vignette - mlr3forecasting</a>
-    </li>
-  </ul>
+  <a href="../articles/mlr3forecasting.html">Get started</a>
 </li>
 <li>
   <a href="https://stackoverflow.com/questions/tagged/mlr3">
@@ -94,15 +85,15 @@
 
       
 
-      </header><script src="vignettes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="mlr3forecasting_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Vignette - mlr3forecasting</h1>
+      <h1 data-toc-skip>Time Series forecasting with mlr3</h1>
                         <h4 class="author">Cornelia Gruber</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mlr-org/mlr3forecasting/blob/master/vignettes/vignettes.Rmd"><code>vignettes/vignettes.Rmd</code></a></small>
-      <div class="hidden name"><code>vignettes.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/mlr-org/mlr3forecasting/blob/master/vignettes/mlr3forecasting.Rmd"><code>vignettes/mlr3forecasting.Rmd</code></a></small>
+      <div class="hidden name"><code>mlr3forecasting.Rmd</code></div>
 
     </div>
 
@@ -133,14 +124,14 @@
 <span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 <span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DATE"</span>, <span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 
-<span class="kw">nyc</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">nyc</span><span class="op">$</span><span class="kw">TAVG</span>),]
+<span class="kw">nyc</span>[<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">nyc</span><span class="op">$</span><span class="kw">TAVG</span>), ]
 </pre></div>
 <pre><code>##     DATE   PRCP TAVG TMIN TMAX
 ## 1   1869 1149.9   NA   NA   NA
 ## 152 2020     NA   NA   NA   NA</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="co"># remove first year</span>
-<span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[<span class="op">-</span><span class="fl">1</span>,]
+<span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[<span class="op">-</span><span class="fl">1</span>, ]
 
 <span class="kw">muc_start</span> <span class="op">&lt;-</span> <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fl">1</span>]
 <span class="kw">muc_end</span> <span class="op">&lt;-</span> <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">muc</span>)]
@@ -148,18 +139,18 @@
 <span class="kw">nyc_start</span> <span class="op">&lt;-</span> <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fl">1</span>]
 <span class="kw">nyc_end</span> <span class="op">&lt;-</span> <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>[<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">nyc</span>)]
 
-<span class="co">#nyc check missing</span>
+<span class="co"># nyc check missing</span>
 <span class="kw">all_years</span> <span class="op">=</span> <span class="kw">nyc_start</span><span class="op">:</span><span class="kw">nyc_end</span>
 <span class="kw">missing_years</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="kw">all_years</span>, <span class="kw">nyc</span><span class="op">$</span><span class="kw">DATE</span>)
 
-<span class="co">#add missing years</span>
+<span class="co"># add missing years</span>
 <span class="kw">all_years</span> <span class="op">=</span> <span class="kw">muc_start</span><span class="op">:</span><span class="kw">muc_end</span>
 <span class="kw">missing_years</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html">setdiff</a></span>(<span class="kw">all_years</span>, <span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>)
 
-<span class="kw">missing_years_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(DATE = <span class="kw">missing_years</span>, PRCP = <span class="fl">NA</span>, TAVG = <span class="fl">NA</span>, TMIN = <span class="fl">NA</span>, TMAX = <span class="fl">NA</span>) 
+<span class="kw">missing_years_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(DATE = <span class="kw">missing_years</span>, PRCP = <span class="fl">NA</span>, TAVG = <span class="fl">NA</span>, TMIN = <span class="fl">NA</span>, TMAX = <span class="fl">NA</span>)
 
 <span class="kw">muc</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">muc</span>, <span class="kw">missing_years_df</span>)
-<span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>),]
+<span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">muc</span><span class="op">$</span><span class="kw">DATE</span>), ]
 
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">muc</span>)
@@ -172,7 +163,7 @@
 ## 5 1883  887.4 7.78 3.63 11.94
 ## 6 1884  801.9 8.55 4.23 12.87</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="co">#keep information on station , temp and precipitation</span>
+<span class="co"># keep information on station , temp and precipitation</span>
 <span class="kw">muc</span> <span class="op">=</span> <span class="kw">muc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 <span class="kw">nyc</span> <span class="op">=</span> <span class="kw">nyc</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PRCP"</span>, <span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>)]
 
@@ -186,9 +177,10 @@
 <h2 class="hasAnchor">
 <a href="#generate-task" class="anchor"></a>Generate Task</h2>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(id = <span class="st">"nyc"</span>,
-                            backend = <span class="kw">nyc_ts</span>,
-                            target = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>))
+<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(
+  id = <span class="st">"nyc"</span>,
+  backend = <span class="kw">nyc_ts</span>,
+  target = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"TMIN"</span>, <span class="st">"TMAX"</span>))
 <span class="kw">task</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>()
 </pre></div>
 <pre><code>## &lt;TaskRegrForecast:nyc&gt; (151 x 4)
@@ -272,32 +264,32 @@
 <pre><code>## [[1]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      38      11.60       8.04      15.15      12.07681      8.388440
-##      39      12.79       9.36      16.21      11.67920      7.916953
-##      40      12.04       8.63      15.45      11.49567      7.683487
-##      41      11.95       8.58      15.33      11.36288      7.455107
-##      42      11.91       8.15      15.68      11.24219      7.417231
+##      33      11.65       8.10      15.19      11.84330      8.198014
+##      34      11.67       8.12      15.23      11.90489      8.281568
+##      35      10.48       6.75      14.22      11.73499      7.965172
+##      36      11.90       8.28      15.52      11.44362      7.573318
+##      37      12.77       9.18      16.35      11.25487      7.362119
 ##  response.TMAX
-##       15.76836
-##       15.44009
-##       15.30738
-##       15.26904
-##       15.06672
+##       15.48950
+##       15.52915
+##       15.50412
+##       15.31277
+##       15.14643
 ## 
 ## [[2]]
 ## &lt;PredictionForecast&gt; for 5 observations:
 ##  row_id truth.TAVG truth.TMIN truth.TMAX response.TAVG response.TMIN
-##      59      11.95       7.91      16.00      11.41584      7.245333
-##      60      12.27       7.94      16.59      11.37198      7.232170
-##      61      12.49       8.30      16.67      11.34554      7.228426
-##      62      13.20       8.98      17.42      11.32325      7.221024
-##      63      12.85       8.54      17.17      11.37456      7.298664
+##      50      12.09       8.00      16.18      11.24583      7.045228
+##      51      11.25       6.60      15.89      11.15463      7.038981
+##      52      12.69       8.02      17.37      11.05420      6.985222
+##      53      11.95       7.50      16.39      11.14027      7.126283
+##      54      11.58       7.04      16.12      11.16079      7.176310
 ##  response.TMAX
-##       15.58577
-##       15.51175
-##       15.46242
-##       15.42499
-##       15.45068</code></pre>
+##       15.44954
+##       15.27232
+##       15.12307
+##       15.15481
+##       15.14521</code></pre>
 </div>
 <div id="plotting" class="section level2">
 <h2 class="hasAnchor">
@@ -306,16 +298,17 @@
 <span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="kw">task</span>) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"NYC - Yearly Climate Data"</span>)
 </pre></div>
 <pre><code>## Warning: Removed 3 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="vignettes_files/figure-html/plot-1.png" width="700"></p>
+<p><img src="mlr3forecasting_files/figure-html/plot-1.png" width="700"></p>
 <div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(id = <span class="st">"muc"</span>,
-                            backend = <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"PRCP"</span>)], start = <span class="kw">muc_start</span>, end = <span class="kw">muc_end</span>, frequency = <span class="fl">1</span>),
-                            target = <span class="st">"TAVG"</span>)
+<span class="kw">task</span> <span class="op">=</span> <span class="kw">TaskRegrForecast</span><span class="op">$</span><span class="fu">new</span>(
+  id = <span class="st">"muc"</span>,
+  backend = <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span>(<span class="kw">muc</span>[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"TAVG"</span>, <span class="st">"PRCP"</span>)], start = <span class="kw">muc_start</span>, end = <span class="kw">muc_end</span>, frequency = <span class="fl">1</span>),
+  target = <span class="st">"TAVG"</span>)
 
 <span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="kw">task</span>) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"MUC - Yearly Climate Data"</span>)
 </pre></div>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="vignettes_files/figure-html/plot-2.png" width="700"></p>
+<p><img src="mlr3forecasting_files/figure-html/plot-2.png" width="700"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit">
 <span class="kw">learner</span> <span class="op">=</span> <span class="kw">LearnerRegrForecastAutoArima</span><span class="op">$</span><span class="fu">new</span>()
 <span class="kw">learner</span><span class="op">$</span><span class="fu">train</span>(<span class="kw">task</span>, row_ids = <span class="fl">1</span><span class="op">:</span><span class="fl">85</span>)
@@ -341,7 +334,7 @@
 <div class="sourceCode" id="cb26"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/pkg/forecast/man/checkresiduals.html">checkresiduals</a></span>(<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>)
 </pre></div>
-<p><img src="vignettes_files/figure-html/plot-3.png" width="700"></p>
+<p><img src="mlr3forecasting_files/figure-html/plot-3.png" width="700"></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -350,9 +343,9 @@
 ## 
 ## Model df: 4.   Total lags used: 10</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit">
-<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>, xreg = <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw">task</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(cols = <span class="st">"PRCP"</span>, rows = <span class="fl">131</span><span class="op">:</span><span class="fl">136</span> )))) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)
+<span class="fu"><a href="../reference/autoplot.html">autoplot</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/forecast/man/forecast.html">forecast</a></span>(<span class="kw">learner</span><span class="op">$</span><span class="kw">model</span>, xreg = <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="kw">task</span><span class="op">$</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(cols = <span class="st">"PRCP"</span>, rows = <span class="fl">131</span><span class="op">:</span><span class="fl">136</span>)))) <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span>(<span class="st">"value"</span>)
 </pre></div>
-<p><img src="vignettes_files/figure-html/plot-4.png" width="700"></p>
+<p><img src="mlr3forecasting_files/figure-html/plot-4.png" width="700"></p>
 </div>
   </div>
 
