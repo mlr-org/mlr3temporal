@@ -7,7 +7,7 @@
 \method{autoplot}{TaskForecast}(object, ...)
 }
 \arguments{
-\item{object}{(\link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}).}
+\item{object}{(\link{TaskForecast}).}
 
 \item{...}{(\code{any}):
 Additional argument, passed down to the underlying \code{geom} or plot functions.}
@@ -16,7 +16,7 @@ Additional argument, passed down to the underlying \code{geom} or plot functions
 \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object.
 }
 \description{
-Generates plots for \link[mlr3forecasting:TaskForecast]{mlr3forecasting::TaskForecast}
+Generates plots for \link{TaskForecast}
 }
 \examples{
 library(mlr3)
