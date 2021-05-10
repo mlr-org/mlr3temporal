@@ -1,5 +1,5 @@
 ---
-title: "Demo - mlr3forecasting"
+title: "Demo - mlr3temporal"
 author: "Cornelia Gruber"
 date: "20 2 2020"
 output: html_document
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r load}
-library(mlr3forecasting)
+library(mlr3temporal)
 library(mlr3)
 library(ggplot2)
 library(forecast)
@@ -29,32 +29,32 @@ nyc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access
 muc = muc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
 nyc = nyc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
 
-nyc[is.na(nyc$TAVG),]
+nyc[is.na(nyc$TAVG), ]
 # remove first year
-nyc = nyc[-1,]
+nyc = nyc[-1, ]
 
-muc_start <- muc$DATE[1]
-muc_end <- muc$DATE[nrow(muc)]
+muc_start = muc$DATE[1]
+muc_end = muc$DATE[nrow(muc)]
 
-nyc_start <- nyc$DATE[1]
-nyc_end <- nyc$DATE[nrow(nyc)]
+nyc_start = nyc$DATE[1]
+nyc_end = nyc$DATE[nrow(nyc)]
 
-#nyc check missing
+# nyc check missing
 all_years = nyc_start:nyc_end
 missing_years = setdiff(all_years, nyc$DATE)
 
-#add missing years
+# add missing years
 all_years = muc_start:muc_end
 missing_years = setdiff(all_years, muc$DATE)
 
-missing_years_df = data.frame(DATE = missing_years, PRCP = NA, TAVG = NA, TMIN = NA, TMAX = NA) 
+missing_years_df = data.frame(DATE = missing_years, PRCP = NA, TAVG = NA, TMIN = NA, TMAX = NA)
 
 muc = rbind(muc, missing_years_df)
-muc = muc[order(muc$DATE),]
+muc = muc[order(muc$DATE), ]
 
 
 head(muc)
-#keep information on station , temp and precipitation
+# keep information on station , temp and precipitation
 muc = muc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
 nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
 
@@ -62,9 +62,6 @@ nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
 
 muc_ts = ts(muc, start = muc_start, end = muc_end, frequency = 1)
 nyc_ts = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1)
-
-
-
 ```
 
 ## Generate Task
@@ -72,9 +69,11 @@ nyc_ts = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1)
 
 
 ```{r task}
-task = TaskRegrForecast$new(id = "nyc",
-                            backend = nyc_ts,
-                            target = c("TAVG", "TMIN", "TMAX"))
+task = TaskRegrForecast$new(
+  id = "nyc",
+  backend = nyc_ts,
+  target = c("TAVG", "TMIN", "TMAX")
+)
 task$print()
 ```
 
@@ -84,7 +83,6 @@ task$print()
 learner = LearnerRegrForecastVAR$new()
 learner$train(task, row_ids = 1:140)
 learner$model
-
 ```
 
 
@@ -114,9 +112,11 @@ resample$predictions()[1:2]
 
 autoplot(task) + ggtitle("NYC - Yearly Climate Data")
 
-task = TaskRegrForecast$new(id = "muc",
-                            backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
-                            target = "TAVG")
+task = TaskRegrForecast$new(
+  id = "muc",
+  backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
+  target = "TAVG"
+)
 
 autoplot(task) + ggtitle("MUC - Yearly Climate Data")
 
@@ -129,7 +129,5 @@ p$se
 
 checkresiduals(learner$model)
 
-autoplot(forecast(learner$model, xreg = as.matrix(task$data(cols = "PRCP", rows = 131:136 )))) + ylab("value")
+autoplot(forecast(learner$model, xreg = as.matrix(task$data(cols = "PRCP", rows = 131:136)))) + ylab("value")
 ```
-
-

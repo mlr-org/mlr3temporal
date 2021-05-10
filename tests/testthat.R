@@ -1,6 +1,6 @@
 if (requireNamespace("testthat", quietly = TRUE)) {
   library(testthat)
-  library(mlr3forecasting)
+  library(mlr3temporal)
 
-  test_check("mlr3forecasting")
+  test_check("mlr3temporal")
 }

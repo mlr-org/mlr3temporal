@@ -37,11 +37,11 @@ Ratio of observations to put into the training set.
 }
 
 \examples{
- #Create a task with 10 observations
+# Create a task with 10 observations
 task = mlr3::tsk("airpassengers")
 task$filter(1:10)
 
-#Instantiate Resampling
+# Instantiate Resampling
 rfho = mlr3::rsmp("forecastHoldout", ratio = 0.5)
 rfho$instantiate(task)
 

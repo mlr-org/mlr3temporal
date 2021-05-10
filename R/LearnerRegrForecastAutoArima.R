@@ -51,13 +51,10 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
         packages = "forecast",
         param_set = ps,
         properties = c("univariate", "exogenous", "missings"),
-        man = "mlr3forecasting::mlr_learners_regr.AutoArima"
+        man = "mlr3temporal::mlr_learners_regr.AutoArima"
       )
     },
-
-
     forecast = function(h = 10, task, new_data = NULL) {
-
       if (length(task$feature_names) > 0) {
         newdata = as.matrix(new_data)
         forecast = invoke(forecast::forecast, self$model, xreg = newdata)
@@ -76,15 +73,16 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
       truth[, colnames(truth) := 0]
       p = PredictionForecast$new(task,
         response = response, se = se, truth = truth,
-        row_ids = (self$date_span$end$row_id + 1):(self$date_span$end$row_id + h))
+        row_ids = (self$date_span$end$row_id + 1):(self$date_span$end$row_id + h)
+      )
     }
   ),
-
   private = list(
     .train = function(task) {
       span = range(task$date()[[task$date_col]])
       self$date_span =
-        list(begin = list(time = span[1], row_id = task$row_ids[1]), end = list(time = span[2], row_id = task$row_ids[task$nrow]))
+        list(begin = list(time = span[1], row_id = task$row_ids[1]),
+          end = list(time = span[2], row_id = task$row_ids[task$nrow]))
       pv = self$param_set$get_values(tags = "train")
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
@@ -93,14 +91,15 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
         xreg = as.matrix(task$data(cols = task$feature_names))
         invoke(forecast::auto.arima, y = task$data(
           rows = task$row_ids,
-          cols = task$target_names), xreg = xreg, .args = pv)
+          cols = task$target_names
+        ), xreg = xreg, .args = pv)
       } else {
         invoke(forecast::auto.arima, y = task$data(
           rows = task$row_ids,
-          cols = task$target_names), .args = pv)
+          cols = task$target_names
+        ), .args = pv)
       }
     },
-
     .predict = function(task) {
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
@@ -109,23 +108,25 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
       if (length(predict_ids) > 0) {
         if (length(task$feature_names) > 0) {
           newdata = as.matrix(task$data(cols = task$feature_names, rows = predict_ids))
-          response.predict = invoke(forecast::forecast, self$model, xreg = newdata)
+          response_predict = invoke(forecast::forecast, self$model, xreg = newdata)
         } else {
-          response.predict = invoke(forecast::forecast, self$model, h = length(predict_ids))
+          response_predict = invoke(forecast::forecast, self$model, h = length(predict_ids))
         }
 
-        predict.mean = as.data.table(as.numeric(response.predict$mean))
+        predict.mean = as.data.table(as.numeric(response_predict$mean))
         colnames(predict.mean) = task$target_names
         fitted.mean = self$fitted_values(fitted_ids)
         colnames(fitted.mean) = task$target_names
         response = rbind(fitted.mean, predict.mean)
         if (self$predict_type == "se") {
           predict.se = as.data.table(as.numeric(
-            ci_to_se(width = response.predict$upper[, 1] - response.predict$lower[, 1], level = response.predict$level[1])
+            ci_to_se(width = response_predict$upper[, 1] - response_predict$lower[, 1],
+              level = response_predict$level[1])
           ))
           colnames(predict.se) = task$target_names
           fitted.se = as.data.table(
-            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2), length(fitted_ids)), simplify = FALSE))
+            sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2), length(fitted_ids)), simplify = FALSE)
+          )
           se = rbind(fitted.se, predict.se)
         }
       } else {

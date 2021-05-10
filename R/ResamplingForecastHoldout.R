@@ -30,11 +30,11 @@
 #' @template seealso_resampling
 #' @export
 #' @examples
-#'  #Create a task with 10 observations
+#' # Create a task with 10 observations
 #' task = mlr3::tsk("airpassengers")
 #' task$filter(1:10)
 #'
-#' #Instantiate Resampling
+#' # Instantiate Resampling
 #' rfho = mlr3::rsmp("forecastHoldout", ratio = 0.5)
 #' rfho$instantiate(task)
 #'
@@ -45,7 +45,8 @@
 #'
 #' # Internal storage:
 #' rfho$instance # simple list
-ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resampling,
+ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout",
+  inherit = Resampling,
   public = list(
     initialize = function() {
       ps = ParamSet$new(list(
@@ -53,28 +54,24 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout", inherit = Resam
       ))
       ps$values = list(ratio = 2 / 3)
 
-      super$initialize(id = "forecastHoldout", param_set = ps, man = "mlr3forecasting::mlr_resamplings_forecastHoldout")
+      super$initialize(id = "forecastHoldout", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecastHoldout")
     },
-
     iters = 1L
   ),
-
   private = list(
     .sample = function(ids, ...) {
       nr = round(length(ids) * self$param_set$values$ratio)
       ii = ids[1:nr]
       list(train = ii, test = setdiff(ids, ii))
     },
-
     .get_train = function(i) {
       self$instance$train
     },
-
     .get_test = function(i) {
       self$instance$test
     },
-
     .combine = function(instances) {
       list(train = do.call(c, map(instances, "train")), test = do.call(c, map(instances, "test")))
-    })
+    }
+  )
 )

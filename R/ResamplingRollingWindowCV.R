@@ -39,11 +39,11 @@
 #' @template seealso_resampling
 #' @export
 #' @examples
-#'  #Create a task with 10 observations
+#' # Create a task with 10 observations
 #' task = mlr3::tsk("airpassengers")
 #' task$filter(1:20)
 #'
-#' #Instantiate Resampling
+#' # Instantiate Resampling
 #' rfho = mlr3::rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
 #' rfho$instantiate(task)
 #'
@@ -54,7 +54,8 @@
 #'
 #' # Internal storage:
 #' rfho$instance #  list
-ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resampling,
+ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
+  inherit = Resampling,
   public = list(
     initialize = function() {
       ps = ParamSet$new(list(
@@ -65,26 +66,26 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
       ))
       ps$values = list(window_size = 10L, horizon = 5L, folds = 10L, fixed_window = TRUE)
 
-      super$initialize(id = "cv", param_set = ps, man = "mlr3forecasting::mlr_resamplings_RollingWindowCV")
+      super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_RollingWindowCV")
     }
   ),
-
   active = list(
     iters = function(rhs) {
       asInteger(self$param_set$values$folds)
     }
   ),
-
   private = list(
     .sample = function(ids, ...) {
       ids = sort(ids)
-      if(self$param_set$values$fixed_window){
+      if (self$param_set$values$fixed_window) {
         train_start =
           ids[ids <= (max(ids) - self$param_set$values$horizon - self$param_set$values$window_size + 1)]
         s = sample(train_start, self$param_set$values$folds)
         s = sort(s)
-        train_ids = lapply(s,
-          function(x) x:(x + self$param_set$values$window_size - 1))
+        train_ids = lapply(
+          s,
+          function(x) x:(x + self$param_set$values$window_size - 1)
+        )
       } else {
         train_end =
           ids[ids <= (max(ids) - self$param_set$values$horizon) & ids >= self$param_set$values$window_size]
@@ -92,24 +93,22 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV", inherit = Resam
         s = sort(s)
         train_ids = lapply(s, function(x) min(ids):x)
       }
-      test_ids = lapply(train_ids,
-        function(x) (max(x)+1):(max(x)+self$param_set$values$horizon))
+      test_ids = lapply(
+        train_ids,
+        function(x) (max(x) + 1):(max(x) + self$param_set$values$horizon)
+      )
 
       list(train = train_ids, test = test_ids)
     },
-
     .get_train = function(i) {
       self$instance$train[[i]]
     },
-
     .get_test = function(i) {
       self$instance$test[[i]]
     },
-
     .combine = function(instances) {
       rbindlist(instances, use.names = TRUE)
     },
-
     deep_clone = function(name, value) {
       if (name == "instance") copy(value) else value
     }

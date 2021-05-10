@@ -15,25 +15,30 @@ register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
   x$task_types = rbind(x$task_types, data.table(
-      type = "forecast",
-      package = "mlr3forecasting",
-      task = "TaskRegrForecast",
-      learner = "LearnerRegrForecast",
-      prediction = "PredictionRegrForecast",
-      measure = "MeasureForecast"))
+    type = "forecast",
+    package = "mlr3temporal",
+    task = "TaskRegrForecast",
+    learner = "LearnerRegrForecast",
+    prediction = "PredictionRegrForecast",
+    measure = "MeasureForecast"
+  ))
   setkeyv(x$task_types, "type")
-  x$task_properties$forecast = unique(c(x$task_properties$forecast, x$task_properties$regr,
-                                        c("univariate", "multivariate", "exogenous", "missings")))
+  x$task_properties$forecast = unique(c(
+    x$task_properties$forecast, x$task_properties$regr,
+    c("univariate", "multivariate", "exogenous", "missings")
+  ))
   x$task_col_roles$forecast = x$task_col_roles$regr
   x$learner_predict_types$forecast = x$learner_predict_types$regr
-  x$learner_properties$forecast = unique(c(x$learner_properties$forecast,
-                                          x$learner_properties$regr,
-                                          c("univariate", "multivariate", "exogenous")))
+  x$learner_properties$forecast = unique(c(
+    x$learner_properties$forecast,
+    x$learner_properties$regr,
+    c("univariate", "multivariate", "exogenous")
+  ))
   x$measure_properties$forecast = x$measure_properties$regr
   x$default_measures$forecast = "forecast.mae"
   # tasks --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-  x$add("airpassengers", load_task_AirPassengers)
+  x$add("airpassengers", load_task_air_passengers)
   x$add("petrol", load_task_petrol)
 
   # learners
@@ -54,8 +59,9 @@ register_mlr3 = function() {
   x$add("forecast.mae", MeasureForecastMAE)
 }
 
-.onLoad = function(libname, pkgname) {
+.onLoad = function(libname, pkgname) { # nolint
   register_mlr3()
   setHook(packageEvent("mlr3", "onLoad"), function(...) register_mlr3(),
-    action = "append")
+    action = "append"
+  )
 }

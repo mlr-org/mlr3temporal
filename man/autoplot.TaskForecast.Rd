@@ -20,7 +20,7 @@ Generates plots for \link{TaskForecast}
 }
 \examples{
 library(mlr3)
-library(mlr3forecasting)
+library(mlr3temporal)
 library(ggplot2)
 
 task = tsk("airpassengers")

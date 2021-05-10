@@ -1,14 +1,16 @@
 
-# mlr3forecasting
+# mlr3temporal
 
-Forecasting for mlr3
+Temporal prediction / forecasting for mlr3
 
 <!-- badges: start -->
 
-[![tic](https://github.com/mlr-org/mlr3forecasting/workflows/tic/badge.svg?branch=master)](https://github.com/mlr-org/mlr3forecasting/actions)
+[![tic](https://github.com/mlr-org/mlr3temporal/workflows/tic/badge.svg?branch=main)](https://github.com/mlr-org/mlr3temporal/actions)
 [![CRAN Status
-Badge](https://www.r-pkg.org/badges/version-ago/mlr3forecasting)](https://cran.r-project.org/package=mlr3forecasting)
-[![codecov](https://codecov.io/gh/mlr-org/mlr3forecasting/branch/master/graph/badge.svg)](https://codecov.io/gh/mlr-org/mlr3forecasting)
+Badge](https://www.r-pkg.org/badges/version-ago/mlr3temporal)](https://cran.r-project.org/package=mlr3temporal)
+[![codecov](https://codecov.io/gh/mlr-org/mlr3temporal/branch/master/graph/badge.svg)](https://codecov.io/gh/mlr-org/mlr3temporal)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
 <!-- badges: end -->
 
@@ -16,7 +18,7 @@ Time series analysis accounts for the fact that data points taken over
 time may have an internal structure (such as autocorrelation, trend or
 seasonal variation) that should be accounted for. This package extends
 the [mlr3](https://github.com/mlr-org/mlr3) package framework by
-timeseries prediction and resampling methods.
+time-series prediction and resampling methods.
 
 <img src="man/figures/multi_timeseries.png" width="1318" />
 
@@ -25,7 +27,7 @@ timeseries prediction and resampling methods.
 Install the development version from GitHub:
 
 ``` r
-remotes::install_github("mlr-org/mlr3forecasting")
+remotes::install_github("mlr-org/mlr3temporal")
 ```
 
 ## Forecasting
@@ -34,37 +36,37 @@ Currently the following methods are implemented:
 
 ### Tasks
 
-| Id                                                                                          | Code                   | Type                    |
-| ------------------------------------------------------------------------------------------- | ---------------------- | ----------------------- |
-| [airpassengers](https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_airpassengers.html) | `tsk("airpassengers")` | Univariate Timeseries   |
-| [petrol](https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_petrol.html)               | `tsk("petrol")`        | Multivariate Timeseries |
+| Id                                                                                       | Code                   | Type                    |
+|------------------------------------------------------------------------------------------|------------------------|-------------------------|
+| [airpassengers](https://mlr3temporal.mlr-org.com/reference/mlr_tasks_airpassengers.html) | `tsk("airpassengers")` | Univariate Timeseries   |
+| [petrol](https://mlr3temporal.mlr-org.com/reference/mlr_tasks_petrol.html)               | `tsk("petrol")`        | Multivariate Timeseries |
 
 ### Learners
 
-| Id                                                                                               | Learner               | Package                                                 |
-| ------------------------------------------------------------------------------------------------ | --------------------- | ------------------------------------------------------- |
-| [auto.arima](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.AutoArima.html)     | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
-| [forecast.average](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.Average.html) | Average               | base                                                    |
-| [VAR](https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.VAR.html)                  | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
+| Id                                                                                            | Learner               | Package                                                 |
+|-----------------------------------------------------------------------------------------------|-----------------------|---------------------------------------------------------|
+| [auto.arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html)     | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
+| [forecast.average](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.Average.html) | Average               | base                                                    |
+| [VAR](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html)                  | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
 
 ### Measures
 
-| Id                                                                                           | Measure             | Package |
-| -------------------------------------------------------------------------------------------- | ------------------- | ------- |
-| [forecast.mae](https://mlr3forecasting.mlr-org.com/reference/mlr_measures_forecast.mae.html) | Mean Absolute Error | base    |
+| Id                                                                                        | Measure             | Package |
+|-------------------------------------------------------------------------------------------|---------------------|---------|
+| [forecast.mae](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html) | Mean Absolute Error | base    |
 
 ### Resampling Methods
 
-| Id                                                                                                    | Resampling                     | Package |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
-| [forecastHoldout](https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html) | Holdout                        | base    |
-| [cv](https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html)              | Rolling Window CrossValidation | base    |
+| Id                                                                                                 | Resampling                     | Package |
+|----------------------------------------------------------------------------------------------------|--------------------------------|---------|
+| [forecastHoldout](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html) | Holdout                        | base    |
+| [cv](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html)              | Rolling Window CrossValidation | base    |
 
 ## Code Example
 
 ``` r
 library(mlr3)
-library(mlr3forecasting)
+library(mlr3temporal)
 library(tsbox)
 
 # Univariate Timeseries
@@ -115,18 +117,10 @@ resample$predictions()
 
 For detailed information on how to get started with `mlr3` please read
 the [mlr3 book](https://mlr3book.mlr-org.com/) and consult the
-[Vignette](https://mlr3forecasting.mlr-org.com/articles/vignettes.html)
-for more examples of mlr3forecasting.
+[Vignette](https://mlr3temporal.mlr-org.com/articles/vignettes.html) for
+more examples of mlr3temporal.
 
-## Contributing to mlr3forecasting
-
-This R package is licensed under the
-[LGPL-3](https://www.gnu.org/licenses/lgpl-3.0.en.html). If you
-encounter problems using this software (lack of documentation,
-misleading or wrong documentation, unexpected behaviour, bugs, …) or
-just want to suggest features, please open an issue in the [issue
-tracker](https://github.com/mlr-org/mlr3/issues). Pull requests are
-welcome and will be included at the discretion of the maintainers.
+## Contributing to mlr3temporal
 
 Please consult the [wiki](https://github.com/mlr-org/mlr3/wiki/) for a
 [style guide](https://github.com/mlr-org/mlr3/wiki/Style-Guide), a

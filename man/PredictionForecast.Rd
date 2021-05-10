@@ -23,7 +23,7 @@ True (observed) outcome.
 \item \code{response} :: \code{numeric()}\cr
 Object of numeric response values that can be coerced to a data.table.
 \item \code{se} :: \code{numeric()}\cr
-Object of numeric standard erros that can be coerced to a data.table.
+Object of numeric standard errors that can be coerced to a data.table.
 }
 }
 
@@ -51,8 +51,8 @@ Access to the stored predicted response.
 
 \examples{
 task = mlr3::tsk("airpassengers")
-learner=LearnerRegrForecastAutoArima$new()
+learner = LearnerRegrForecastAutoArima$new()
 learner$train(task, 1:30)
-p=learner$predict(task, 31:50)
+p = learner$predict(task, 31:50)
 }
 \concept{Prediction}

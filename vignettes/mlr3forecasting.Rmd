@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r load}
-library(mlr3forecasting)
+library(mlr3temporal)
 library(mlr3)
 library(ggplot2)
 library(forecast)
@@ -36,11 +36,11 @@ nyc[is.na(nyc$TAVG), ]
 # remove first year
 nyc = nyc[-1, ]
 
-muc_start <- muc$DATE[1]
-muc_end <- muc$DATE[nrow(muc)]
+muc_start = muc$DATE[1]
+muc_end = muc$DATE[nrow(muc)]
 
-nyc_start <- nyc$DATE[1]
-nyc_end <- nyc$DATE[nrow(nyc)]
+nyc_start = nyc$DATE[1]
+nyc_end = nyc$DATE[nrow(nyc)]
 
 # nyc check missing
 all_years = nyc_start:nyc_end
@@ -75,7 +75,8 @@ nyc_ts = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1)
 task = TaskRegrForecast$new(
   id = "nyc",
   backend = nyc_ts,
-  target = c("TAVG", "TMIN", "TMAX"))
+  target = c("TAVG", "TMIN", "TMAX")
+)
 task$print()
 ```
 
@@ -117,7 +118,8 @@ autoplot(task) + ggtitle("NYC - Yearly Climate Data")
 task = TaskRegrForecast$new(
   id = "muc",
   backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
-  target = "TAVG")
+  target = "TAVG"
+)
 
 autoplot(task) + ggtitle("MUC - Yearly Climate Data")
 

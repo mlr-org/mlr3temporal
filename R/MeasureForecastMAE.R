@@ -13,14 +13,14 @@ MeasureForecastMAE = R6Class("MeasureForecastMAE",
         id = id,
         range = c(0, Inf),
         minimize = TRUE,
-        packages = "mlr3forecasting"
+        packages = "mlr3temporal"
       )
     }
-  ), 
-
+  ),
   private = list(
     .score = function(prediction, ...) {
-      mean(colMeans(abs(prediction$truth[, -c("row_id"), with = F] - prediction$response[, -c("row_id"), with = F]), na.rm = TRUE))
+      mean(colMeans(abs(prediction$truth[, -c("row_id"), with = F] -
+        prediction$response[, -c("row_id"), with = F]), na.rm = TRUE))
     }
   )
 )

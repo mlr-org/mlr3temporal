@@ -21,3 +21,4 @@ mlr-ci
 ^clang-.*
 ^\.lintr$
 ^\.vscode$
+^\.pre-commit-config\.yaml$

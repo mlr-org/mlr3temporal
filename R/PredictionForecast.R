@@ -26,7 +26,7 @@
 #'   Object of numeric response values that can be coerced to a data.table.
 #'
 #' * `se` :: `numeric()`\cr
-#'   Object of numeric standard erros that can be coerced to a data.table.
+#'   Object of numeric standard errors that can be coerced to a data.table.
 #'
 #' @section Fields:
 #' All fields from [Prediction], and additionally:
@@ -47,31 +47,31 @@
 #' @export
 #' @examples
 #' task = mlr3::tsk("airpassengers")
-#' learner=LearnerRegrForecastAutoArima$new()
+#' learner = LearnerRegrForecastAutoArima$new()
 #' learner$train(task, 1:30)
-#' p=learner$predict(task, 31:50)
-PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
+#' p = learner$predict(task, 31:50)
+PredictionForecast = R6::R6Class("PredictionForecast",
+  inherit = Prediction,
   cloneable = FALSE,
   public = list(
     initialize = function(task = NULL, row_ids = task$row_ids, truth = task$truth(), response = NULL, se = NULL) {
-
       assert_row_ids(row_ids)
       n = length(row_ids)
       self$task_type = "forecast"
-      self$predict_types = c("response","se")[c(!is.null(response), !is.null(se))]
+      self$predict_types = c("response", "se")[c(!is.null(response), !is.null(se))]
 
       truth = as.data.table(truth)
-      if(ncol(truth)==1){
+      if (ncol(truth) == 1) {
         names(truth) = task$target_names
       }
       self$data$tab$truth = data.table(
         row_id = row_ids,
-        assert_data_table(truth, types = c("numeric"), null.ok = TRUE, nrows = n,)
+        assert_data_table(truth, types = c("numeric"), null.ok = TRUE, nrows = n, )
       )
 
       if (!is.null(response)) {
         response = as.data.table(response)
-        if(ncol(response)==1){
+        if (ncol(response) == 1) {
           names(response) = task$target_names
         }
         self$data$tab$response = data.table(
@@ -82,7 +82,7 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
 
       if (!is.null(se)) {
         se = as.data.table(se)
-        if(ncol(se)==1){
+        if (ncol(se) == 1) {
           names(se) = task$target_names
         }
         self$data$tab$se = data.table(
@@ -90,13 +90,10 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
           assert_data_table(se, types = c("numeric", "logical"), null.ok = TRUE, nrows = n, any.missing = TRUE)
         )
       }
-
     },
-
     help = function() {
-      open_help("mlr3forecasting::PredictionForecast")
+      open_help("mlr3temporal::PredictionForecast")
     },
-
     print = function(...) {
       data = as.data.table(self)
       if (!nrow(data)) {
@@ -106,41 +103,38 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
         print(data, nrows = 10L, topn = 3L, class = FALSE, row.names = FALSE, print.keys = FALSE)
       }
     },
-
-    conf_int = function(level = 95){
+    conf_int = function(level = 95) {
       assert_integerish(level, lower = 0, upper = 100)
-      lapply(colnames(self$response)[-1], function(x)
+      lapply(colnames(self$response)[-1], function(x) {
         setnames(
-          data.table(upper = self$response[, ..x]  + se_to_ci(se = self$se[, ..x], level),
-            lower = self$response[, ..x]  - se_to_ci(se = self$se[, ..x], level)
-            ),
-          c(paste0(eval(x),"_upper_", eval(level)),
-            paste0(eval(x),"_lower_", eval(level))
-          ))
-      )
+          data.table(
+            upper = self$response[, ..x] + se_to_ci(se = self$se[, ..x], level),
+            lower = self$response[, ..x] - se_to_ci(se = self$se[, ..x], level)
+          ),
+          c(
+            paste0(eval(x), "_upper_", eval(level)),
+            paste0(eval(x), "_lower_", eval(level))
+          )
+        )
+      })
     }
   ),
-
   active = list(
-
     row_ids = function() self$data$tab$truth$row_id,
     truth = function() self$data$tab$truth,
-
     response = function() {
       self$data$tab$response %??% rep(NA_real_, length(self$data$tab$truth$row_id))
     },
-
     se = function() {
       self$data$tab$se %??% rep(NA_real_, length(self$data$tab$truth$row_id))
     },
-
     missing = function() {
       miss = logical(nrow(self$data$tab$truth))
       if ("response" %in% self$predict_types) {
-        miss[which(is.na(self$response[,-1]), arr.ind = TRUE)[1]] = TRUE
+        miss[which(is.na(self$response[, -1]), arr.ind = TRUE)[1]] = TRUE
       }
       if ("se" %in% self$predict_types) {
-        miss[which(is.na(self$se[,-1]), arr.ind = TRUE)[1]] = TRUE
+        miss[which(is.na(self$se[, -1]), arr.ind = TRUE)[1]] = TRUE
       }
 
       self$data$tab$truth$row_id[miss]
@@ -150,19 +144,18 @@ PredictionForecast = R6::R6Class("PredictionForecast", inherit = Prediction,
 
 
 #' @export
-as.data.table.PredictionForecast = function(x, ...) {
-
+as.data.table.PredictionForecast = function(x, ...) { # nolint
   tab = copy(x$data$tab$truth)
-  setnames(tab,names(tab)[-1],paste0("truth.", names(tab)[-1]),skip_absent=TRUE)
+  setnames(tab, names(tab)[-1], paste0("truth.", names(tab)[-1]), skip_absent = TRUE)
 
-  if("response" %in% x$predict_types){
-    response = as.data.table(x$data$tab$response[,-1])
+  if ("response" %in% x$predict_types) {
+    response = as.data.table(x$data$tab$response[, -1])
     setnames(response, names(response), paste0("response.", names(response)))
     tab = rcbind(tab, response)
   }
 
-  if("se" %in% x$predict_types){
-    se = as.data.table(x$data$tab$se[,-1])
+  if ("se" %in% x$predict_types) {
+    se = as.data.table(x$data$tab$se[, -1])
     setnames(se, names(se), paste0("se.", names(se)))
     tab = rcbind(tab, se)
   }
@@ -187,18 +180,18 @@ c.PredictionForecast = function(..., keep_duplicates = TRUE) {
   tab$truth = map_dtr(dots, function(p) p$data$tab$truth, .fill = FALSE)
   tab$response = map_dtr(dots, function(p) p$data$tab$response, .fill = FALSE)
   tab$se = NULL
-  if("se" %in% predict_types[[1]]){
+  if ("se" %in% predict_types[[1]]) {
     tab$se = map_dtr(dots, function(p) p$data$tab$se, .fill = FALSE)
   }
   if (!keep_duplicates) {
     tab$truth = unique(tab$truth, by = "row_id", fromLast = TRUE)
     tab$response = unique(tab$truth, by = "row_id", fromLast = TRUE)
-    if(predict_types[[1]] == "se"){
+    if (predict_types[[1]] == "se") {
       tab$se = unique(tab$truth, by = "row_id", fromLast = TRUE)
     }
   }
-  PredictionForecast$new(row_ids = tab$truth$row_id, truth = tab$truth[,-1],
-                         response = tab$response[,-1], se = tab$se[,-1])
-
-
+  PredictionForecast$new(
+    row_ids = tab$truth$row_id, truth = tab$truth[, -1],
+    response = tab$response[, -1], se = tab$se[, -1]
+  )
 }
