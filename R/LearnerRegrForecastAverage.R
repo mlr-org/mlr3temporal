@@ -51,8 +51,8 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
       mean(x)
     },
     .predict = function(task) {
-      response = rep(self$model, task$nrow)
-      PredictionForecast$new(task = task, response = response)
+      response = rep(self$model, length(task$row_ids))
+      list(response = response)
     }
   )
 )
