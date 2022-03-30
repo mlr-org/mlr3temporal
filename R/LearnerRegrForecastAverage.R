@@ -28,6 +28,7 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
         packages = "base",
         man = "mlr3temporal::mlr_learners_regr.average",
         properties = c("univariate"),
+        feature_types = c("logical", "integer", "numeric", "factor", "ordered")
       )
     },
     forecast = function(h = 10, task, new_data = NULL) {
@@ -48,10 +49,10 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
         list(begin = list(time = span[1], row_id = task$row_ids[1]),
           end = list(time = span[2], row_id = task$row_ids[task$nrow]))
       x = task$data(cols = task$target_names)[[1L]]
-      mean(x)
+      list("mean" = mean(x))
     },
     .predict = function(task) {
-      response = rep(self$model, length(task$row_ids))
+      response = rep(self$model$mean, length(task$row_ids))
       list(response = response)
     }
   )

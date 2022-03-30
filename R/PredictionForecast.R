@@ -54,42 +54,46 @@ PredictionForecast = R6::R6Class("PredictionForecast",
   inherit = Prediction,
   cloneable = FALSE,
   public = list(
-    initialize = function(task = NULL, row_ids = task$row_ids, truth = task$truth(), response = NULL, se = NULL) {
-      assert_row_ids(row_ids)
-      n = length(row_ids)
-      self$task_type = "forecast"
-      self$predict_types = c("response", "se")[c(!is.null(response), !is.null(se))]
+    initialize = function(task = NULL, row_ids = task$row_ids, truth = task$truth(), response = NULL, se = NULL, distr = NULL, check = TRUE) {
+    
+      tn = task$target_names %??% "target"
 
-      truth = as.data.table(truth)
-      if (ncol(truth) == 1) {
-        names(truth) = task$target_names
+      if (!is.null(truth)) {
+        truth = as.data.table(truth)
+        if (ncol(truth) == 1) {
+          colnames(truth) = tn
+        }
       }
-      self$data$tab$truth = data.table(
-        row_id = row_ids,
-        assert_data_table(truth, types = c("numeric"), null.ok = TRUE, nrows = n, )
-      )
-
       if (!is.null(response)) {
         response = as.data.table(response)
         if (ncol(response) == 1) {
-          names(response) = task$target_names
+          names(response) = tn
         }
-        self$data$tab$response = data.table(
-          row_id = row_ids,
-          assert_data_table(response, types = c("numeric", "logical"), null.ok = TRUE, nrows = n, any.missing = TRUE)
-        )
       }
-
       if (!is.null(se)) {
         se = as.data.table(se)
         if (ncol(se) == 1) {
-          names(se) = task$target_names
+          names(se) = tn
         }
-        self$data$tab$se = data.table(
-          row_id = row_ids,
-          assert_data_table(se, types = c("numeric", "logical"), null.ok = TRUE, nrows = n, any.missing = TRUE)
-        )
       }
+      if (!is.null(distr)) {
+        distr = as.data.table(distr)
+        if (ncol(distr) == 1) {
+          names(distr) = tn
+        }
+      }
+      pdata = list(row_ids = row_ids, truth = truth, response = response, se = se, distr = distr)
+      pdata = discard(pdata, is.null)
+      class(pdata) = c("PredictionDataForecast", "PredictionData")
+
+      if (check) {
+        pdata = check_prediction_data(pdata)
+      }
+
+      self$task_type = "forecast"
+      self$predict_types = c("response", "se", "distr")[c(!is.null(response), !is.null(se), !is.null(distr))]
+      self$man = "mlr3temporal::PredictionForecast"
+      self$data = pdata
     },
     help = function() {
       open_help("mlr3temporal::PredictionForecast")
@@ -120,24 +124,24 @@ PredictionForecast = R6::R6Class("PredictionForecast",
     }
   ),
   active = list(
-    row_ids = function() self$data$tab$truth$row_id,
-    truth = function() self$data$tab$truth,
+    row_ids = function() self$data$row_ids,
+    truth = function() self$data$truth,
     response = function() {
-      self$data$tab$response %??% rep(NA_real_, length(self$data$tab$truth$row_id))
+      self$data$response %??% rep(NA_real_, length(self$data$tab$truth$row_id))
     },
     se = function() {
-      self$data$tab$se %??% rep(NA_real_, length(self$data$tab$truth$row_id))
+      self$data$se %??% rep(NA_real_, length(self$data$tab$truth$row_id))
     },
     missing = function() {
-      miss = logical(nrow(self$data$tab$truth))
+      miss = logical(nrow(self$data$truth))
       if ("response" %in% self$predict_types) {
-        miss[which(is.na(self$response[, -1]), arr.ind = TRUE)[1]] = TRUE
+        miss[apply(self$response, 1, anyNA)] = TRUE
       }
       if ("se" %in% self$predict_types) {
-        miss[which(is.na(self$se[, -1]), arr.ind = TRUE)[1]] = TRUE
+        miss[apply(self$se, 1, anyNA)] = TRUE
       }
 
-      self$data$tab$truth$row_id[miss]
+      self$row_ids[miss]
     }
   )
 )
@@ -145,21 +149,16 @@ PredictionForecast = R6::R6Class("PredictionForecast",
 
 #' @export
 as.data.table.PredictionForecast = function(x, ...) { # nolint
-  tab = copy(x$data$tab$truth)
-  setnames(tab, names(tab)[-1], paste0("truth.", names(tab)[-1]), skip_absent = TRUE)
 
-  if ("response" %in% x$predict_types) {
-    response = as.data.table(x$data$tab$response[, -1])
-    setnames(response, names(response), paste0("response.", names(response)))
-    tab = rcbind(tab, response)
-  }
-
-  if ("se" %in% x$predict_types) {
-    se = as.data.table(x$data$tab$se[, -1])
-    setnames(se, names(se), paste0("se.", names(se)))
-    tab = rcbind(tab, se)
-  }
-
+  # Prefix entries
+  tab = map(c("truth", x$predict_types), function(type) {
+    xs = copy(x$data[[type]])
+    if (length(names(xs)) > 1) {
+      setnames(xs, names(xs), paste0(type, ".", names(xs)))
+    }
+    return(xs)
+  })
+  tab = do.call('cbind', c(data.table("row_ids" = x$data[["row_ids"]]), tab))
   return(tab)
 }
 

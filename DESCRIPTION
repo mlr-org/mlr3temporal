@@ -73,7 +73,6 @@ Collate:
     'TaskRegrForecast.R'
     'TaskRegrForecastAirPassengers.R'
     'TaskRegrForecastPetrol.R'
-    'as_prediction.R'
     'assertions.R'
     'autoplot.R'
     'helper.R'

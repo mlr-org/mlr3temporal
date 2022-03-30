@@ -138,7 +138,7 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
         }
       }
 
-      p = PredictionForecast$new(task = task, response = response, se = se)
+      list(response = response, se = se)
     }
   )
 )

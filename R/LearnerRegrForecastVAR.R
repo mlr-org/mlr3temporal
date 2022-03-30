@@ -121,7 +121,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
         }
       }
 
-      p = PredictionForecast$new(task = task, response = response, se = se)
+      list(response = response, se = se)
     }
   )
 )

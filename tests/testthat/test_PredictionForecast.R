@@ -2,7 +2,7 @@ context("PredictionForecast")
 
 test_that("Construction", {
   task = tsk("airpassengers")
-  p = PredictionForecast$new(row_ids = task$row_ids, truth = task$truth(), response = task$truth())
+  p = PredictionForecast$new(task = task, row_ids = task$row_ids, truth = task$truth(), response = task$truth())
   expect_prediction_forecast(p)
 })
 
