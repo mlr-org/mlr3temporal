@@ -1,6 +1,5 @@
 #' @title Plot for Forecast Tasks
 #'
-#' @import ggplot2
 #'
 #' @description
 #' Generates plots for [mlr3temporal::TaskForecast]

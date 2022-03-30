@@ -1,4 +1,4 @@
-#' @title Forecast Regression Task
+#' @title Forecasting Task (Regression)
 #'
 #' @import data.table
 #' @import mlr3
@@ -8,9 +8,8 @@
 #'
 #' @description
 #' This task specializes [Task] and [TaskSupervised] for forecasting regression problems.
-#' The target column is assumed to be numeric.
+#' The target column(s) are assumed to be numeric.
 #' The `task_type` is set to `"regr"` `.
-
 #'
 #' @section Construction:
 #' ```
@@ -42,9 +41,9 @@
 TaskRegrForecast = R6::R6Class("TaskRegrForecast",
   inherit = TaskForecast,
   public = list(
-    initialize = function(id, backend, target = "target", time_col = NULL) {
+    initialize = function(id, backend, target = "target", date_col = NULL) {
       # Initialize the task and properties
-      super$initialize(id = id, backend = (backend), target = target, time_col = time_col)
+      super$initialize(id = id, backend = (backend), target = target, date_col = date_col)
       self$properties = union(self$properties, if (length(self$target_names) == 1L) "univariate" else "multivariate")
       assert_true(all(self$col_info[id %in% self$target_names]$type %in% c("numeric", "double", "integer")))
     }

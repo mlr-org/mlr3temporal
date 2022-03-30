@@ -6,7 +6,7 @@
 #'
 #'
 #' @description
-#' This Learner specializes Learner for forecasting problems. The `task_type` is set to `"forecast"`.
+#' Abstract learner for forecasting problems. The  required `task_type` is `"forecast"`.
 #'
 #'
 #' @section Construction:

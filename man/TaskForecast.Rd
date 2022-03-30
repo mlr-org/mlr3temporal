@@ -2,33 +2,36 @@
 % Please edit documentation in R/TaskForecast.R
 \name{TaskForecast}
 \alias{TaskForecast}
-\title{Forecast Task}
+\title{Forecasting Task}
 \format{
 \link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}.
 }
 \description{
-This task specializes \link{Task} and \link{TaskSupervised} for forecasting problems.
-The target column is assumed to be numeric.
-The \code{task_type} is set to \code{"forecast"} `.
+Introduces a new Forecasting Task that inherits from \link{TaskSupervised} which can be used to forecast time series.
+This is an abstract class, which should not be instantiated.
+Use the subclass \link{TaskRegrForecast} instead.
+The \code{task_type} is set to \code{"forecast"}.
 }
 \section{Construction}{
-\preformatted{t = TaskRegrForecast$new(id, backend, target, date_col)
+\preformatted{t = TaskForecast$new(id, backend, target, date_col)
 }
 \itemize{
 \item \code{id} :: \code{character(1)}\cr
 Identifier for the task.
 \item \code{backend} :: \link{DataBackend}\cr
-Either a \link{DataBackendLong}, a object of class \code{ts} or a \code{data.frame} with specified date column
-or any object which is convertible to a DataBackend with \code{as_data_backend()}.
-E.g., a object of class  \code{dts} will be converted to a \link{DataBackendLong}.
+Either a \link{DataBackendLong}, an object of class \code{ts} or a \code{data.frame} with specified date column
+or any object which is convertible to a DataBackendLong with \code{as_data_backend()}.
+E.g., a object of class  \code{dts} (from package tsbox) will be converted to a \link{DataBackendLong}.
 \item \code{target} :: \code{character(n)}\cr
 Name of the target column(s).
+\item \code{date_col} :: \code{character(1)}\cr
+Name of the date column, only required if backend is a \code{data.frame}.
 }
 }
 
 \section{Fields}{
 
-All methods from \link{TaskSupervised}, and additionally:
+All methods inherited from \link{TaskSupervised}, and additionally:
 \itemize{
 \item \code{date_col} :: \code{character(1)}\cr
 Name of the date column.

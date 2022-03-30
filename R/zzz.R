@@ -5,6 +5,7 @@
 #' @import mlr3
 #' @import mlr3misc
 #' @import tsbox
+#' @import ggplot2
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
 #' @importFrom utils getFromNamespace
@@ -14,6 +15,7 @@ NULL
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
+  
   x$task_types = rbind(x$task_types, data.table(
     type = "forecast",
     package = "mlr3temporal",
@@ -27,7 +29,7 @@ register_mlr3 = function() {
     x$task_properties$forecast, x$task_properties$regr,
     c("univariate", "multivariate", "exogenous", "missings")
   ))
-  x$task_col_roles$forecast = x$task_col_roles$regr
+  x$task_col_roles$forecast = unique(c(x$task_col_roles$regr, "date_col"))
   x$learner_predict_types$forecast = x$learner_predict_types$regr
   x$learner_properties$forecast = unique(c(
     x$learner_properties$forecast,
