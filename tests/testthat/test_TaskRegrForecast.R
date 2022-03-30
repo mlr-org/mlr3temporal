@@ -51,11 +51,11 @@ test_that("task data has expected column types", {
 
 test_that("construction from data frame", {
   data = data.frame(a = runif(1:100), b = runif(1:100), t = Sys.time() + 1:100)
-  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a", "b"), time_col = "t")
+  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a", "b"), date_col = "t")
   assert_task(task, task_properties = "multivariate")
 
   data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
-  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a"), time_col = "t")
+  task = TaskRegrForecast$new(id = "df", backend = data, target = c("a"), date_col = "t")
   assert_task(task, task_properties = "univariate")
 })
 

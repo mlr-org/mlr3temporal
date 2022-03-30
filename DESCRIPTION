@@ -8,6 +8,11 @@ Authors@R:
              role = c("cre", "aut"),
              email = "michellang@gmail.com",
              comment = c(ORCID = "0000-0001-9754-0393")),
+        person(given = "Florian",
+             family = "Pfisterer",
+             role = "aut",
+             email = "pfistererf@googlemail.com",
+             comment = c(ORCID = "0000-0001-8867-762X")),          
       person(given = "Cornelia",
              family = "Gruber",
              role = "aut",
@@ -23,8 +28,7 @@ Authors@R:
 Description: Implements tasks, learners, resamplings and measures for
     forcasting tasks.
 License: LGPL-3
-URL: https://mlr3temporal.mlr-org.com,
-    https://github.com/mlr-org/mlr3temporal
+URL: https://mlr3temporal.mlr-org.com, https://github.com/mlr-org/mlr3temporal
 BugReports: https://github.com/mlr-org/mlr3temporal/issues
 Depends:
     R (>= 3.1.0)
@@ -32,19 +36,19 @@ Imports:
     checkmate (>= 1.9.3),
     data.table,
     digest,
-    fma,
     forecast,
     ggplot2,
     mlr3,
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
-    tsbox,
-    vars
+    tsbox
 Suggests:
     knitr,
     rnoaa,
     stats,
+    vars,
+    fma,
     testthat,
     tidyr
 VignetteBuilder: 
@@ -52,9 +56,8 @@ VignetteBuilder:
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 
-    'Autoplot.R'
     'DataBackendLong.R'
     'LearnerForecast.R'
     'LearnerRegrForecastAutoArima.R'
@@ -72,6 +75,7 @@ Collate:
     'TaskRegrForecastPetrol.R'
     'as_prediction.R'
     'assertions.R'
+    'autoplot.R'
     'helper.R'
     'reexports.R'
     'zzz.R'

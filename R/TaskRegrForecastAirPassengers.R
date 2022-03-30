@@ -16,7 +16,7 @@
 NULL
 
 load_task_air_passengers = function(id = "airpassengers") {
-  requireNamespace("datasets")
+  require_namespaces("datasets")
   b = as_data_backend.forecast(load_dataset("AirPassengers", "datasets"))
   task = TaskRegrForecast$new(id, b, target = "target")
   b$hash = task$man = "mlr3temporal::mlr_tasks_airpassengers"

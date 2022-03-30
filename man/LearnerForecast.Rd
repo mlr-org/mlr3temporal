@@ -7,7 +7,7 @@
 \link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:Learner]{mlr3::Learner}.
 }
 \description{
-This Learner specializes Learner for forecasting problems. The \code{task_type} is set to \code{"forecast"}.
+Abstract learner for forecasting problems. The  required \code{task_type} is \code{"forecast"}.
 }
 \section{Construction}{
 \preformatted{LearnerForecast$new(id, param_set = ParamSet$new(),

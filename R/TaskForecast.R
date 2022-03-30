@@ -1,36 +1,37 @@
-#' @title Forecast Task
+#' @title Forecasting Task
 #'
-#' @import data.table
-#' @import mlr3
-#' @import tsbox
 #'
 #' @usage NULL
 #' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised].
 #'
 #' @description
-#' This task specializes [Task] and [TaskSupervised] for forecasting problems.
-#' The target column is assumed to be numeric.
-#' The `task_type` is set to `"forecast"` `.
+#' Introduces a new Forecasting Task that inherits from [TaskSupervised] which can be used to forecast time series.
+#' This is an abstract class, which should not be instantiated. 
+#' Use the subclass [TaskRegrForecast] instead.
+#' The `task_type` is set to `"forecast"`.
+#' 
 
 #'
 #' @section Construction:
 #' ```
-#' t = TaskRegrForecast$new(id, backend, target, date_col)
+#' t = TaskForecast$new(id, backend, target, date_col)
 #' ```
 #'
 #' * `id` :: `character(1)`\cr
 #'   Identifier for the task.
 #'
 #' * `backend` :: [DataBackend]\cr
-#'   Either a [DataBackendLong], a object of class `ts` or a `data.frame` with specified date column
-#'   or any object which is convertible to a DataBackend with `as_data_backend()`.
-#'   E.g., a object of class  `dts` will be converted to a [DataBackendLong].
+#'   Either a [DataBackendLong], an object of class `ts` or a `data.frame` with specified date column
+#'   or any object which is convertible to a DataBackendLong with `as_data_backend()`.
+#'   E.g., a object of class  `dts` (from package tsbox) will be converted to a [DataBackendLong].
 #'
 #' * `target` :: `character(n)`\cr
 #'   Name of the target column(s).
+#' * `date_col` :: `character(1)`\cr
+#'   Name of the date column, only required if backend is a `data.frame`.
 #'
 #' @section Fields:
-#' All methods from [TaskSupervised], and additionally:
+#' All methods inherited from [TaskSupervised], and additionally:
 #' * `date_col` :: `character(1)`\cr
 #'   Name of the date column.
 #
@@ -46,11 +47,11 @@
 TaskForecast = R6::R6Class("TaskForecast",
   inherit = TaskSupervised,
   public = list(
-    initialize = function(id, backend, target, time_col = NULL) {
+    initialize = function(id, backend, target, date_col = NULL) {
       assert_character(target)
       if (inherits(backend, "data.frame")) {
-        assert_subset(time_col, colnames(backend))
-        backend = df_to_backend(backend, target, time_col)
+        assert_subset(date_col, colnames(backend))
+        backend = df_to_backend(backend, target, date_col)
       }
       if (!inherits(backend, "DataBackend")) {
         backend = as_data_backend(ts_dts(backend), target)
