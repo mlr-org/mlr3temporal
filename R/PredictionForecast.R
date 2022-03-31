@@ -56,32 +56,6 @@ PredictionForecast = R6::R6Class("PredictionForecast",
   public = list(
     initialize = function(task = NULL, row_ids = task$row_ids, truth = task$truth(), response = NULL, se = NULL, distr = NULL, check = TRUE) {
     
-      tn = task$target_names %??% "target"
-
-      if (!is.null(truth)) {
-        truth = as.data.table(truth)
-        if (ncol(truth) == 1) {
-          colnames(truth) = tn
-        }
-      }
-      if (!is.null(response)) {
-        response = as.data.table(response)
-        if (ncol(response) == 1) {
-          names(response) = tn
-        }
-      }
-      if (!is.null(se)) {
-        se = as.data.table(se)
-        if (ncol(se) == 1) {
-          names(se) = tn
-        }
-      }
-      if (!is.null(distr)) {
-        distr = as.data.table(distr)
-        if (ncol(distr) == 1) {
-          names(distr) = tn
-        }
-      }
       pdata = list(row_ids = row_ids, truth = truth, response = response, se = se, distr = distr)
       pdata = discard(pdata, is.null)
       class(pdata) = c("PredictionDataForecast", "PredictionData")
@@ -109,7 +83,7 @@ PredictionForecast = R6::R6Class("PredictionForecast",
     },
     conf_int = function(level = 95) {
       assert_integerish(level, lower = 0, upper = 100)
-      lapply(colnames(self$response)[-1], function(x) {
+      lapply(colnames(self$response), function(x) {
         setnames(
           data.table(
             upper = self$response[, ..x] + se_to_ci(se = self$se[, ..x], level),
@@ -149,7 +123,6 @@ PredictionForecast = R6::R6Class("PredictionForecast",
 
 #' @export
 as.data.table.PredictionForecast = function(x, ...) { # nolint
-
   # Prefix entries
   tab = map(c("truth", x$predict_types), function(type) {
     xs = copy(x$data[[type]])
@@ -160,37 +133,4 @@ as.data.table.PredictionForecast = function(x, ...) { # nolint
   })
   tab = do.call('cbind', c(data.table("row_ids" = x$data[["row_ids"]]), tab))
   return(tab)
-}
-
-#' @export
-c.PredictionForecast = function(..., keep_duplicates = TRUE) {
-  dots = list(...)
-  assert_list(dots, "PredictionForecast")
-  assert_flag(keep_duplicates)
-  if (length(dots) == 1L) {
-    return(dots[[1L]])
-  }
-
-  predict_types = map(dots, "predict_types")
-  if (!every(predict_types[-1L], setequal, y = predict_types[[1L]])) {
-    stopf("Cannot rbind predictions: Standard Errors for some predictions, not all")
-  }
-  tab = list()
-  tab$truth = map_dtr(dots, function(p) p$data$tab$truth, .fill = FALSE)
-  tab$response = map_dtr(dots, function(p) p$data$tab$response, .fill = FALSE)
-  tab$se = NULL
-  if ("se" %in% predict_types[[1]]) {
-    tab$se = map_dtr(dots, function(p) p$data$tab$se, .fill = FALSE)
-  }
-  if (!keep_duplicates) {
-    tab$truth = unique(tab$truth, by = "row_id", fromLast = TRUE)
-    tab$response = unique(tab$truth, by = "row_id", fromLast = TRUE)
-    if (predict_types[[1]] == "se") {
-      tab$se = unique(tab$truth, by = "row_id", fromLast = TRUE)
-    }
-  }
-  PredictionForecast$new(
-    row_ids = tab$truth$row_id, truth = tab$truth[, -1],
-    response = tab$response[, -1], se = tab$se[, -1]
-  )
 }

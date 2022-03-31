@@ -34,7 +34,7 @@ test_that("Combine Predictions", {
   lrn$train(task, 1:10)
   p1 = lrn$predict(task, 1:10)
   p2 = lrn$predict(task, 11:20)
-  expect_prediction_forecast(c(p1,p2))
+  expect_prediction_forecast(c(p1, p2))
 
   task = tsk("petrol")
   lrn = lrn("forecast.VAR")
@@ -42,9 +42,8 @@ test_that("Combine Predictions", {
   lrn$train(task, 1:10)
   p1 = lrn$predict(task, 1:10)
   p2 = lrn$predict(task, 11:20)
-  expect_prediction_forecast(c(p1,p2))
+  expect_prediction_forecast(c(p1, p2))
 })
-
 
 test_that("Fitted values", {
   task = tsk("airpassengers")
@@ -56,4 +55,3 @@ test_that("Fitted values", {
   lrn$train(task, 1:10)
   expect_data_table(lrn$fitted_values(row_ids = 3:7), types = "numeric", nrows = 5, ncols = 4)
 })
-

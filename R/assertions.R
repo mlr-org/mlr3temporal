@@ -10,3 +10,16 @@ assert_prediction_count = function(actual, expected, type) {
     }
   }
 }
+
+nullify_nulldt = function(x) {
+  if (nrow(x) == 0) {
+    return(NULL)
+  }
+  return(x)
+}
+
+new_prediction_data = function(li, task_type = NULL) {
+  li = discard(li, is.null)
+  class(li) = sprintf("PredictionData%s", c(capitalize(task_type), ""))
+  li
+}

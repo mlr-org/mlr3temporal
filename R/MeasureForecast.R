@@ -34,3 +34,33 @@ MeasureForecast = R6Class("MeasureForecast", inherit = Measure, cloneable = FALS
     }
   )
 )
+
+#' @title General Regression Measures for Forecasting
+#'
+#' @name mlr_measures_forecast.regr
+#' @format [R6::R6Class()] inheriting from [MeasureForecast].
+#'
+#' @export
+#' @include MeasureForecast.R
+MeasureForecastRegr = R6Class("MeasureForecastRegr",
+  inherit = MeasureForecast,
+  public = list(
+
+    measure_regr = NULL,
+
+    initialize = function(id = NULL, measure_regr) {
+      self$measure_regr = as_measure(measure_regr)
+      super$initialize(
+        id = id %??% gsub("regr.", "forecast.regr.", measure_regr$id),
+        range =   measure_regr$range,
+        minimize = measure_regr$minimize,
+        packages = "mlr3temporal"
+      )
+    }
+  ),
+  private = list(
+    .score = function(prediction, ...) {
+      mean(pmap_dbl(list(prediction$truth, prediction$response), self$measure_regr$fun))
+    }
+  )
+)

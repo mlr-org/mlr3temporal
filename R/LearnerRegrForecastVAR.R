@@ -84,7 +84,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
-
+      
       if (length(predict_ids > 0)) {
         if (length(task$feature_names) > 0) {
           exogen = task$data(cols = task$feature_names, rows = predict_ids)
@@ -103,7 +103,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
         if (self$predict_type == "se") {
           se = rbind(
             as.data.table(
-              sapply(names(forecast$fcst), function(x) rep(NA, length(fitted_ids)), simplify = FALSE)
+              sapply(names(forecast$fcst), function(x) rep(NA_real_, length(fitted_ids)), simplify = FALSE)
             ),
             as.data.table(
               sapply(names(forecast$fcst), function(x) {
@@ -116,7 +116,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
         response = self$fitted_values(fitted_ids)
         if (self$predict_type == "se") {
           se = as.data.table(
-            sapply(names(response), function(x) rep(NA, length(fitted_ids)), simplify = FALSE)
+            sapply(names(response), function(x) rep(NA_real_, length(fitted_ids)), simplify = FALSE)
           )
         }
       }
