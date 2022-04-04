@@ -58,6 +58,7 @@ TaskForecast = R6::R6Class("TaskForecast",
       }
       super$initialize(id = id, task_type = "forecast", backend = backend, target = target)
       private$.col_roles$feature = setdiff(private$.col_roles$feature, self$date_col)
+      self$col_roles$date_col = date_col %??% "time"
     },
 
     truth = function(row_ids = NULL) {

@@ -78,8 +78,7 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
     .sample = function(ids, ...) {
       ids = sort(ids)
       if (self$param_set$values$fixed_window) {
-        train_start =
-          ids[ids <= (max(ids) - self$param_set$values$horizon - self$param_set$values$window_size + 1)]
+        train_start = ids[ids <= (max(ids) - self$param_set$values$horizon - self$param_set$values$window_size + 1)]
         s = sample(train_start, self$param_set$values$folds)
         s = sort(s)
         train_ids = lapply(
@@ -87,8 +86,7 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
           function(x) x:(x + self$param_set$values$window_size - 1)
         )
       } else {
-        train_end =
-          ids[ids <= (max(ids) - self$param_set$values$horizon) & ids >= self$param_set$values$window_size]
+        train_end = ids[ids <= (max(ids) - self$param_set$values$horizon) & ids >= self$param_set$values$window_size]
         s = sample(train_end, self$param_set$values$folds)
         s = sort(s)
         train_ids = lapply(s, function(x) min(ids):x)
