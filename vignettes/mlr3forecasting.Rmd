@@ -12,70 +12,66 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Load and prepare data
-
-
 ```{r load}
+library(data.table)
 library(mlr3temporal)
 library(mlr3)
 library(ggplot2)
 library(forecast)
+library(anytime)
+``` 
 
-# National Centers for Environmental Information, National Oceanic and Atmospheric Administration
+## Load and prepare data
 
+In this vignette we are going to use the example of forecasting atmospheric data from Munich (muc) and New York City (nyc). 
+We are interesting in forecasting three quantities: `"TAVG", "TMIN", "TMAX"`, the average, minimum and maximum temperature on a given day.
 
+We first obtain the data from the **NOAA** (National Centers for Environmental Information, National Oceanic and Atmospheric Administration) website.
+
+```{r data}
+# Download the data
 muc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/GM000004199.csv")
 nyc = read.csv("https://www.ncei.noaa.gov/data/global-summary-of-the-year/access/USW00094728.csv")
 
+# And subset columns
+columns = c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")
+muc = muc[, columns]
+nyc = nyc[, columns]
+```
 
+The data contains few missing values and years.
+We will have to deal with them before forecasting.
 
-muc = muc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
-nyc = nyc[, c("DATE", "PRCP", "TAVG", "TMIN", "TMAX")]
+```{r missing}
+# Add missing years.
+fill_missing = function(data, date) {
+  # Filter all-na rows
+  data = data[!apply(data, 1, function(x) {all(is.na(x))}), ]
+  # Add all missing dates from start to end of time-series
+  dates = data[[date]]
+  missing = setdiff(seq(from = min(dates, na.rm = TRUE), to = max(dates, na.rm = TRUE)), dates)
+  if (length(missing)) {
+    dt_miss = data.table(DATE = missing, PRCP = NA, TAVG = NA, TMIN = NA, TMAX = NA)
+    data = rbind(data, dt_miss)
+  }
+  data[[date]] = as.POSIXct(as.character(data[["DATE"]]), format = "%Y")
+  return(data.table(data[order(data[[date]]),]))
+}
 
-nyc[is.na(nyc$TAVG), ]
-# remove first year
-nyc = nyc[-1, ]
-
-muc_start = muc$DATE[1]
-muc_end = muc$DATE[nrow(muc)]
-
-nyc_start = nyc$DATE[1]
-nyc_end = nyc$DATE[nrow(nyc)]
-
-# nyc check missing
-all_years = nyc_start:nyc_end
-missing_years = setdiff(all_years, nyc$DATE)
-
-# add missing years
-all_years = muc_start:muc_end
-missing_years = setdiff(all_years, muc$DATE)
-
-missing_years_df = data.frame(DATE = missing_years, PRCP = NA, TAVG = NA, TMIN = NA, TMAX = NA)
-
-muc = rbind(muc, missing_years_df)
-muc = muc[order(muc$DATE), ]
-
-
-head(muc)
-# keep information on station , temp and precipitation
-muc = muc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
-nyc = nyc[, c("PRCP", "TAVG", "TMIN", "TMAX")]
-
-
-
-muc_ts = ts(muc, start = muc_start, end = muc_end, frequency = 1)
-nyc_ts = ts(nyc, start = nyc_start, end = nyc_end, frequency = 1)
+muc = fill_missing(muc, "DATE")
+nyc = fill_missing(nyc, "DATE")
 ```
 
 ## Generate Task
 
-
+We can now supply this `data.table` to create a new `TaskRegrForecast`.
 
 ```{r task}
 task = TaskRegrForecast$new(
   id = "nyc",
-  backend = nyc_ts,
-  target = c("TAVG", "TMIN", "TMAX")
+  backend = nyc,
+  target = c("TAVG", "TMIN", "TMAX"),
+  date_col = "DATE"
 )
 task$print()
 ```
@@ -95,7 +91,6 @@ learner$model
 p = learner$predict(task, row_ids = 141:150)
 
 p$response
-p$se
 ```
 
 ## Rolling Window CV

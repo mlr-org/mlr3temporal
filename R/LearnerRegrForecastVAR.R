@@ -36,7 +36,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
         predict_types = c("response", "se"),
         packages = "vars",
         param_set = ps,
-        properties = c("multivariate", "exogenous"),
+        properties = c("multivariate", "exogenous", "missings"),
         man = "mlr3temporal::mlr_learners_regr.VAR"
       )
     },
@@ -73,11 +73,15 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
       }
+
+      tgts = task$data(rows = task$row_ids, cols = task$target_names)
+      tgts = na.omit(tgts)
+      row_ids = task$row_ids[which(!apply(tgts, 1, function(x) {all(is.na(x))}))]
       if (length(task$feature_names) > 0) {
-        exogen = task$data(cols = task$feature_names)
-        invoke(vars::VAR, y = task$data(rows = task$row_ids, cols = task$target_names), exogen = exogen, .args = pv)
+        exogen = task$data(rows = row_ids, cols = task$feature_names)
+        invoke(vars::VAR, y = tgts, exogen = exogen, .args = pv)
       } else {
-        invoke(vars::VAR, y = task$data(rows = task$row_ids, cols = task$target_names), .args = pv)
+        invoke(vars::VAR, y = tgts, .args = pv)
       }
     },
     .predict = function(task) {

@@ -133,7 +133,6 @@ DataBackendLong = R6::R6Class("DataBackendLong",
         subset_cols = cols # case we only want primary key or date
       # FIXME: This is not very efficient, but seems reasonably robust
 
-
       if (length(rows) != 0L)
         dt = private$.data[CJ(rows, subset_cols), roll = roll]
       else # else: keep all rows, subset later

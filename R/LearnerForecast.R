@@ -77,9 +77,7 @@ LearnerForecast = R6Class("LearnerForecast", inherit = Learner,
         ),
         fitted
       )
-
       fitted[row_ids - self$date_span$begin$row_id + 1,]
-
     }
   )
 )
