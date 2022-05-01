@@ -10,7 +10,9 @@
 #' Use the subclass [TaskRegrForecast] instead.
 #' The `task_type` is set to `"forecast"`.
 #' 
-
+#' Note, that in case the input is a `data.table' or `data.frame`, `mlr3temporal` expects a "wide" 
+#' data.frame as input. The `tsbox::to_wide()` function can help casting time-series to this format.
+#' 
 #'
 #' @section Construction:
 #' ```
