@@ -112,8 +112,9 @@ autoplot(task) + ggtitle("NYC - Yearly Climate Data")
 
 task = TaskRegrForecast$new(
   id = "muc",
-  backend = ts(muc[c("TAVG", "PRCP")], start = muc_start, end = muc_end, frequency = 1),
-  target = "TAVG"
+  backend = ts_dt(muc),
+  target = "TAVG",
+  date_col = "DATE"
 )
 
 autoplot(task) + ggtitle("MUC - Yearly Climate Data")
