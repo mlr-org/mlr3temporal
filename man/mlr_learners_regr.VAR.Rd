@@ -11,8 +11,10 @@
 A LearnerRegrForecast for a vector autoregressive model implemented in \link[vars:VAR]{vars::VAR} in package \CRANpkg{var}.
 }
 \section{Construction}{
-\preformatted{LearnerRegrForecastVAR$new()
-}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{LearnerRegrForecastVAR$new()
+}\if{html}{\out{</div>}}
 }
 
 \section{Methods}{

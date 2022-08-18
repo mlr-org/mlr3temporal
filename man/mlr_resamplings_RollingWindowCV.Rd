@@ -11,10 +11,12 @@
 Splits data using a \code{folds}-folds (default: 10 folds) rolling window cross-validation.
 }
 \section{Construction}{
-\preformatted{ResamplingRollingWindowCV$new()
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ResamplingRollingWindowCV$new()
 mlr3::mlr_resamplings$get("ResamplingRollingWindowCV")
 rsmp("ResamplingRollingWindowCV")
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Fields}{

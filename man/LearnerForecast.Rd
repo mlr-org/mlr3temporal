@@ -10,11 +10,13 @@
 Abstract learner for forecasting problems. The  required \code{task_type} is \code{"forecast"}.
 }
 \section{Construction}{
-\preformatted{LearnerForecast$new(id, param_set = ParamSet$new(),
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{LearnerForecast$new(id, param_set = ParamSet$new(),
      predict_types = character(),
      feature_types = character(), properties = character(),
      packages = character())
-}
+}\if{html}{\out{</div>}}
 
 For a description of the arguments, see \link[mlr3:Learner]{mlr3::Learner}.`
 }

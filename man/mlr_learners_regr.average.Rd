@@ -11,8 +11,10 @@
 A LearnerRegrForecast model based on average values implemented in \code{\link[base:mean]{base::mean()}} in package \CRANpkg{base}.
 }
 \section{Construction}{
-\preformatted{LearnerRegrForecastAverage$new()
-}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{LearnerRegrForecastAverage$new()
+}\if{html}{\out{</div>}}
 }
 
 \section{Methods}{

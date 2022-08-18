@@ -22,6 +22,7 @@ register_mlr3 = function() {
     task = "TaskRegrForecast",
     learner = "LearnerRegrForecast",
     prediction = "PredictionRegrForecast",
+    prediction_data = "PredictionDataForecast",
     measure = "MeasureForecast"
   ))
   setkeyv(x$task_types, "type")

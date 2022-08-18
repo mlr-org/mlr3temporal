@@ -10,9 +10,11 @@
 A forecasting task for the \link[datasets:AirPassengers]{datasets::AirPassengers} data set.
 }
 \section{Construction}{
-\preformatted{mlr_tasks$get("AirPassengers")
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("AirPassengers")
 tsk("AirPassengers")
-}
+}\if{html}{\out{</div>}}
 }
 
 \seealso{

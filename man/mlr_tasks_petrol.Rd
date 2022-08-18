@@ -10,9 +10,11 @@
 A multivariate forecasting task for the \link[fma:petrol]{fma::petrol} data set.
 }
 \section{Construction}{
-\preformatted{mlr_tasks$get("petrol")
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("petrol")
 tsk("petrol")
-}
+}\if{html}{\out{</div>}}
 }
 
 \seealso{

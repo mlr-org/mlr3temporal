@@ -1,6 +1,5 @@
 #' @title Forecasting Task
 #'
-#'
 #' @usage NULL
 #' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised].
 #'

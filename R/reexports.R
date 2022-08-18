@@ -1,6 +1,7 @@
 #' @title Re-export of `autoplot`
 #'
-#' See [ggplot2::autoplot()].
+#' @details 
+#'   See [ggplot2::autoplot()].
 #'
 #' @name autoplot
 #' @rdname autoplot

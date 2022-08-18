@@ -11,9 +11,11 @@ This measure specializes \link[mlr3:Measure]{mlr3::Measure} for forecast regress
 The \code{task_type} is set to \code{"forecast"}.
 }
 \section{Construction}{
-\preformatted{m = MeasureForecast$new(id, range, minimize, predict_type = "response",
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{m = MeasureForecast$new(id, range, minimize, predict_type = "response",
      task_properties = character(0L), packages = character(0L))
-}
+}\if{html}{\out{</div>}}
 
 For a description of the arguments, see \link[mlr3:Measure]{mlr3::Measure}.
 The \code{task_type} is set to \code{"forecast"}.

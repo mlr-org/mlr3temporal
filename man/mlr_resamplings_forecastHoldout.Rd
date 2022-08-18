@@ -12,10 +12,12 @@ Splits data into a training set and a test set.
 Parameter \code{ratio} determines the ratio of observation going into the training set (default: 2/3).
 }
 \section{Construction}{
-\preformatted{ResamplingForecastHoldout$new()
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{ResamplingForecastHoldout$new()
 mlr_resamplings$get("forecast.holdout")
 rsmp("forecast.holdout")
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Fields}{

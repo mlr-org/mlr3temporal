@@ -12,8 +12,10 @@ The target column(s) are assumed to be numeric.
 The \code{task_type} is set to \code{"regr"} `.
 }
 \section{Construction}{
-\preformatted{t = TaskRegrForecast$new(id, backend, target, date_col)
-}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{t = TaskRegrForecast$new(id, backend, target, date_col)
+}\if{html}{\out{</div>}}
 \itemize{
 \item \code{id} :: \code{character(1)}\cr
 Identifier for the task.

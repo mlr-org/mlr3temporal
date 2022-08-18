@@ -11,10 +11,12 @@
 A LearnerRegrForecast for an (AR)I(MA) model implemented in \link[forecast:auto.arima]{forecast::auto.arima} in package \CRANpkg{forecast}.
 }
 \section{Construction}{
-\preformatted{LearnerRegrForecastAutoArima$new()
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{LearnerRegrForecastAutoArima$new()
 mlr_learners$get("regr.rpart")
 lrn("regr.rpart")
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Methods}{

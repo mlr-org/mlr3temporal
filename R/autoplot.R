@@ -1,8 +1,7 @@
 #' @title Plot for Forecast Tasks
 #'
-#'
 #' @description
-#' Generates plots for [mlr3temporal::TaskForecast]
+#' Generates plots for [mlr3temporal::TaskForecast].
 #'
 #' @param object ([mlr3temporal::TaskForecast]).
 #' @param ... (`any`):

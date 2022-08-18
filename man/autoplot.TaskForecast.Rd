@@ -16,7 +16,7 @@ Additional argument, passed down to the underlying \code{geom} or plot functions
 \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object.
 }
 \description{
-Generates plots for \link{TaskForecast}
+Generates plots for \link{TaskForecast}.
 }
 \examples{
 library(mlr3)

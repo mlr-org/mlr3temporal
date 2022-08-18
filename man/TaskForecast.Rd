@@ -15,8 +15,10 @@ The \code{task_type} is set to \code{"forecast"}.
 Note, that in case the input is a \verb{data.table' or }data.frame\verb{, }mlr3temporal\verb{expects a "wide"  data.frame as input. The}tsbox::to_wide()` function can help casting time-series to this format.
 }
 \section{Construction}{
-\preformatted{t = TaskForecast$new(id, backend, target, date_col)
-}
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{t = TaskForecast$new(id, backend, target, date_col)
+}\if{html}{\out{</div>}}
 \itemize{
 \item \code{id} :: \code{character(1)}\cr
 Identifier for the task.

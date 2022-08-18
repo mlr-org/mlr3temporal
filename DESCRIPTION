@@ -37,6 +37,7 @@ Imports:
     data.table,
     digest,
     forecast,
+    fma,
     ggplot2,
     mlr3,
     mlr3misc (>= 0.1.5),
@@ -48,7 +49,6 @@ Suggests:
     rnoaa,
     stats,
     vars,
-    fma,
     testthat,
     tidyr,
     rmarkdown
@@ -57,7 +57,7 @@ VignetteBuilder:
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Collate: 
     'DataBackendLong.R'
     'LearnerForecast.R'
