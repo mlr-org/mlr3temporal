@@ -60,6 +60,9 @@ register_mlr3 = function() {
   # measures --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_measures", ns = "mlr3")
   x$add("forecast.mae", MeasureForecastMAE)
+  x$add("forecast.mape", MeasureForecastMAPE)
+  x$add("forecast.rmse", MeasureForecastRMSE)
+  x$add("forecast.mse", MeasureForecastMSE)
 }
 
 .onLoad = function(libname, pkgname) { # nolint
