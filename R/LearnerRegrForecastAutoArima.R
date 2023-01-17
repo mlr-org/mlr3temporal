@@ -1,6 +1,5 @@
 #' @title Auto.Arima Learner
 #'
-#' @import forecast
 #' @usage NULL
 #' @name mlr_learners_regr.AutoArima
 #' @format [R6::R6Class] inheriting from [LearnerForecast].

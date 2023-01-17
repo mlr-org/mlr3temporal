@@ -1,7 +1,5 @@
 #' @title Vector Autoregression Learner
 #'
-#' @import vars
-#'
 #' @usage NULL
 #' @name mlr_learners_regr.VAR
 #' @format [R6::R6Class] inheriting from [LearnerForecast].

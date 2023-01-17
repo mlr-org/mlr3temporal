@@ -1,7 +1,5 @@
 #' @title Petrol Multivariate Forecast Class
 #'
-#' @import fma
-#'
 #' @name mlr_tasks_petrol
 #' @format [R6::R6Class] inheriting from [TaskRegrForecast]
 #'

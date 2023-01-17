@@ -4,18 +4,17 @@
 #' @import checkmate
 #' @import mlr3
 #' @import mlr3misc
-#' @import tsbox
-#' @import ggplot2
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
 #' @importFrom utils getFromNamespace
+#' @importFrom ggplot2 autoplot
 NULL
 
 
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
-  
+
   x$task_types = rbind(x$task_types, data.table(
     type = "forecast",
     package = "mlr3temporal",

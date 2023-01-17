@@ -1,8 +1,5 @@
 #' @title Forecasting Task (Regression)
 #'
-#' @import data.table
-#' @import mlr3
-#'
 #' @usage NULL
 #' @format [R6::R6Class] object inheriting from [Task]/[TaskSupervised]/[TaskForecast].
 #'
