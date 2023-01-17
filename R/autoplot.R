@@ -20,12 +20,13 @@
 #' task = tsk("petrol")
 #' autoplot(task)
 autoplot.TaskForecast = function(object, ...) { # nolint
+  require_namespaces("ggplot2")
   data = data.table(object$data(), object$date())
   date = object$date_col
   target = object$target_names
   data_long = melt(data, id.vars = date, measure.vars = target)
 
-  ggplot(data_long, aes_string(x = date)) +
-    geom_line(aes_string(y = "value", col = "variable")) +
-    xlab("")
+  ggplot2::ggplot(data_long, ggplot2::aes_string(x = date)) +
+    ggplot2::geom_line(ggplot2::aes_string(y = "value", col = "variable")) +
+    ggplot2::xlab("")
 }

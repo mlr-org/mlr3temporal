@@ -57,7 +57,7 @@ VignetteBuilder:
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Collate: 
     'DataBackendLong.R'
     'LearnerForecast.R'
