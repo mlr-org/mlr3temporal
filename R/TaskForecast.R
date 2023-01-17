@@ -55,7 +55,7 @@ TaskForecast = R6::R6Class("TaskForecast",
         backend = df_to_backend(backend, target, date_col)
       }
       if (!inherits(backend, "DataBackend")) {
-        backend = as_data_backend(ts_dts(backend), target)
+        backend = as_data_backend(tsbox::ts_dts(backend), target)
       }
       super$initialize(id = id, task_type = "forecast", backend = backend, target = target)
       private$.col_roles$feature = setdiff(private$.col_roles$feature, self$date_col)
