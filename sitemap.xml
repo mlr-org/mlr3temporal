@@ -1,57 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/index.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/404.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/DataBackendLong.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/LearnerForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/authors.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/MeasureForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/index.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/PredictionForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/DataBackendLong.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/TaskForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/LearnerForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/TaskRegrForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/MeasureForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/autoplot.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/PredictionForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/autoplot.TaskForecast.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/TaskForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.AutoArima.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/TaskRegrForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.VAR.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/autoplot.TaskForecast.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_learners_regr.average.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/autoplot.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_measures_forecast.mae.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_airpassengers.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.average.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/reference/mlr_tasks_petrol.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html</loc>
   </url>
   <url>
-    <loc>https://mlr3forecasting.mlr-org.com/articles/mlr3forecasting.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.regr.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_tasks_airpassengers.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_tasks_petrol.html</loc>
   </url>
 </urlset>
