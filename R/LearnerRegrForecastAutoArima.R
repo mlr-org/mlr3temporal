@@ -1,15 +1,9 @@
-#' @title Auto.Arima Learner
+#' @title Auto.Arima Forecast Learner
 #'
 #' @usage NULL
-#' @name mlr_learners_regr.AutoArima
+#' @name mlr_learners_regr.auto_arima
 #' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
-#' @section Construction:
-#' ```
-#' LearnerRegrForecastAutoArima$new()
-#' mlr_learners$get("regr.rpart")
-#' lrn("regr.rpart")
-#' ```
 #' @section Methods:
 #' See [LearnerForecast], additionally:
 #' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr

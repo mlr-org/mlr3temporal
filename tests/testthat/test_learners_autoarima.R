@@ -26,7 +26,7 @@ test_that("Basic Tests", {
 
 test_that("Exogenous Variables",{
   tsk = TaskRegrForecast$new(id = "se", backend = tsbox:: ts_c(mdeaths, fdeaths), target = "mdeaths")
-  learner = lrn("forecast.auto.arima")
+  learner = lrn("forecast.auto_arima")
   learner$predict_type = "se"
   learner$train(tsk, 1:10)
   expect_prediction_forecast(learner$predict(tsk, 5:15))

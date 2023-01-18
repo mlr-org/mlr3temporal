@@ -1,13 +1,8 @@
-#' @title Vector Autoregression Learner
+#' @title Vector Autoregression Forecast Learner
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.VAR
 #' @format [R6::R6Class] inheriting from [LearnerForecast].
-#'
-#' @section Construction:
-#' ```
-#' LearnerRegrForecastVAR$new()
-#' ```
 #'
 #' @description
 #' A LearnerRegrForecast for a vector autoregressive model implemented in [vars::VAR] in package \CRANpkg{var}.
