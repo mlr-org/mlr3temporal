@@ -59,7 +59,7 @@ ResamplingForecastCV = R6Class("ResamplingForecastCV",
       ))
       ps$values = list(window_size = 10L, horizon = 5L, folds = 10L, fixed_window = TRUE)
 
-      super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_RollingWindowCV")
+      super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecast_cv")
     }
   ),
   active = list(
