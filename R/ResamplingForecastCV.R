@@ -33,11 +33,11 @@
 #' @export
 #' @examples
 #' # Create a task with 10 observations
-#' task = tsk("airpassengers")
+#' task = mlr3::tsk("airpassengers")
 #' task$filter(1:20)
 #'
 #' # Instantiate Resampling
-#' rfho = rsmp("forecast_cv", folds = 3, fixed_window = FALSE)
+#' rfho = mlr3::rsmp("forecast_cv", folds = 3, fixed_window = FALSE)
 #' rfho$instantiate(task)
 #'
 #' # Individual sets:

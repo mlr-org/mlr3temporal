@@ -8,6 +8,8 @@
 #' @importFrom digest digest
 #' @importFrom utils getFromNamespace
 #' @importFrom ggplot2 autoplot
+#' @importFrom utils head
+#' @importFrom stats na.omit predict
 NULL
 
 #' @include aaa.R

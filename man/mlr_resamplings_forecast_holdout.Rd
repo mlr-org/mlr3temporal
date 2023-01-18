@@ -35,7 +35,7 @@ task = mlr3::tsk("airpassengers")
 task$filter(1:10)
 
 # Instantiate Resampling
-rfho = rsmp("forecast_holdout", ratio = 0.5)
+rfho = mlr3::rsmp("forecast_holdout", ratio = 0.5)
 rfho$instantiate(task)
 
 # Individual sets:
