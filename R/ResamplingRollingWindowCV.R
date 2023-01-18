@@ -114,4 +114,4 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
 )
 
 #' @include aaa.R
-resamplings[["RollingWindowCV"]] = ResamplingRollingWindowCV
+resamplings[["rolling_window_cv"]] = ResamplingRollingWindowCV

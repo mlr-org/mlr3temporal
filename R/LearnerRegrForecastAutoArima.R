@@ -44,7 +44,7 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
       ))
 
       super$initialize(
-        id = "auto.arima",
+        id = "auto_arima",
         feature_types = "numeric",
         predict_types = c("response", "se"),
         packages = "forecast",
@@ -143,4 +143,4 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
 )
 
 #' @include aaa.R
-learners[["forecast.auto.arima"]] = LearnerRegrForecastAutoArima
+learners[["forecast.auto_arima"]] = LearnerRegrForecastAutoArima
