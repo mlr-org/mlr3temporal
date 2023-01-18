@@ -75,3 +75,6 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout",
     }
   )
 )
+
+#' @include aaa.R
+resamplings[["forecastHoldout"]] = ResamplingForecastHoldout

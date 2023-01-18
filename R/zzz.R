@@ -10,7 +10,7 @@
 #' @importFrom ggplot2 autoplot
 NULL
 
-
+#' @include aaa.R
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
@@ -40,33 +40,37 @@ register_mlr3 = function() {
   x$default_measures$forecast = "forecast.mae"
   # tasks --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-  x$add("airpassengers", load_task_air_passengers)
-  x$add("petrol", load_task_petrol)
+  iwalk(tasks, function(obj, nm) x$add(nm, obj))
 
   # learners
   x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
-  x$add("forecast.average", LearnerRegrForecastAverage)
-  x$add("forecast.auto.arima", LearnerRegrForecastAutoArima)
-  x$add("forecast.VAR", LearnerRegrForecastVAR)
-  # FIXME: Add all learners here.
+  iwalk(learners, function(obj, nm) x$add(nm, obj))
 
   # resampling methods ---------------------------------------------------------
   x = utils::getFromNamespace("mlr_resamplings", ns = "mlr3")
-  x$add("forecastHoldout", ResamplingForecastHoldout)
-  x$add("RollingWindowCV", ResamplingRollingWindowCV)
-  # FIXME: Add resamplings here
+  iwalk(resamplings, function(obj, nm) x$add(nm, obj))
 
   # measures --------------------------------------------------------------------
   x = utils::getFromNamespace("mlr_measures", ns = "mlr3")
-  x$add("forecast.mae", MeasureForecastMAE)
-  x$add("forecast.mape", MeasureForecastMAPE)
-  x$add("forecast.rmse", MeasureForecastRMSE)
-  x$add("forecast.mse", MeasureForecastMSE)
+  iwalk(measures, function(obj, nm) x$add(nm, obj))
 }
 
 .onLoad = function(libname, pkgname) { # nolint
-  register_mlr3()
-  setHook(packageEvent("mlr3", "onLoad"), function(...) register_mlr3(),
-    action = "append"
-  )
+  register_namespace_callback(pkgname, "mlr3", register_mlr3)
 }
+
+.onUnload = function(libpaths) { # nolint
+   mlr_tasks = mlr3::mlr_tasks
+   walk(names(tasks), function(id) mlr_tasks$remove(id))
+
+   mlr_learners = mlr3::mlr_learners
+   walk(names(learners), function(id) mlr_learners$remove(id))
+
+   mlr_resamplings = mlr3::mlr_resamplings
+   walk(names(resamplings), function(id) mlr_resamplings$remove(id))
+
+   mlr_measures = mlr3::mlr_measures
+   walk(names(measures), function(id) mlr_measures$remove(id))
+ }
+
+leanify_package()

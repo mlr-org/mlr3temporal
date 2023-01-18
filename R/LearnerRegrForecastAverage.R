@@ -57,3 +57,6 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.average"]] = LearnerRegrForecastAverage

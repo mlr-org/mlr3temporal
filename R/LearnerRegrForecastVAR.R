@@ -127,3 +127,6 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.VAR"]] = LearnerRegrForecastVAR

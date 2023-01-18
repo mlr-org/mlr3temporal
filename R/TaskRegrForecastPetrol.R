@@ -20,5 +20,8 @@ load_task_petrol = function(id = "petrol") {
   b = as_data_backend.forecast(fma::petrol)
   task = TaskRegrForecast$new(id, b, target = c("Chemicals", "Coal", "Petrol", "Vehicles"))
   b$hash = task$man = "mlr3temporal::mlr_tasks_petrol"
-  return(task)
+  task
 }
+
+#' @include aaa.R
+tasks[["petrol"]] = load_task_petrol

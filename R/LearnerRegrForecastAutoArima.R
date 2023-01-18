@@ -141,3 +141,6 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.auto.arima"]] = LearnerRegrForecastAutoArima
