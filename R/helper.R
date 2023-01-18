@@ -1,13 +1,11 @@
 # helper for confidence intervals to standard errors
 ci_to_se = function(width, level) {
-  se = width / (2 * stats::qnorm(0.5 + level / 200))
-  return(se)
+  width / (2 * stats::qnorm(0.5 + level / 200))
 }
 
 # helper for standard errors to confidence intervals
 se_to_ci = function(se, level) {
-  width = se * (2 * stats::qnorm(0.5 + level / 200))
-  return(width)
+  se * (2 * stats::qnorm(0.5 + level / 200))
 }
 
 # Takes timestamps from specified column and converts to long format
@@ -20,5 +18,5 @@ se_to_ci = function(se, level) {
    backend = melt(data, id.vars = date_col, variable.factor = FALSE, variable.name = "id")
    backend$value = as.numeric(backend$value)
    backend[[date_col]] = as.POSIXct(backend[[date_col]])
-   return(backend)
+   backend
  }

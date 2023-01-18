@@ -38,13 +38,13 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
       ))
 
       super$initialize(
-        id = "auto_arima",
+        id = "forecast.auto_arima",
         feature_types = "numeric",
         predict_types = c("response", "se"),
         packages = "forecast",
         param_set = ps,
         properties = c("univariate", "exogenous", "missings"),
-        man = "mlr3temporal::mlr_learners_regr.AutoArima"
+        man = "mlr3temporal::mlr_learners_regr.auto_arima"
       )
     },
     forecast = function(h = 10, task, new_data = NULL) {

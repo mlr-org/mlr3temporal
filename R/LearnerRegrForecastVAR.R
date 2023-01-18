@@ -24,7 +24,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
       ))
 
       super$initialize(
-        id = "VAR",
+        id = "forecast.VAR",
         feature_types = c("numeric"),
         predict_types = c("response", "se"),
         packages = "vars",
