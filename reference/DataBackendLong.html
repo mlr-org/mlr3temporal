@@ -67,10 +67,10 @@ See DataBackendDataTable or DataBackendMatrix for exemplary implementations of t
     <p>DataBackend for timeseries in long-format</p>
 <p>Data Backends provide a layer of abstraction for various data storage systems.
 It is not recommended to work directly with the DataBackend.
-Instead, all data access is handled transparently via the <a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">Task</a>.</p>
+Instead, all data access is handled transparently via the Task.</p>
 <p>To connect to out-of-memory database management systems such as SQL servers, see <a href="https://CRAN.R-project.org/package=mlr3db" class="external-link"><span class="pkg">mlr3db</span></a>.</p>
 <p>The required set of fields and methods to implement a custom DataBackend is listed in the respective sections.
-See <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html" class="external-link">DataBackendDataTable</a> or <a href="https://mlr3.mlr-org.com/reference/DataBackendMatrix.html" class="external-link">DataBackendMatrix</a> for exemplary implementations of the interface.</p>
+See DataBackendDataTable or DataBackendMatrix for exemplary implementations of the interface.</p>
     </div>
 
 
@@ -82,11 +82,11 @@ See <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html" class
     <h2>Construction</h2>
     
 
-<p>Note: This object is typically constructed via a derived classes, e.g. <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html" class="external-link">DataBackendDataTable</a> or <a href="https://mlr3.mlr-org.com/reference/DataBackendMatrix.html" class="external-link">DataBackendMatrix</a>,
-or via the S3 method <code><a href="https://mlr3.mlr-org.com/reference/as_data_backend.html" class="external-link">as_data_backend()</a></code>.</p>
+<p>Note: This object is typically constructed via a derived classes, e.g. DataBackendDataTable or DataBackendMatrix,
+or via the S3 method <code>as_data_backend()</code>.</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>DataBackend<span class="sc">$</span><span class="fu">new</span>(data, <span class="at">primary_key =</span> <span class="cn">NULL</span>, <span class="at">data_formats =</span> <span class="st">"data.table"</span>)</span></code></pre><p></p></div><ul><li><p><code>data</code> :: <code>any</code><br>
 The format of the input data depends on the specialization.
-E.g., <a href="https://mlr3.mlr-org.com/reference/DataBackendDataTable.html" class="external-link">DataBackendDataTable</a> expects a <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> and <a href="https://mlr3.mlr-org.com/reference/DataBackendMatrix.html" class="external-link">DataBackendMatrix</a> expects a <code><a href="https://rdrr.io/pkg/Matrix/man/Matrix.html" class="external-link">Matrix::Matrix()</a></code>
+E.g., DataBackendDataTable expects a <code><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table::data.table()</a></code> and DataBackendMatrix expects a <code><a href="https://rdrr.io/pkg/Matrix/man/Matrix.html" class="external-link">Matrix::Matrix()</a></code>
 constructed with the <a href="https://CRAN.R-project.org/package=Matrix" class="external-link"><span class="pkg">Matrix</span></a> package.</p></li>
 <li><p><code>primary_key</code> :: <code>character(1)</code><br>
 Each DataBackend needs a way to address rows, which is done via a column of unique values, referenced here by <code>primary_key</code>.

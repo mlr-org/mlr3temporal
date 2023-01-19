@@ -60,7 +60,7 @@ The task_type is set to "regr" `.'><!-- mathjax --><script src="https://cdnjs.cl
     </div>
 
     <div class="ref-description">
-    <p>This task specializes <a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">Task</a> and <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a> for forecasting regression problems.
+    <p>This task specializes Task and TaskSupervised for forecasting regression problems.
 The target column(s) are assumed to be numeric.
 The <code>task_type</code> is set to <code>"regr"</code> `.</p>
     </div>
@@ -68,7 +68,7 @@ The <code>task_type</code> is set to <code>"regr"</code> `.</p>
 
     <div id="format">
     <h2>Format</h2>
-    <p><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class</a> object inheriting from <a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">Task</a>/<a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a>/<a href="TaskForecast.html">TaskForecast</a>.</p>
+    <p><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class</a> object inheriting from Task/TaskSupervised/<a href="TaskForecast.html">TaskForecast</a>.</p>
     </div>
     <div id="construction">
     <h2>Construction</h2>
@@ -77,9 +77,9 @@ The <code>task_type</code> is set to <code>"regr"</code> `.</p>
 
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> TaskRegrForecast<span class="sc">$</span><span class="fu">new</span>(id, backend, target, date_col)</span></code></pre><p></p></div><ul><li><p><code>id</code> :: <code>character(1)</code><br>
 Identifier for the task.</p></li>
-<li><p><code>backend</code> :: <a href="https://mlr3.mlr-org.com/reference/DataBackend.html" class="external-link">DataBackend</a><br>
+<li><p><code>backend</code> :: DataBackend<br>
 Either a <a href="DataBackendLong.html">DataBackendLong</a>, a object of class <code>ts</code> or a <code>data.frame</code> with specified date column</p>
-<p>or any object which is convertible to a DataBackend with <code><a href="https://mlr3.mlr-org.com/reference/as_data_backend.html" class="external-link">as_data_backend()</a></code>.
+<p>or any object which is convertible to a DataBackend with <code>as_data_backend()</code>.
 E.g., a object of class  <code>dts</code> will be converted to a <a href="DataBackendLong.html">DataBackendLong</a>.</p></li>
 <li><p><code>target</code> :: <code>character(n)</code><br>
 Name of the target column(s).</p></li>
@@ -88,13 +88,13 @@ Name of the target column(s).</p></li>
     <h2>Fields</h2>
     
 
-<p>All methods from <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a> and <a href="TaskForecast.html">TaskForecast</a>.</p>
+<p>All methods from TaskSupervised and <a href="TaskForecast.html">TaskForecast</a>.</p>
     </div>
     <div id="methods">
     <h2>Methods</h2>
     
 
-<p>See <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a> and <a href="TaskForecast.html">TaskForecast</a>.</p>
+<p>See TaskSupervised and <a href="TaskForecast.html">TaskForecast</a>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>

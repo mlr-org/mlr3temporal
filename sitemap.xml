@@ -40,10 +40,10 @@
     <loc>https://mlr3temporal.mlr-org.com/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html</loc>
   </url>
   <url>
-    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.auto_arima.html</loc>
   </url>
   <url>
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.average.html</loc>
@@ -52,13 +52,22 @@
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html</loc>
   </url>
   <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mape.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mse.html</loc>
+  </url>
+  <url>
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.regr.html</loc>
   </url>
   <url>
-    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.rmse.html</loc>
   </url>
   <url>
-    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html</loc>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_cv.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_holdout.html</loc>
   </url>
   <url>
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_tasks_airpassengers.html</loc>

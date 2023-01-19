@@ -62,7 +62,7 @@ Note, that in case the input is a data.table' or data.frame, mlr3temporalexpects
     </div>
 
     <div class="ref-description">
-    <p>Introduces a new Forecasting Task that inherits from <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a> which can be used to forecast time series.
+    <p>Introduces a new Forecasting Task that inherits from TaskSupervised which can be used to forecast time series.
 This is an abstract class, which should not be instantiated.
 Use the subclass <a href="TaskRegrForecast.html">TaskRegrForecast</a> instead.
 The <code>task_type</code> is set to <code>"forecast"</code>.</p>
@@ -72,7 +72,7 @@ The <code>task_type</code> is set to <code>"forecast"</code>.</p>
 
     <div id="format">
     <h2>Format</h2>
-    <p><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class</a> object inheriting from <a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">Task</a>/<a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a>.</p>
+    <p><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class</a> object inheriting from Task/TaskSupervised.</p>
     </div>
     <div id="construction">
     <h2>Construction</h2>
@@ -81,9 +81,9 @@ The <code>task_type</code> is set to <code>"forecast"</code>.</p>
 
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> TaskForecast<span class="sc">$</span><span class="fu">new</span>(id, backend, target, date_col)</span></code></pre><p></p></div><ul><li><p><code>id</code> :: <code>character(1)</code><br>
 Identifier for the task.</p></li>
-<li><p><code>backend</code> :: <a href="https://mlr3.mlr-org.com/reference/DataBackend.html" class="external-link">DataBackend</a><br>
+<li><p><code>backend</code> :: DataBackend<br>
 Either a <a href="DataBackendLong.html">DataBackendLong</a>, an object of class <code>ts</code> or a <code>data.frame</code> with specified date column
-or any object which is convertible to a DataBackendLong with <code><a href="https://mlr3.mlr-org.com/reference/as_data_backend.html" class="external-link">as_data_backend()</a></code>.
+or any object which is convertible to a DataBackendLong with <code>as_data_backend()</code>.
 E.g., a object of class  <code>dts</code> (from package tsbox) will be converted to a <a href="DataBackendLong.html">DataBackendLong</a>.</p></li>
 <li><p><code>target</code> :: <code>character(n)</code><br>
 Name of the target column(s).</p></li>
@@ -94,14 +94,14 @@ Name of the date column, only required if backend is a <code>data.frame</code>.<
     <h2>Fields</h2>
     
 
-<p>All methods inherited from <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a>, and additionally:</p><ul><li><p><code>date_col</code> :: <code>character(1)</code><br>
+<p>All methods inherited from TaskSupervised, and additionally:</p><ul><li><p><code>date_col</code> :: <code>character(1)</code><br>
 Name of the date column.</p></li>
 </ul></div>
     <div id="methods">
     <h2>Methods</h2>
     
 
-<p>See <a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">TaskSupervised</a>, additionally:</p><ul><li><p><code>date(row_ids = NULL)</code>  :: <code>data.table</code><br>
+<p>See TaskSupervised, additionally:</p><ul><li><p><code>date(row_ids = NULL)</code>  :: <code>data.table</code><br>
 (<code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code> | <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code>) -&gt; named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code><br>
 Returns the <code>date</code> column.</p></li>
 </ul></div>
