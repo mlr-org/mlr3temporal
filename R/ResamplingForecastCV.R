@@ -1,16 +1,9 @@
-#' @title Rolling Window Cross Validation Resampling
+#' @title Forecast Cross-Validation Resampling
 #'
 #' @usage NULL
-#' @name mlr_resamplings_RollingWindowCV
+#' @name mlr_resamplings_forecast_cv
 #' @format [R6::R6Class] inheriting from [Resampling].
-#' @include ResamplingRollingWindowCV.R
-#'
-#' @section Construction:
-#' ```
-#' ResamplingRollingWindowCV$new()
-#' mlr3::mlr_resamplings$get("ResamplingRollingWindowCV")
-#' rsmp("ResamplingRollingWindowCV")
-#' ```
+#' @include ResamplingForecastCV.R
 #'
 #' @description
 #' Splits data using a `folds`-folds (default: 10 folds) rolling window cross-validation.
@@ -44,7 +37,7 @@
 #' task$filter(1:20)
 #'
 #' # Instantiate Resampling
-#' rfho = mlr3::rsmp("RollingWindowCV", folds = 3, fixed_window = FALSE)
+#' rfho = mlr3::rsmp("forecast_cv", folds = 3, fixed_window = FALSE)
 #' rfho$instantiate(task)
 #'
 #' # Individual sets:
@@ -54,7 +47,7 @@
 #'
 #' # Internal storage:
 #' rfho$instance #  list
-ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
+ResamplingForecastCV = R6Class("ResamplingForecastCV",
   inherit = Resampling,
   public = list(
     initialize = function() {
@@ -66,7 +59,7 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
       ))
       ps$values = list(window_size = 10L, horizon = 5L, folds = 10L, fixed_window = TRUE)
 
-      super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_RollingWindowCV")
+      super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecast_cv")
     }
   ),
   active = list(
@@ -112,3 +105,6 @@ ResamplingRollingWindowCV = R6Class("ResamplingRollingWindowCV",
     }
   )
 )
+
+#' @include aaa.R
+resamplings[["forecast_cv"]] = ResamplingForecastCV

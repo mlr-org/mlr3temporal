@@ -1,16 +1,9 @@
 #' @title Forecast Holdout Resampling
 #'
 #' @usage NULL
-#' @name mlr_resamplings_forecastHoldout
+#' @name mlr_resamplings_forecast_holdout
 #' @format [R6::R6Class] inheriting from [Resampling].
 #' @include ResamplingForecastHoldout.R
-#'
-#' @section Construction:
-#' ```
-#' ResamplingForecastHoldout$new()
-#' mlr_resamplings$get("forecast.holdout")
-#' rsmp("forecast.holdout")
-#' ```
 #'
 #' @description
 #' Splits data into a training set and a test set.
@@ -35,7 +28,7 @@
 #' task$filter(1:10)
 #'
 #' # Instantiate Resampling
-#' rfho = mlr3::rsmp("forecastHoldout", ratio = 0.5)
+#' rfho = mlr3::rsmp("forecast_holdout", ratio = 0.5)
 #' rfho$instantiate(task)
 #'
 #' # Individual sets:
@@ -54,7 +47,7 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout",
       ))
       ps$values = list(ratio = 2 / 3)
 
-      super$initialize(id = "forecastHoldout", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecastHoldout")
+      super$initialize(id = "forecast_holdout", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecast_holdout")
     },
     iters = 1L
   ),
@@ -75,3 +68,6 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout",
     }
   )
 )
+
+#' @include aaa.R
+resamplings[["forecast_holdout"]] = ResamplingForecastHoldout

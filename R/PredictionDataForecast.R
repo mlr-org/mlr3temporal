@@ -78,7 +78,7 @@ c.PredictionDataForecast = function(..., keep_duplicates = TRUE) {
   row_ids = unlist(map(dots, "row_ids"))
 
   keep = seq_len(length(row_ids))
-  if(!keep_duplicates) {
+  if (!keep_duplicates) {
     # Get a mask of non-duplicated row_ids
     keep = setdiff(keep, duplicated(row_ids))
   }

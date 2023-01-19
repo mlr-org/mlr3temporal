@@ -47,7 +47,7 @@ test_that("Combine Predictions", {
 
 test_that("Fitted values", {
   task = tsk("airpassengers")
-  lrn = lrn("forecast.auto.arima")
+  lrn = lrn("forecast.auto_arima")
   lrn$train(task, 1:10)
   expect_data_table(lrn$fitted_values(), types = "numeric", nrows = 10)
   task = tsk("petrol")

@@ -1,15 +1,9 @@
-#' @title Auto.Arima Learner
+#' @title Auto.Arima Forecast Learner
 #'
 #' @usage NULL
-#' @name mlr_learners_regr.AutoArima
+#' @name mlr_learners_regr.auto_arima
 #' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
-#' @section Construction:
-#' ```
-#' LearnerRegrForecastAutoArima$new()
-#' mlr_learners$get("regr.rpart")
-#' lrn("regr.rpart")
-#' ```
 #' @section Methods:
 #' See [LearnerForecast], additionally:
 #' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
@@ -44,13 +38,13 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
       ))
 
       super$initialize(
-        id = "auto.arima",
+        id = "forecast.auto_arima",
         feature_types = "numeric",
         predict_types = c("response", "se"),
         packages = "forecast",
         param_set = ps,
         properties = c("univariate", "exogenous", "missings"),
-        man = "mlr3temporal::mlr_learners_regr.AutoArima"
+        man = "mlr3temporal::mlr_learners_regr.auto_arima"
       )
     },
     forecast = function(h = 10, task, new_data = NULL) {
@@ -141,3 +135,6 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.auto_arima"]] = LearnerRegrForecastAutoArima

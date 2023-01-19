@@ -14,7 +14,7 @@ test_that("Basic Tests", {
   p = learner$predict(task, row_ids = 7:15)
   expect_prediction_forecast(p)
 
-  rr = rsmp("forecastHoldout")
+  rr = rsmp("forecast_holdout")
   rr$instantiate(task)
   res = resample(task, learner, rr, store_models = TRUE)
   res$prediction()

@@ -1,13 +1,8 @@
-#' @title Vector Autoregression Learner
+#' @title Vector Autoregression Forecast Learner
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.VAR
 #' @format [R6::R6Class] inheriting from [LearnerForecast].
-#'
-#' @section Construction:
-#' ```
-#' LearnerRegrForecastVAR$new()
-#' ```
 #'
 #' @description
 #' A LearnerRegrForecast for a vector autoregressive model implemented in [vars::VAR] in package \CRANpkg{var}.
@@ -29,7 +24,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
       ))
 
       super$initialize(
-        id = "VAR",
+        id = "forecast.VAR",
         feature_types = c("numeric"),
         predict_types = c("response", "se"),
         packages = "vars",
@@ -127,3 +122,6 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.VAR"]] = LearnerRegrForecastVAR

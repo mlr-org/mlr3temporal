@@ -107,7 +107,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     date_col = NULL,
 
     initialize = function(data, primary_key, id_col, date_col) {
-      assert_data_frame(data, ncol = 4L, col.names = "unique")
+      assert_data_frame(data, ncols = 4L, col.names = "unique")
       setDT(data)
       super$initialize(data, primary_key, data_formats = "data.table")
 

@@ -1,13 +1,9 @@
-#' @title Average Learner
+#' @title Average Forecast Learner
 #'
 #' @usage NULL
 #' @name mlr_learners_regr.average
 #' @format [R6::R6Class] inheriting from [mlr3temporal::LearnerForecast].
 #'
-#' @section Construction:
-#' ```
-#' LearnerRegrForecastAverage$new()
-#' ```
 #' @section Methods:
 #' See [LearnerForecast], additionally:
 #' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
@@ -57,3 +53,6 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
     }
   )
 )
+
+#' @include aaa.R
+learners[["forecast.average"]] = LearnerRegrForecastAverage

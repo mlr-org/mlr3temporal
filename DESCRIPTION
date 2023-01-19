@@ -57,19 +57,23 @@ VignetteBuilder:
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = FALSE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Collate: 
     'DataBackendLong.R'
     'LearnerForecast.R'
+    'aaa.R'
     'LearnerRegrForecastAutoArima.R'
     'LearnerRegrForecastAverage.R'
     'LearnerRegrForecastVAR.R'
     'MeasureForecast.R'
     'MeasureForecastMAE.R'
+    'MeasureForecastMAPE.R'
+    'MeasureForecastMSE.R'
+    'MeasureForecastRMSE.R'
     'PredictionDataForecast.R'
     'PredictionForecast.R'
+    'ResamplingForecastCV.R'
     'ResamplingForecastHoldout.R'
-    'ResamplingRollingWindowCV.R'
     'TaskForecast.R'
     'TaskRegrForecast.R'
     'TaskRegrForecastAirPassengers.R'

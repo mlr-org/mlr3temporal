@@ -13,3 +13,6 @@ MeasureForecastMAE = R6Class("MeasureForecastMAE",
     }
   )
 )
+
+#' @include aaa.R
+measures[["forecast.mae"]] = MeasureForecastMAE
