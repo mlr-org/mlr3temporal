@@ -56,10 +56,17 @@ rfho$instance #  list
 paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
 }
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[=Resampling]{Resamplings}: \link{mlr_resamplings}
-
-\code{as.data.table(mlr_resamplings)} for a complete table of all (also dynamically created) \link{Resampling} implementations.
+\itemize{
+\item \code{\link[=as_benchmark_result]{as_benchmark_result()}} to convert to a \link{BenchmarkResult}.
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/performance.html#sec-resampling}
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
 }
+
+Other resample: 
+\code{\link{mlr_resamplings_forecast_holdout}}
+}
+\concept{resample}
 \section{Super class}{
 \code{\link[mlr3:Resampling]{mlr3::Resampling}} -> \code{ResamplingForecastCV}
 }

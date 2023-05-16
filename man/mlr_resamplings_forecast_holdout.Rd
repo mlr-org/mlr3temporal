@@ -47,10 +47,17 @@ intersect(rfho$train_set(1), rfho$test_set(1))
 rfho$instance # simple list
 }
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[=Resampling]{Resamplings}: \link{mlr_resamplings}
-
-\code{as.data.table(mlr_resamplings)} for a complete table of all (also dynamically created) \link{Resampling} implementations.
+\itemize{
+\item \code{\link[=as_benchmark_result]{as_benchmark_result()}} to convert to a \link{BenchmarkResult}.
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/performance.html#sec-resampling}
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
 }
+
+Other resample: 
+\code{\link{mlr_resamplings_forecast_cv}}
+}
+\concept{resample}
 \section{Super class}{
 \code{\link[mlr3:Resampling]{mlr3::Resampling}} -> \code{ResamplingForecastHoldout}
 }

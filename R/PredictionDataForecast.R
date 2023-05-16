@@ -83,10 +83,10 @@ c.PredictionDataForecast = function(..., keep_duplicates = TRUE) {
     keep = setdiff(keep, duplicated(row_ids))
   }
 
-  truth = nullify_nulldt(rbindlist(map(dots, "truth"))[keep,])
-  response = nullify_nulldt(rbindlist(map(dots, "response"))[keep,])
-  se = nullify_nulldt(rbindlist(map(dots, "se"))[keep,])
-  distr = nullify_nulldt(rbindlist(map(dots, "distr"))[keep,])
+  truth = nullify_nulldt(rbindlist(map(dots, "truth"))[keep, ])
+  response = nullify_nulldt(rbindlist(map(dots, "response"))[keep, ])
+  se = nullify_nulldt(rbindlist(map(dots, "se"))[keep, ])
+  distr = nullify_nulldt(rbindlist(map(dots, "distr"))[keep, ])
 
   result = list(
     row_ids = row_ids,

@@ -24,13 +24,35 @@
 #'
 #' @family Measure
 #' @export
-MeasureForecast = R6Class("MeasureForecast", inherit = Measure, cloneable = FALSE,
+MeasureForecast = R6Class("MeasureForecast",
+  inherit = Measure,
+  cloneable = FALSE,
   public = list(
-    initialize = function(id, range, minimize = NA, average = "macro", aggregator = NULL, properties = character(), predict_type = "response",
-                          predict_sets = "test", task_properties = character(), packages = character(), man = NA_character_) {
-      super$initialize(id, task_type = "forecast", range = range, minimize = minimize, average = average, aggregator = aggregator,
-                       properties = properties, predict_type = predict_type, predict_sets = predict_sets,
-                       task_properties = task_properties, packages = packages, man = man)
+    initialize = function(id,
+                          range,
+                          minimize = NA,
+                          average = "macro",
+                          aggregator = NULL,
+                          properties = character(),
+                          predict_type = "response",
+                          predict_sets = "test",
+                          task_properties = character(),
+                          packages = character(),
+                          man = NA_character_) {
+      super$initialize(
+        id,
+        task_type = "forecast",
+        range = range,
+        minimize = minimize,
+        average = average,
+        aggregator = aggregator,
+        properties = properties,
+        predict_type = predict_type,
+        predict_sets = predict_sets,
+        task_properties = task_properties,
+        packages = packages,
+        man = man
+      )
     }
   )
 )
