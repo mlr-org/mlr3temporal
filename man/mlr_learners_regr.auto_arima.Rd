@@ -4,21 +4,144 @@
 \alias{mlr_learners_regr.auto_arima}
 \alias{LearnerRegrForecastAutoArima}
 \title{Auto.Arima Forecast Learner}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.
-}
 \description{
-A LearnerRegrForecast for an (AR)I(MA) model implemented in \link[forecast:auto.arima]{forecast::auto.arima} in package \CRANpkg{forecast}.
+Auto ARIMA model
+Calls \link[forecast:auto.arima]{forecast::auto.arima} from package \CRANpkg{forecast}.
+}
+\section{Dictionary}{
+
+This \link{Learner} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated sugar function \code{\link[=lrn]{lrn()}}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_learners$get("forecast.auto_arima")
+lrn("forecast.auto_arima")
+}\if{html}{\out{</div>}}
+}
+
+\section{Meta Information}{
+
+\itemize{
+\item Task type: \dQuote{forecast}
+\item Predict Types: \dQuote{response}, \dQuote{se}
+\item Feature Types: \dQuote{numeric}
+\item Required Packages: \CRANpkg{mlr3}, \CRANpkg{forecast}
+}
+}
+
+\section{Parameters}{
+\tabular{lllll}{
+   Id \tab Type \tab Default \tab Levels \tab Range \cr
+   d \tab integer \tab NA \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   D \tab integer \tab NA \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.q \tab integer \tab 5 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.p \tab integer \tab 5 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.P \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.Q \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.order \tab integer \tab 5 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.d \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   max.D \tab integer \tab 1 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   start.p \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   start.q \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   start.P \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   start.Q \tab integer \tab 2 \tab  \tab \eqn{[0, \infty)}{[0, Inf)} \cr
+   stepwise \tab logical \tab FALSE \tab TRUE, FALSE \tab - \cr
+   allowdrift \tab logical \tab TRUE \tab TRUE, FALSE \tab - \cr
+   seasonal \tab logical \tab FALSE \tab TRUE, FALSE \tab - \cr
+}
+}
+
+\examples{
+learner = mlr3::lrn("forecast.auto_arima")
+print(learner)
+
+# available parameters:
+learner$param_set$ids()
+}
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#learners}
+\item Package \CRANpkg{mlr3learners} for a solid collection of essential learners.
+\item Package \href{https://github.com/mlr-org/mlr3extralearners}{mlr3extralearners} for more learners.
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Learner]{Learners}: \link{mlr_learners}
+\item \code{as.data.table(mlr_learners)} for a table of available \link[=Learner]{Learners} in the running session (depending on the loaded packages).
+\item \CRANpkg{mlr3pipelines} to combine learners with pre- and postprocessing steps.
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
+\item \CRANpkg{mlr3tuning} for tuning of hyperparameters, \CRANpkg{mlr3tuningspaces}
+for established default tuning spaces.
+}
+
+Other Learner: 
+\code{\link{LearnerForecast}},
+\code{\link{mlr_learners_regr.VAR}},
+\code{\link{mlr_learners_regr.average}}
+}
+\concept{Learner}
+\section{Super classes}{
+\code{\link[mlr3:Learner]{mlr3::Learner}} -> \code{\link[mlr3temporal:LearnerForecast]{mlr3temporal::LearnerForecast}} -> \code{LearnerRegrForecastAutoArima}
 }
 \section{Methods}{
-
-See \link{LearnerForecast}, additionally:
+\subsection{Public methods}{
 \itemize{
-\item \code{forecast(h = 10, task, new_data)}  :: \code{data.table}\cr
-Returns forecasts after the last training instance.
+\item \href{#method-LearnerRegrForecastAutoArima-new}{\code{LearnerRegrForecastAutoArima$new()}}
+\item \href{#method-LearnerRegrForecastAutoArima-forecast}{\code{LearnerRegrForecastAutoArima$forecast()}}
+\item \href{#method-LearnerRegrForecastAutoArima-clone}{\code{LearnerRegrForecastAutoArima$clone()}}
 }
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="base_learner"><a href='../../mlr3/html/Learner.html#method-Learner-base_learner'><code>mlr3::Learner$base_learner()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="format"><a href='../../mlr3/html/Learner.html#method-Learner-format'><code>mlr3::Learner$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="help"><a href='../../mlr3/html/Learner.html#method-Learner-help'><code>mlr3::Learner$help()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="predict_newdata"><a href='../../mlr3/html/Learner.html#method-Learner-predict_newdata'><code>mlr3::Learner$predict_newdata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="print"><a href='../../mlr3/html/Learner.html#method-Learner-print'><code>mlr3::Learner$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="reset"><a href='../../mlr3/html/Learner.html#method-Learner-reset'><code>mlr3::Learner$reset()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="fitted_values"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-fitted_values'><code>mlr3temporal::LearnerForecast$fitted_values()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="predict"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-predict'><code>mlr3temporal::LearnerForecast$predict()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="train"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-train'><code>mlr3temporal::LearnerForecast$train()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAutoArima-new"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAutoArima-new}{}}}
+\subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAutoArima$new()}\if{html}{\out{</div>}}
 }
 
-\seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}: \link[mlr3:mlr_learners]{mlr3::mlr_learners}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAutoArima-forecast"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAutoArima-forecast}{}}}
+\subsection{Method \code{forecast()}}{
+Returns forecasts after the last training instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAutoArima$forecast(h = 10, task, new_data = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAutoArima-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAutoArima-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAutoArima$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

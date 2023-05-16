@@ -1,41 +1,43 @@
 #' @title Auto.Arima Forecast Learner
 #'
-#' @usage NULL
 #' @name mlr_learners_regr.auto_arima
-#' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
-#' @section Methods:
-#' See [LearnerForecast], additionally:
-#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
-#' Returns forecasts after the last training instance.
 #' @description
-#' A LearnerRegrForecast for an (AR)I(MA) model implemented in [forecast::auto.arima] in package \CRANpkg{forecast}.
+#' Auto ARIMA model
+#' Calls [forecast::auto.arima] from package \CRANpkg{forecast}.
 #'
+#' @templateVar id forecast.auto_arima
+#' @template learner
 #'
 #' @template seealso_learner
 #' @export
+#' @template example
 LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
   inherit = LearnerForecast,
+
   public = list(
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
-      ps = ParamSet$new(list(
-        ParamInt$new(id = "d", default = NA, lower = 0L, tags = "train", special_vals = list(NA)),
-        ParamInt$new(id = "D", default = NA, lower = 0L, tags = "train", special_vals = list(NA)),
-        ParamInt$new(id = "max.p", default = 5, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.q", default = 5, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.P", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.Q", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.order", default = 5, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.d", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "max.D", default = 1, lower = 0, tags = "train"),
-        ParamInt$new(id = "start.p", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "start.q", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "start.P", default = 2, lower = 0, tags = "train"),
-        ParamInt$new(id = "start.Q", default = 2, lower = 0, tags = "train"),
-        ParamLgl$new(id = "stepwise", default = FALSE, tags = "train"),
-        ParamLgl$new(id = "allowdrift", default = TRUE, tags = "train"),
-        ParamLgl$new(id = "seasonal", default = FALSE, tags = "train")
-      ))
+      ps = ps(
+        d          = p_int(0L, default = NA, tags = "train", special_vals = list(NA)),
+        D          = p_int(0L, default = NA, tags = "train", special_vals = list(NA)),
+        max.q      = p_int(0L, default = 5, tags = "train"),
+        max.p      = p_int(0L, default = 5, tags = "train"),
+        max.P      = p_int(0L, default = 2, tags = "train"),
+        max.Q      = p_int(0L, default = 2, tags = "train"),
+        max.order  = p_int(0L, default = 5, tags = "train"),
+        max.d      = p_int(0L, default = 2, tags = "train"),
+        max.D      = p_int(0L, default = 1, tags = "train"),
+        start.p    = p_int(0L, default = 2, tags = "train"),
+        start.q    = p_int(0L, default = 2, tags = "train"),
+        start.P    = p_int(0L, default = 2, tags = "train"),
+        start.Q    = p_int(0L, default = 2, tags = "train"),
+        stepwise   = p_lgl(default = FALSE, tags = "train"),
+        allowdrift = p_lgl(default = TRUE, tags = "train"),
+        seasonal   = p_lgl(default = FALSE, tags = "train")
+      )
 
       super$initialize(
         id = "forecast.auto_arima",
@@ -47,6 +49,8 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
         man = "mlr3temporal::mlr_learners_regr.auto_arima"
       )
     },
+    #' @description
+    #' Returns forecasts after the last training instance.
     forecast = function(h = 10, task, new_data = NULL) {
       if (length(task$feature_names) > 0) {
         newdata = as.matrix(new_data)

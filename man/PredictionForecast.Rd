@@ -58,3 +58,69 @@ learner$train(task, 1:30)
 p = learner$predict(task, 31:50)
 }
 \concept{Prediction}
+\section{Super class}{
+\code{\link[mlr3:Prediction]{mlr3::Prediction}} -> \code{PredictionForecast}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PredictionForecast-new}{\code{PredictionForecast$new()}}
+\item \href{#method-PredictionForecast-help}{\code{PredictionForecast$help()}}
+\item \href{#method-PredictionForecast-print}{\code{PredictionForecast$print()}}
+\item \href{#method-PredictionForecast-conf_int}{\code{PredictionForecast$conf_int()}}
+}
+}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="filter"><a href='../../mlr3/html/Prediction.html#method-Prediction-filter'><code>mlr3::Prediction$filter()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="format"><a href='../../mlr3/html/Prediction.html#method-Prediction-format'><code>mlr3::Prediction$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="score"><a href='../../mlr3/html/Prediction.html#method-Prediction-score'><code>mlr3::Prediction$score()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PredictionForecast-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PredictionForecast-new}{}}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$new(
+  task = NULL,
+  row_ids = task$row_ids,
+  truth = task$truth(),
+  response = NULL,
+  se = NULL,
+  distr = NULL,
+  check = TRUE
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PredictionForecast-help"></a>}}
+\if{latex}{\out{\hypertarget{method-PredictionForecast-help}{}}}
+\subsection{Method \code{help()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$help()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PredictionForecast-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PredictionForecast-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$print(...)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PredictionForecast-conf_int"></a>}}
+\if{latex}{\out{\hypertarget{method-PredictionForecast-conf_int}{}}}
+\subsection{Method \code{conf_int()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$conf_int(level = 95)}\if{html}{\out{</div>}}
+}
+
+}
+}

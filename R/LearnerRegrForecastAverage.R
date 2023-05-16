@@ -1,22 +1,24 @@
 #' @title Average Forecast Learner
 #'
-#' @usage NULL
 #' @name mlr_learners_regr.average
-#' @format [R6::R6Class] inheriting from [mlr3temporal::LearnerForecast].
 #'
-#' @section Methods:
-#' See [LearnerForecast], additionally:
-#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
-#' Returns forecasts after the last training instance.
 #' @description
-#' A LearnerRegrForecast model based on average values implemented in [base::mean()] in package \CRANpkg{base}.
+#' A model based on average values
+#' Calls [base::mean] from package \CRANpkg{base}.
 #'
+#' @templateVar id forecast.average
+#' @template learner
 #'
 #' @template seealso_learner
 #' @export
+#' @template example
 LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
   inherit = LearnerForecast,
+
   public = list(
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
       super$initialize(
         id = "forecast.average",
@@ -27,6 +29,8 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
         feature_types = c("logical", "integer", "numeric", "factor", "ordered")
       )
     },
+    #' @description
+    #' Returns forecasts after the last training instance.
     forecast = function(h = 10, task, new_data = NULL) {
       response = as.data.table(rep(self$model, h))
       colnames(response) = task$target_names

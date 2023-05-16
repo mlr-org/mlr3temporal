@@ -90,3 +90,70 @@ Non-existing rows and columns are silently ignored.
 Extension Packages: \CRANpkg{mlr3db}
 }
 \concept{DataBackend}
+\section{Super class}{
+\code{\link[mlr3:DataBackend]{mlr3::DataBackend}} -> \code{DataBackendLong}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DataBackendLong-new}{\code{DataBackendLong$new()}}
+\item \href{#method-DataBackendLong-data}{\code{DataBackendLong$data()}}
+\item \href{#method-DataBackendLong-head}{\code{DataBackendLong$head()}}
+\item \href{#method-DataBackendLong-distinct}{\code{DataBackendLong$distinct()}}
+\item \href{#method-DataBackendLong-missings}{\code{DataBackendLong$missings()}}
+}
+}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="DataBackend" data-id="format"><a href='../../mlr3/html/DataBackend.html#method-DataBackend-format'><code>mlr3::DataBackend$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="DataBackend" data-id="print"><a href='../../mlr3/html/DataBackend.html#method-DataBackend-print'><code>mlr3::DataBackend$print()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataBackendLong-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DataBackendLong-new}{}}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$new(data, primary_key, id_col, date_col)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataBackendLong-data"></a>}}
+\if{latex}{\out{\hypertarget{method-DataBackendLong-data}{}}}
+\subsection{Method \code{data()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$data(rows, cols, data_format = "data.table", roll = TRUE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataBackendLong-head"></a>}}
+\if{latex}{\out{\hypertarget{method-DataBackendLong-head}{}}}
+\subsection{Method \code{head()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$head(n = 6L)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataBackendLong-distinct"></a>}}
+\if{latex}{\out{\hypertarget{method-DataBackendLong-distinct}{}}}
+\subsection{Method \code{distinct()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$distinct(rows, cols, na_rm = TRUE)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DataBackendLong-missings"></a>}}
+\if{latex}{\out{\hypertarget{method-DataBackendLong-missings}{}}}
+\subsection{Method \code{missings()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$missings(rows, cols)}\if{html}{\out{</div>}}
+}
+
+}
+}

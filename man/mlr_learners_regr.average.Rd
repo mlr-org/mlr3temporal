@@ -4,21 +4,127 @@
 \alias{mlr_learners_regr.average}
 \alias{LearnerRegrForecastAverage}
 \title{Average Forecast Learner}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{LearnerForecast}.
-}
 \description{
-A LearnerRegrForecast model based on average values implemented in \code{\link[base:mean]{base::mean()}} in package \CRANpkg{base}.
+A model based on average values
+Calls \link[base:mean]{base::mean} from package \CRANpkg{base}.
+}
+\section{Dictionary}{
+
+This \link{Learner} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated sugar function \code{\link[=lrn]{lrn()}}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_learners$get("forecast.average")
+lrn("forecast.average")
+}\if{html}{\out{</div>}}
+}
+
+\section{Meta Information}{
+
+\itemize{
+\item Task type: \dQuote{forecast}
+\item Predict Types: \dQuote{response}
+\item Feature Types: \dQuote{logical}, \dQuote{integer}, \dQuote{numeric}, \dQuote{factor}, \dQuote{ordered}
+\item Required Packages: \CRANpkg{mlr3}, 'base'
+}
+}
+
+\section{Parameters}{
+
+Empty ParamSet
+}
+
+\examples{
+learner = mlr3::lrn("forecast.average")
+print(learner)
+
+# available parameters:
+learner$param_set$ids()
+}
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#learners}
+\item Package \CRANpkg{mlr3learners} for a solid collection of essential learners.
+\item Package \href{https://github.com/mlr-org/mlr3extralearners}{mlr3extralearners} for more learners.
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Learner]{Learners}: \link{mlr_learners}
+\item \code{as.data.table(mlr_learners)} for a table of available \link[=Learner]{Learners} in the running session (depending on the loaded packages).
+\item \CRANpkg{mlr3pipelines} to combine learners with pre- and postprocessing steps.
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
+\item \CRANpkg{mlr3tuning} for tuning of hyperparameters, \CRANpkg{mlr3tuningspaces}
+for established default tuning spaces.
+}
+
+Other Learner: 
+\code{\link{LearnerForecast}},
+\code{\link{mlr_learners_regr.VAR}},
+\code{\link{mlr_learners_regr.auto_arima}}
+}
+\concept{Learner}
+\section{Super classes}{
+\code{\link[mlr3:Learner]{mlr3::Learner}} -> \code{\link[mlr3temporal:LearnerForecast]{mlr3temporal::LearnerForecast}} -> \code{LearnerRegrForecastAverage}
 }
 \section{Methods}{
-
-See \link{LearnerForecast}, additionally:
+\subsection{Public methods}{
 \itemize{
-\item \code{forecast(h = 10, task, new_data)}  :: \code{data.table}\cr
-Returns forecasts after the last training instance.
+\item \href{#method-LearnerRegrForecastAverage-new}{\code{LearnerRegrForecastAverage$new()}}
+\item \href{#method-LearnerRegrForecastAverage-forecast}{\code{LearnerRegrForecastAverage$forecast()}}
+\item \href{#method-LearnerRegrForecastAverage-clone}{\code{LearnerRegrForecastAverage$clone()}}
 }
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="base_learner"><a href='../../mlr3/html/Learner.html#method-Learner-base_learner'><code>mlr3::Learner$base_learner()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="format"><a href='../../mlr3/html/Learner.html#method-Learner-format'><code>mlr3::Learner$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="help"><a href='../../mlr3/html/Learner.html#method-Learner-help'><code>mlr3::Learner$help()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="predict_newdata"><a href='../../mlr3/html/Learner.html#method-Learner-predict_newdata'><code>mlr3::Learner$predict_newdata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="print"><a href='../../mlr3/html/Learner.html#method-Learner-print'><code>mlr3::Learner$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Learner" data-id="reset"><a href='../../mlr3/html/Learner.html#method-Learner-reset'><code>mlr3::Learner$reset()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="fitted_values"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-fitted_values'><code>mlr3temporal::LearnerForecast$fitted_values()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="predict"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-predict'><code>mlr3temporal::LearnerForecast$predict()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="LearnerForecast" data-id="train"><a href='../../mlr3temporal/html/LearnerForecast.html#method-LearnerForecast-train'><code>mlr3temporal::LearnerForecast$train()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAverage-new"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAverage-new}{}}}
+\subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAverage$new()}\if{html}{\out{</div>}}
 }
 
-\seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}: \link[mlr3:mlr_learners]{mlr3::mlr_learners}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAverage-forecast"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAverage-forecast}{}}}
+\subsection{Method \code{forecast()}}{
+Returns forecasts after the last training instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAverage$forecast(h = 10, task, new_data = NULL)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-LearnerRegrForecastAverage-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-LearnerRegrForecastAverage-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAverage$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }
