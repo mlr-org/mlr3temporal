@@ -100,7 +100,69 @@ Name of the target column(s).</p></li>
     <h2>See also</h2>
     <div class="dont-index"><p>seealso_task</p>
 <p>Other Task: 
-<code><a href="TaskForecast.html">TaskForecast</a></code></p></div>
+<code><a href="TaskForecast.html">TaskForecast</a></code>,
+<code><a href="mlr_tasks_airpassengers.html">mlr_tasks_airpassengers</a></code>,
+<code><a href="mlr_tasks_petrol.html">mlr_tasks_petrol</a></code></p></div>
+    </div>
+    <div id="super-classes">
+    <h2>Super classes</h2>
+    <p><code><a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">mlr3::Task</a></code> -&gt; <code><a href="https://mlr3.mlr-org.com/reference/TaskSupervised.html" class="external-link">mlr3::TaskSupervised</a></code> -&gt; <code><a href="TaskForecast.html">mlr3temporal::TaskForecast</a></code> -&gt; <code>TaskRegrForecast</code></p>
+    </div>
+    <div id="methods">
+    <h2>Methods</h2>
+    
+<div class="section">
+<h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
+
+<ul><li><p><a href="#method-TaskRegrForecast-new"><code>TaskRegrForecast$new()</code></a></p></li>
+<li><p><a href="#method-TaskRegrForecast-clone"><code>TaskRegrForecast$clone()</code></a></p></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="add_strata"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-add_strata"><code>mlr3::Task$add_strata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="cbind"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-cbind"><code>mlr3::Task$cbind()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="droplevels"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-droplevels"><code>mlr3::Task$droplevels()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="filter"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-filter"><code>mlr3::Task$filter()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="format"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-format"><code>mlr3::Task$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="formula"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-formula"><code>mlr3::Task$formula()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="head"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-head"><code>mlr3::Task$head()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="help"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-help"><code>mlr3::Task$help()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="levels"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-levels"><code>mlr3::Task$levels()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="missings"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-missings"><code>mlr3::Task$missings()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="print"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-print"><code>mlr3::Task$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="rbind"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-rbind"><code>mlr3::Task$rbind()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="rename"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-rename"><code>mlr3::Task$rename()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="select"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-select"><code>mlr3::Task$select()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="set_col_roles"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-set_col_roles"><code>mlr3::Task$set_col_roles()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="set_levels"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-set_levels"><code>mlr3::Task$set_levels()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Task" data-id="set_row_roles"><a href="https://mlr3.mlr-org.com/reference/Task.html#method-set_row_roles"><code>mlr3::Task$set_row_roles()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="TaskForecast" data-id="data"><a href="TaskForecast.html#method-data"><code>mlr3temporal::TaskForecast$data()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="TaskForecast" data-id="date"><a href="TaskForecast.html#method-date"><code>mlr3temporal::TaskForecast$date()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3temporal" data-topic="TaskForecast" data-id="truth"><a href="TaskForecast.html#method-truth"><code>mlr3temporal::TaskForecast$truth()</code></a></span></li>
+</ul></details></p><hr><a id="method-TaskRegrForecast-new"></a><div class="section">
+<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+
+<div class="section">
+<h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/TaskRegrForecast.html">TaskRegrForecast</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">id</span>, <span class="va">backend</span>, target <span class="op">=</span> <span class="st">"target"</span>, date_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-TaskRegrForecast-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TaskRegrForecast</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>deep</code></dt>
+<dd><p>Whether to make a deep clone.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div>
+
     </div>
 
   </div>

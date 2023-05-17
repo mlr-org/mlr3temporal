@@ -89,8 +89,59 @@ Ratio of observations to put into the training set.</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><a href="https://mlr3misc.mlr-org.com/reference/Dictionary.html" class="external-link">Dictionary</a> of <a href="https://mlr3.mlr-org.com/reference/Resampling.html" class="external-link">Resamplings</a>: <a href="https://mlr3.mlr-org.com/reference/mlr_resamplings.html" class="external-link">mlr_resamplings</a></p>
-<p><code>as.data.table(mlr_resamplings)</code> for a complete table of all (also dynamically created) <a href="https://mlr3.mlr-org.com/reference/Resampling.html" class="external-link">Resampling</a> implementations.</p></div>
+    <div class="dont-index">
+<ul><li><p><code><a href="https://mlr3.mlr-org.com/reference/as_benchmark_result.html" class="external-link">as_benchmark_result()</a></code> to convert to a <a href="https://mlr3.mlr-org.com/reference/BenchmarkResult.html" class="external-link">BenchmarkResult</a>.</p></li>
+<li><p>Chapter in the <a href="https://mlr3book.mlr-org.com/" class="external-link">mlr3book</a>:
+<a href="https://mlr3book.mlr-org.com/performance.html#sec-resampling" class="external-link">https://mlr3book.mlr-org.com/performance.html#sec-resampling</a></p></li>
+<li><p>Package <a href="https://CRAN.R-project.org/package=mlr3viz" class="external-link"><span class="pkg">mlr3viz</span></a> for some generic visualizations.</p></li>
+</ul><p>Other resample: 
+<code><a href="mlr_resamplings_forecast_cv.html">mlr_resamplings_forecast_cv</a></code></p></div>
+    </div>
+    <div id="super-class">
+    <h2>Super class</h2>
+    <p><code><a href="https://mlr3.mlr-org.com/reference/Resampling.html" class="external-link">mlr3::Resampling</a></code> -&gt; <code>ResamplingForecastHoldout</code></p>
+    </div>
+    <div id="methods">
+    <h2>Methods</h2>
+    
+<div class="section">
+<h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
+
+<ul><li><p><a href="#method-ResamplingForecastHoldout-new"><code>ResamplingForecastHoldout$new()</code></a></p></li>
+<li><p><a href="#method-ResamplingForecastHoldout-clone"><code>ResamplingForecastHoldout$clone()</code></a></p></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="format"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-format"><code>mlr3::Resampling$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="help"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-help"><code>mlr3::Resampling$help()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="instantiate"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-instantiate"><code>mlr3::Resampling$instantiate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="print"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-print"><code>mlr3::Resampling$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="test_set"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-test_set"><code>mlr3::Resampling$test_set()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="train_set"><a href="https://mlr3.mlr-org.com/reference/Resampling.html#method-train_set"><code>mlr3::Resampling$train_set()</code></a></span></li>
+</ul></details></p><hr><a id="method-ResamplingForecastHoldout-new"></a><div class="section">
+<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+
+<div class="section">
+<h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/mlr_resamplings_forecast_holdout.html">ResamplingForecastHoldout</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-ResamplingForecastHoldout-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ResamplingForecastHoldout</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>deep</code></dt>
+<dd><p>Whether to make a deep clone.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div>
+
     </div>
 
     <div id="ref-examples">

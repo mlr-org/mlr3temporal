@@ -142,6 +142,71 @@ Non-existing rows and columns are silently ignored.</p></li>
     <h2>See also</h2>
     <div class="dont-index"><p>Extension Packages: <a href="https://CRAN.R-project.org/package=mlr3db" class="external-link"><span class="pkg">mlr3db</span></a></p></div>
     </div>
+    <div id="super-class">
+    <h2>Super class</h2>
+    <p><code><a href="https://mlr3.mlr-org.com/reference/DataBackend.html" class="external-link">mlr3::DataBackend</a></code> -&gt; <code>DataBackendLong</code></p>
+    </div>
+    <div id="methods">
+    <h2>Methods</h2>
+    
+<div class="section">
+<h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
+
+<ul><li><p><a href="#method-DataBackendLong-new"><code>DataBackendLong$new()</code></a></p></li>
+<li><p><a href="#method-DataBackendLong-data"><code>DataBackendLong$data()</code></a></p></li>
+<li><p><a href="#method-DataBackendLong-head"><code>DataBackendLong$head()</code></a></p></li>
+<li><p><a href="#method-DataBackendLong-distinct"><code>DataBackendLong$distinct()</code></a></p></li>
+<li><p><a href="#method-DataBackendLong-missings"><code>DataBackendLong$missings()</code></a></p></li>
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="mlr3" data-topic="DataBackend" data-id="format"><a href="https://mlr3.mlr-org.com/reference/DataBackend.html#method-format"><code>mlr3::DataBackend$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="DataBackend" data-id="print"><a href="https://mlr3.mlr-org.com/reference/DataBackend.html#method-print"><code>mlr3::DataBackend$print()</code></a></span></li>
+</ul></details></p><hr><a id="method-DataBackendLong-new"></a><div class="section">
+<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+
+<div class="section">
+<h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/DataBackendLong.html">DataBackendLong</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">data</span>, <span class="va">primary_key</span>, <span class="va">id_col</span>, <span class="va">date_col</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-DataBackendLong-data"></a><div class="section">
+<h3 id="method-data-">Method <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code><a class="anchor" aria-label="anchor" href="#method-data-"></a></h3>
+
+<div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataBackendLong</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="va">rows</span>, <span class="va">cols</span>, data_format <span class="op">=</span> <span class="st">"data.table"</span>, roll <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-DataBackendLong-head"></a><div class="section">
+<h3 id="method-head-">Method <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code><a class="anchor" aria-label="anchor" href="#method-head-"></a></h3>
+
+<div class="section">
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataBackendLong</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-DataBackendLong-distinct"></a><div class="section">
+<h3 id="method-distinct-">Method <code>distinct()</code><a class="anchor" aria-label="anchor" href="#method-distinct-"></a></h3>
+
+<div class="section">
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataBackendLong</span><span class="op">$</span><span class="fu">distinct</span><span class="op">(</span><span class="va">rows</span>, <span class="va">cols</span>, na_rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div><p></p><hr><a id="method-DataBackendLong-missings"></a><div class="section">
+<h3 id="method-missings-">Method <code>missings()</code><a class="anchor" aria-label="anchor" href="#method-missings-"></a></h3>
+
+<div class="section">
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">DataBackendLong</span><span class="op">$</span><span class="fu">missings</span><span class="op">(</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+
+</div>
+
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
