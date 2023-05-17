@@ -4,9 +4,6 @@
 \alias{mlr_measures_forecast.rmse}
 \alias{MeasureForecastRMSE}
 \title{Root Mean Squared Error Measure}
-\format{
-\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecastRegr}.
-}
 \description{
 Root Mean Squared Error Measure
 

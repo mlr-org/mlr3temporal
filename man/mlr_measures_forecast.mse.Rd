@@ -4,9 +4,6 @@
 \alias{mlr_measures_forecast.mse}
 \alias{MeasureForecastMSE}
 \title{Mean Squared Error Measure}
-\format{
-\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecastRegr}.
-}
 \description{
 Mean Squared Error Measure
 

@@ -1,8 +1,5 @@
 #' @title Forecast Regression Measure
 #'
-#' @usage NULL
-#' @format [R6::R6Class] object inheriting from [mlr3::Measure].
-#'
 #' @description
 #' This measure specializes [mlr3::Measure] for forecast regression problems.
 #' The `task_type` is set to `"forecast"`.

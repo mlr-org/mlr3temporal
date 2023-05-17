@@ -3,9 +3,6 @@
 \name{LearnerForecast}
 \alias{LearnerForecast}
 \title{LearnerForecast}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:Learner]{mlr3::Learner}.
-}
 \description{
 Abstract learner for forecasting problems. The  required \code{task_type} is \code{"forecast"}.
 }

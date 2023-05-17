@@ -1,7 +1,6 @@
 #' @title Mean Absolute Percentage Error Measure
 #'
 #' @name mlr_measures_forecast.mape
-#' @format [R6::R6Class()] inheriting from [MeasureForecastRegr].
 #'
 #' @export
 #' @include MeasureForecast.R

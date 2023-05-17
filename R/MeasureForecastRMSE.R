@@ -1,7 +1,6 @@
 #' @title Root Mean Squared Error Measure
 #'
 #' @name mlr_measures_forecast.rmse
-#' @format [R6::R6Class()] inheriting from [MeasureForecastRegr].
 #'
 #' @export
 #' @include MeasureForecast.R
