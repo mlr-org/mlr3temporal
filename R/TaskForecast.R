@@ -5,13 +5,13 @@
 #'
 #' @description
 #' Introduces a new Forecasting Task that inherits from [TaskSupervised] which can be used to forecast time series.
-#' This is an abstract class, which should not be instantiated. 
+#' This is an abstract class, which should not be instantiated.
 #' Use the subclass [TaskRegrForecast] instead.
 #' The `task_type` is set to `"forecast"`.
-#' 
-#' Note, that in case the input is a `data.table' or `data.frame`, `mlr3temporal` expects a "wide" 
+#'
+#' Note, that in case the input is a `data.table' or `data.frame`, `mlr3temporal` expects a "wide"
 #' data.frame as input. The `tsbox::to_wide()` function can help casting time-series to this format.
-#' 
+#'
 #'
 #' @section Construction:
 #' ```
@@ -55,7 +55,7 @@ TaskForecast = R6::R6Class("TaskForecast",
         backend = df_to_backend(backend, target, date_col)
       }
       if (!inherits(backend, "DataBackend")) {
-        backend = as_data_backend(tsbox::ts_dts(backend), target)
+        backend = as_data_backend(tsbox::ts_dts(backend), target = target)
       }
       super$initialize(id = id, task_type = "forecast", backend = backend, target = target)
       private$.col_roles$feature = setdiff(private$.col_roles$feature, self$date_col)

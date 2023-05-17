@@ -4,9 +4,6 @@
 \alias{mlr_measures_forecast.mape}
 \alias{MeasureForecastMAPE}
 \title{Mean Absolute Percentage Error Measure}
-\format{
-\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecastRegr}.
-}
 \description{
 Mean Absolute Percentage Error Measure
 

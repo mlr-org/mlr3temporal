@@ -78,6 +78,7 @@ for established default tuning spaces.
 Other Learner: 
 \code{\link{LearnerForecast}},
 \code{\link{mlr_learners_regr.VAR}},
+\code{\link{mlr_learners_regr.arima}},
 \code{\link{mlr_learners_regr.average}}
 }
 \concept{Learner}

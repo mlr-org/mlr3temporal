@@ -196,14 +196,15 @@ DataBackendLong = R6::R6Class("DataBackendLong",
   )
 )
 
+#' @rdname as_data_backend
 #' @export
-as_data_backend.dts = function(data, target = NULL) {
-  if(ncol(data) == 2){
-    if(is.null(target)){
+as_data_backend.dts = function(data, primary_key = NULL, target = NULL, ...) {
+  if (ncol(data) == 2) {
+    if (is.null(target)) {
       target = "target"
     }
     data$id = target
-    cname = attr(data,"cname")
+    cname = attr(data, "cname")
     cname$id = "id"
     setattr(data, "cname", cname)
   }
@@ -214,8 +215,9 @@ as_data_backend.dts = function(data, target = NULL) {
   DataBackendLong$new(data, primary_key = "..row_id", id_col = cname$id, date_col = cname$time)
 }
 
+#' @rdname as_data_backend
 #' @export
-as_data_backend.forecast = function(data) {
+as_data_backend.forecast = function(data, primary_key = NULL, ...) {
   require_namespaces("tsbox")
   as_data_backend(tsbox::ts_dts(data))
 }

@@ -49,8 +49,9 @@ Currently the following methods are implemented:
 
 | Id                                                                                               | Learner               | Package                                                 |
 | ------------------------------------------------------------------------------------------------ | --------------------- | ------------------------------------------------------- |
-| [forecast.auto_arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html)     | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
-| [forecast.average](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.Average.html) | Average               | base                                                    |
+| [forecast.auto_arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.auto_arima.html)     | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
+| [forecast.arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.arima.html)     | Arima            | [forecast](https://cran.r-project.org/package=forecast) |
+| [forecast.average](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.average.html) | Average               | base                                                    |
 | [forecast.VAR](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html)                  | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
 
 
@@ -59,6 +60,9 @@ Currently the following methods are implemented:
 | Id                                                                                           | Measure             | Package |
 |----------------------------------------------------------------------------------------------|---------------------|---------|
 | [forecast.mae](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html) | Mean Absolute Error | base    |
+| [forecast.mape](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mape.html) | Mean Absolute Percentage Error | base    |
+| [forecast.mse](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mse.html) | Mean Squared Error | base    |
+| [forecast.rmse](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.rmse.html) | Root Mean Squared Error | base    |
 
 ### Resampling Methods
 
@@ -83,7 +87,7 @@ autoplot(task)
 
 ## Resampling
 
-#### Holdout 
+#### Holdout
 
 Split data into a training set and a test set.
 Parameter `ratio` determines the ratio of observation going into the training set (default: 2/3).
@@ -96,7 +100,7 @@ rr = resample(task, learner, resampling, store_models = TRUE)
 rr$aggregate(msr("forecast.mae"))
 ```
 
-#### Rolling Window CV 
+#### Rolling Window CV
 
 Splits data using a `folds`-folds (default: 10 folds) rolling window cross-validation.
 

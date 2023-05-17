@@ -48,6 +48,7 @@ Collate:
     'DataBackendLong.R'
     'LearnerForecast.R'
     'aaa.R'
+    'LearnerRegrForecastArima.R'
     'LearnerRegrForecastAutoArima.R'
     'LearnerRegrForecastAverage.R'
     'LearnerRegrForecastVAR.R'

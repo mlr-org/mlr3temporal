@@ -25,7 +25,6 @@ test_that("printing works", {
   expect_output(print(task$truth()))
 })
 
-
 test_that("task data has expected column names", {
   data = data.table(target = rnorm(30), exo1 = rnorm(30))
   task = TaskRegrForecast$new(id = "test", backend = ts(data), target = "target")
@@ -35,9 +34,7 @@ test_that("task data has expected column names", {
 test_that("task data has expected column types", {
 
   data = data.table(target = rnorm(30), exo1 = rnorm(30))
-  task = TaskRegrForecast$new(id = "test",
-                              backend = ts(data),
-                              target = "target")
+  task = TaskRegrForecast$new(id = "test", backend = ts(data), target = "target")
 
   expect_equal(task$col_info[colnames(data)[1], type], class(data[[1]]))
   expect_equal(task$col_info[colnames(data)[2], type], class(data[[2]]))
@@ -49,13 +46,13 @@ test_that("construction from data frame", {
   expect_task(task)
   expect_true("multivariate" %in% task$properties)
 
-  data = data.frame(a = runif(1:100), b=runif(1:100), t = Sys.time()+ 1:100)
+  data = data.frame(a = runif(1:100), b = runif(1:100), t = Sys.time() + 1:100)
   task = TaskRegrForecast$new(id = "df", backend = data, target = c("a"), date_col = "t")
   expect_task(task)
   expect_true("univariate" %in% task$properties)
 })
 
 test_that("Target name for single timeseries", {
-  task = TaskRegrForecast$new(id = "target_names", backend = mdeaths, target ="abc" )
+  task = TaskRegrForecast$new(id = "target_names", backend = mdeaths, target = "abc")
   expect_equal(task$target_names, "abc")
 })
