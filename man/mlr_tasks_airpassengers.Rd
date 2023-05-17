@@ -18,7 +18,25 @@ tsk("AirPassengers")
 }
 
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[=Task]{Tasks}: \link{mlr_tasks}
-
-\code{as.data.table(mlr_tasks)} for a complete table of all (also dynamically created) \link[=Task]{Tasks}.
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#tasks}
+\item Package \CRANpkg{mlr3data} for more toy tasks.
+\item Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Task]{Tasks}: \link{mlr_tasks}
+\item \code{as.data.table(mlr_tasks)} for a table of available \link[=Task]{Tasks} in the running session (depending on the loaded packages).
+\item \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
+\item Extension packages for additional task types:
+\itemize{
+\item Unsupervised clustering: \CRANpkg{mlr3cluster}
+\item Probabilistic supervised regression and survival analysis: \url{https://mlr3proba.mlr-org.com/}.
 }
+}
+
+Other Task: 
+\code{\link{TaskForecast}},
+\code{\link{TaskRegrForecast}},
+\code{\link{mlr_tasks_petrol}}
+}
+\concept{Task}

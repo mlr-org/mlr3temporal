@@ -1,30 +1,15 @@
-Type: Package
 Package: mlr3temporal
 Title: Forecasting for 'mlr3'
 Version: 0.1.0.9000
-Authors@R:
-    c(person(given = "Michel",
-             family = "Lang",
-             role = c("cre", "aut"),
-             email = "michellang@gmail.com",
-             comment = c(ORCID = "0000-0001-9754-0393")),
-        person(given = "Florian",
-             family = "Pfisterer",
-             role = "aut",
-             email = "pfistererf@googlemail.com",
-             comment = c(ORCID = "0000-0001-8867-762X")),          
-      person(given = "Cornelia",
-             family = "Gruber",
-             role = "aut",
-             email = "cornelia.gruber@campus.lmu.de"),
-      person(given = "Johannes",
-             family = "Nawrath",
-             role = "aut",
-             email = "johannes-nawrath@t-online.de"),
-      person(given = "Ava",
-             family = "Arshadipour",
-             role = "aut",
-             email = "a.arshadipour@campus.lmu.de"))
+Authors@R: c(
+    person("Michel", "Lang", , "michellang@gmail.com", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0001-9754-0393")),
+    person("Florian", "Pfisterer", , "pfistererf@googlemail.com", role = "aut",
+           comment = c(ORCID = "0000-0001-8867-762X")),
+    person("Cornelia", "Gruber", , "cornelia.gruber@campus.lmu.de", role = "aut"),
+    person("Johannes", "Nawrath", ,"johannes-nawrath@t-online.de", role = "aut"),
+    person("Ava", "Arshadipour", , "a.arshadipour@campus.lmu.de", role = "aut")
+  )
 Description: Implements tasks, learners, resamplings and measures for
     forcasting tasks.
 License: LGPL-3
@@ -52,13 +37,14 @@ Suggests:
     testthat,
     tidyr,
     rmarkdown
-VignetteBuilder: 
+VignetteBuilder:
     knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
 NeedsCompilation: no
-Roxygen: list(markdown = TRUE, r6 = FALSE)
+Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.2.3
-Collate: 
+Collate:
     'DataBackendLong.R'
     'LearnerForecast.R'
     'aaa.R'

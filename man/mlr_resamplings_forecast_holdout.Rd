@@ -47,7 +47,63 @@ intersect(rfho$train_set(1), rfho$test_set(1))
 rfho$instance # simple list
 }
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[=Resampling]{Resamplings}: \link{mlr_resamplings}
+\itemize{
+\item \code{\link[=as_benchmark_result]{as_benchmark_result()}} to convert to a \link{BenchmarkResult}.
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/performance.html#sec-resampling}
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+}
 
-\code{as.data.table(mlr_resamplings)} for a complete table of all (also dynamically created) \link{Resampling} implementations.
+Other resample: 
+\code{\link{mlr_resamplings_forecast_cv}}
+}
+\concept{resample}
+\section{Super class}{
+\code{\link[mlr3:Resampling]{mlr3::Resampling}} -> \code{ResamplingForecastHoldout}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResamplingForecastHoldout-new}{\code{ResamplingForecastHoldout$new()}}
+\item \href{#method-ResamplingForecastHoldout-clone}{\code{ResamplingForecastHoldout$clone()}}
+}
+}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="format"><a href='../../mlr3/html/Resampling.html#method-Resampling-format'><code>mlr3::Resampling$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="help"><a href='../../mlr3/html/Resampling.html#method-Resampling-help'><code>mlr3::Resampling$help()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="instantiate"><a href='../../mlr3/html/Resampling.html#method-Resampling-instantiate'><code>mlr3::Resampling$instantiate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="print"><a href='../../mlr3/html/Resampling.html#method-Resampling-print'><code>mlr3::Resampling$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="test_set"><a href='../../mlr3/html/Resampling.html#method-Resampling-test_set'><code>mlr3::Resampling$test_set()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Resampling" data-id="train_set"><a href='../../mlr3/html/Resampling.html#method-Resampling-train_set'><code>mlr3::Resampling$train_set()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResamplingForecastHoldout-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResamplingForecastHoldout-new}{}}}
+\subsection{Method \code{new()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResamplingForecastHoldout$new()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResamplingForecastHoldout-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResamplingForecastHoldout-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResamplingForecastHoldout$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

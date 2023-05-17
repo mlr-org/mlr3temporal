@@ -1,27 +1,30 @@
 #' @title Vector Autoregression Forecast Learner
 #'
-#' @usage NULL
 #' @name mlr_learners_regr.VAR
-#' @format [R6::R6Class] inheriting from [LearnerForecast].
 #'
 #' @description
-#' A LearnerRegrForecast for a vector autoregressive model implemented in [vars::VAR] in package \CRANpkg{var}.
+#' Vector autoregressive model
+#' Calls [vars::VAR] from package \CRANpkg{vars}.
 #'
-#' @section Methods:
-#' See [LearnerForecast], additionally:
-#' * `forecast(h = 10, task, new_data)`  :: `data.table`\cr
-#' Returns forecasts after the last training instance.
+#' @templateVar id forecast.VAR
+#' @template learner
+#'
 #' @template seealso_learner
 #' @export
+#' @template example
 LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
   inherit = LearnerForecast,
+
   public = list(
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
-      ps = ParamSet$new(list(
-        ParamInt$new(id = "p", default = 1, lower = 0L, tags = "train"),
-        ParamInt$new(id = "lag.max", default = NULL, lower = 1L, tags = "train", special_vals = list(NULL)),
-        ParamInt$new(id = "season", default = NULL, lower = 1L, tags = "train", special_vals = list(NULL))
-      ))
+      ps = ps(
+        p       = p_int(0L, default = 1, tags = "train"),
+        lag.max = p_int(1L, default = NULL, tags = "train", special_vals = list(NULL)),
+        season  = p_int(1L, default = NULL, tags = "train", special_vals = list(NULL))
+      )
 
       super$initialize(
         id = "forecast.VAR",
@@ -33,6 +36,8 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
         man = "mlr3temporal::mlr_learners_regr.VAR"
       )
     },
+    #' @description
+    #' Returns forecasts after the last training instance.
     forecast = function(h = 10, task, new_data = NULL) {
       if (length(task$feature_names) > 0) {
         newdata = as.matrix(new_data)
@@ -81,7 +86,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]
       predict_ids = setdiff(task$row_ids, fitted_ids)
-      
+
       if (length(predict_ids > 0)) {
         if (length(task$feature_names) > 0) {
           exogen = task$data(cols = task$feature_names, rows = predict_ids)
