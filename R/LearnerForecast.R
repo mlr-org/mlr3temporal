@@ -27,6 +27,7 @@
 #' @template example
 LearnerForecast = R6Class("LearnerForecast",
   inherit = Learner,
+
   public = list(
 
     #' @field date_span (named `list()`)\cr

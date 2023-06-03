@@ -3,69 +3,52 @@
 \name{PredictionForecast}
 \alias{PredictionForecast}
 \title{Prediction Object for Forecasting}
-\format{
-\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Prediction}.
-}
 \description{
-This object wraps the predictions returned by a learner of class LearnerForecast, i.e.
+This object wraps the predictions returned by a learner of class \link{LearnerForecast}, i.e.
 the predicted response and standard error.
 }
-\section{Construction}{
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{p = PredictionForecast$new(task = NULL, row_ids = task$row_ids, truth = task$truth(), response = NULL, se = NULL)
-}\if{html}{\out{</div>}}
-\itemize{
-\item \code{task} :: \link{TaskRegrForecast}\cr
-Task, used to extract defaults for \code{row_ids} and \code{truth}.
-\item \code{row_ids} :: \code{integer()}\cr
-Row ids of the predicted observations, i.e. the row ids of the test set.
-\item \code{truth} :: \code{numeric()}\cr
-True (observed) outcome.
-\item \code{response} :: \code{numeric()}\cr
-Object of numeric response values that can be coerced to a data.table.
-\item \code{se} :: \code{numeric()}\cr
-Object of numeric standard errors that can be coerced to a data.table.
-}
-}
-
-\section{Fields}{
-
-All fields from \link{Prediction}, and additionally:
-\itemize{
-\item \code{response} :: \code{numeric()}\cr
-Access to the stored predicted response.
-\item \code{se} :: \code{numeric()}\cr
-Access to the stored standard error.
-}
-
-The field \code{task_type} is set to \code{"forecast"}.
-}
-
-\section{Methods}{
-
-All Methods from \link{Prediction}, and additionally:
-\itemize{
-\item \code{conf_int(level)}\cr
-Access to the stored predicted response.
-}
-}
-
 \examples{
 task = mlr3::tsk("airpassengers")
-learner = LearnerRegrForecastAutoArima$new()
+learner = mlr3::lrn("forecast.average")
 learner$train(task, 1:30)
 p = learner$predict(task, 31:50)
+p$predict_types
+head(data.table::as.data.table(p))
+}
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#train-predict}
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
+}
 }
 \concept{Prediction}
 \section{Super class}{
 \code{\link[mlr3:Prediction]{mlr3::Prediction}} -> \code{PredictionForecast}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{response}}{(\code{numeric()})\cr
+Access the stored predicted response.}
+
+\item{\code{se}}{(\code{numeric()})\cr
+Access the stored standard error.}
+
+\item{\code{missing}}{(\code{integer()})\cr
+Returns \code{row_ids} for which the predictions are missing or incomplete.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-PredictionForecast-new}{\code{PredictionForecast$new()}}
-\item \href{#method-PredictionForecast-help}{\code{PredictionForecast$help()}}
 \item \href{#method-PredictionForecast-print}{\code{PredictionForecast$print()}}
 \item \href{#method-PredictionForecast-conf_int}{\code{PredictionForecast$conf_int()}}
 }
@@ -75,6 +58,7 @@ p = learner$predict(task, 31:50)
 <ul>
 <li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="filter"><a href='../../mlr3/html/Prediction.html#method-Prediction-filter'><code>mlr3::Prediction$filter()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="format"><a href='../../mlr3/html/Prediction.html#method-Prediction-format'><code>mlr3::Prediction$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="help"><a href='../../mlr3/html/Prediction.html#method-Prediction-help'><code>mlr3::Prediction$help()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="score"><a href='../../mlr3/html/Prediction.html#method-Prediction-score'><code>mlr3::Prediction$score()</code></a></span></li>
 </ul>
 </details>
@@ -83,6 +67,7 @@ p = learner$predict(task, 31:50)
 \if{html}{\out{<a id="method-PredictionForecast-new"></a>}}
 \if{latex}{\out{\hypertarget{method-PredictionForecast-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$new(
   task = NULL,
@@ -95,32 +80,70 @@ p = learner$predict(task, 31:50)
 )}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PredictionForecast-help"></a>}}
-\if{latex}{\out{\hypertarget{method-PredictionForecast-help}{}}}
-\subsection{Method \code{help()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$help()}\if{html}{\out{</div>}}
-}
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{task}}{(\link{TaskRegr})\cr
+Task, used to extract defaults for \code{row_ids} and \code{truth}.}
 
+\item{\code{row_ids}}{(\code{integer()})\cr
+Row ids of the predicted observations, i.e. the row ids of the test set.}
+
+\item{\code{truth}}{(\code{numeric()})\cr
+True (observed) response.}
+
+\item{\code{response}}{(\code{numeric()})\cr
+Vector of numeric response values.
+One element for each observation in the test set.}
+
+\item{\code{se}}{(\code{numeric()})\cr
+Numeric vector of predicted standard errors.
+One element for each observation in the test set.}
+
+\item{\code{distr}}{(\code{VectorDistribution})\cr
+\code{VectorDistribution} from package distr6 (in repository \url{https://raphaels1.r-universe.dev}).
+Each individual distribution in the vector represents the random variable 'survival time'
+for an individual observation.}
+
+\item{\code{check}}{(\code{logical(1)})\cr
+If \code{TRUE}, performs some argument checks and predict type conversions.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PredictionForecast-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PredictionForecast-print}{}}}
 \subsection{Method \code{print()}}{
+Printer.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{(ignored).}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PredictionForecast-conf_int"></a>}}
 \if{latex}{\out{\hypertarget{method-PredictionForecast-conf_int}{}}}
 \subsection{Method \code{conf_int()}}{
+Access to the stored predicted response.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PredictionForecast$conf_int(level = 95)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{level}}{(\code{numeric(1)})\cr
+Confidence level in percent.}
+}
+\if{html}{\out{</div>}}
+}
 }
 }
