@@ -43,24 +43,28 @@ Currently the following methods are implemented:
 
 ### Learners
 
-| Id                                                                                                 | Learner               | Package                                                 |
-|----------------------------------------------------------------------------------------------------|-----------------------|---------------------------------------------------------|
-| [forecast.auto_arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html) | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
-| [forecast.average](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.Average.html)      | Average               | base                                                    |
-| [forecast.VAR](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html)              | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
+| Id                                                                                                  | Learner               | Package                                                 |
+|-----------------------------------------------------------------------------------------------------|-----------------------|---------------------------------------------------------|
+| [forecast.auto_arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.auto_arima.html) | Auto Arima            | [forecast](https://cran.r-project.org/package=forecast) |
+| [forecast.arima](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.arima.html)           | Arima                 | [forecast](https://cran.r-project.org/package=forecast) |
+| [forecast.average](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.average.html)       | Average               | base                                                    |
+| [forecast.VAR](https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html)               | Vector Autoregression | [vars](https://cran.r-project.org/package=vars)         |
 
 ### Measures
 
-| Id                                                                                        | Measure             | Package |
-|-------------------------------------------------------------------------------------------|---------------------|---------|
-| [forecast.mae](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html) | Mean Absolute Error | base    |
+| Id                                                                                          | Measure                        | Package |
+|---------------------------------------------------------------------------------------------|--------------------------------|---------|
+| [forecast.mae](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html)   | Mean Absolute Error            | base    |
+| [forecast.mape](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mape.html) | Mean Absolute Percentage Error | base    |
+| [forecast.mse](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mse.html)   | Mean Squared Error             | base    |
+| [forecast.rmse](https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.rmse.html) | Root Mean Squared Error        | base    |
 
 ### Resampling Methods
 
-| Id                                                                                                  | Resampling                     | Package |
-|-----------------------------------------------------------------------------------------------------|--------------------------------|---------|
-| [forecast_holdout](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html) | Holdout                        | base    |
-| [forecast_cv](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html)      | Rolling Window CrossValidation | base    |
+| Id                                                                                                   | Resampling                     | Package |
+|------------------------------------------------------------------------------------------------------|--------------------------------|---------|
+| [forecast_holdout](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_holdout.html) | Holdout                        | base    |
+| [forecast_cv](https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_cv.html)           | Rolling Window CrossValidation | base    |
 
 ## Code Example
 

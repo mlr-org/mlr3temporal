@@ -2,12 +2,12 @@
 % Please edit documentation in R/TaskRegrForecastPetrol.R
 \name{mlr_tasks_petrol}
 \alias{mlr_tasks_petrol}
-\title{Petrol Multivariate Forecast Class}
+\title{Petrol Forecast Task}
 \format{
 \link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskRegrForecast}
 }
 \description{
-A multivariate forecasting task for the \link[fma:petrol]{fma::petrol} data set.
+Petrol Forecast Task
 }
 \section{Construction}{
 
@@ -15,6 +15,18 @@ A multivariate forecasting task for the \link[fma:petrol]{fma::petrol} data set.
 \if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("petrol")
 tsk("petrol")
 }\if{html}{\out{</div>}}
+}
+
+\section{Meta Information}{
+
+\itemize{
+\item Task type: \dQuote{forecast}
+\item Dimensions: 252x4
+\item Properties: \dQuote{multivariate}
+\item Has Missings: \code{FALSE}
+\item Target: \dQuote{Chemicals}, \dQuote{Coal}, \dQuote{Petrol}, \dQuote{Vehicles}
+\item Features: -
+}
 }
 
 \seealso{

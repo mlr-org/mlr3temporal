@@ -2,45 +2,28 @@
 % Please edit documentation in R/TaskRegrForecast.R
 \name{TaskRegrForecast}
 \alias{TaskRegrForecast}
-\title{Forecasting Task (Regression)}
-\format{
-\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}/\link{TaskForecast}.
-}
+\title{Forecasting Regression Task}
 \description{
 This task specializes \link{Task} and \link{TaskSupervised} for forecasting regression problems.
 The target column(s) are assumed to be numeric.
 The \code{task_type} is set to \code{"regr"} `.
 }
-\section{Construction}{
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{t = TaskRegrForecast$new(id, backend, target, date_col)
-}\if{html}{\out{</div>}}
-\itemize{
-\item \code{id} :: \code{character(1)}\cr
-Identifier for the task.
-\item \code{backend} :: \link{DataBackend}\cr
-Either a \link{DataBackendLong}, a object of class \code{ts} or a \code{data.frame} with specified date column
-
-or any object which is convertible to a DataBackend with \code{as_data_backend()}.
-E.g., a object of class  \code{dts} will be converted to a \link{DataBackendLong}.
-\item \code{target} :: \code{character(n)}\cr
-Name of the target column(s).
-}
-}
-
-\section{Fields}{
-
-All methods from \link{TaskSupervised} and \link{TaskForecast}.
-}
-
-\section{Methods}{
-
-See \link{TaskSupervised} and \link{TaskForecast}.
-}
-
 \seealso{
-seealso_task
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#tasks}
+\item Package \CRANpkg{mlr3data} for more toy tasks.
+\item Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Task]{Tasks}: \link{mlr_tasks}
+\item \code{as.data.table(mlr_tasks)} for a table of available \link[=Task]{Tasks} in the running session (depending on the loaded packages).
+\item \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
+\item Extension packages for additional task types:
+\itemize{
+\item Unsupervised clustering: \CRANpkg{mlr3cluster}
+\item Probabilistic supervised regression and survival analysis: \url{https://mlr3proba.mlr-org.com/}.
+}
+}
 
 Other Task: 
 \code{\link{TaskForecast}},
@@ -88,10 +71,29 @@ Other Task:
 \if{html}{\out{<a id="method-TaskRegrForecast-new"></a>}}
 \if{latex}{\out{\hypertarget{method-TaskRegrForecast-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TaskRegrForecast$new(id, backend, target = "target", date_col = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier for the new instance.}
+
+\item{\code{backend}}{(\link{DataBackend})\cr
+Either a \link{DataBackend}, or any object which is convertible to a \link{DataBackend} with \code{as_data_backend()}.
+E.g., a \code{data.frame()} will be converted to a \link{DataBackendDataTable}.}
+
+\item{\code{target}}{(\code{character(1)})\cr
+Name of the target column.}
+
+\item{\code{date_col}}{(\code{character(1)})\cr
+Name of the date column, only required if backend is a \code{data.frame}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TaskRegrForecast-clone"></a>}}

@@ -46,6 +46,7 @@ ResamplingForecastHoldout = R6Class("ResamplingForecastHoldout",
 
       super$initialize(id = "forecast_holdout", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecast_holdout")
     },
+    #' @template field_iters
     iters = 1L
   ),
 

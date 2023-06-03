@@ -7,14 +7,26 @@
 \link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskRegrForecast}.
 }
 \description{
-A forecasting task for the \link[datasets:AirPassengers]{datasets::AirPassengers} data set.
+AirPassengers Forecast Task
 }
 \section{Construction}{
 
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("AirPassengers")
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("airpassengers")
 tsk("AirPassengers")
 }\if{html}{\out{</div>}}
+}
+
+\section{Meta Information}{
+
+\itemize{
+\item Task type: \dQuote{forecast}
+\item Dimensions: 144x1
+\item Properties: \dQuote{univariate}
+\item Has Missings: \code{FALSE}
+\item Target: \dQuote{target}
+\item Features: -
+}
 }
 
 \seealso{

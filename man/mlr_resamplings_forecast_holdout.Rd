@@ -57,6 +57,14 @@ Other resample:
 \section{Super class}{
 \code{\link[mlr3:Resampling]{mlr3::Resampling}} -> \code{ResamplingForecastHoldout}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{iters}}{(\code{integer(1)})\cr
+Returns the number of resampling iterations, depending on the values stored in the \code{param_set}.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
