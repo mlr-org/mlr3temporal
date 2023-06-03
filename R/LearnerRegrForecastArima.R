@@ -39,8 +39,19 @@ LearnerRegrForecastArima = R6::R6Class("LearnerRegrForecastArima",
         man = "mlr3temporal::mlr_learners_regr.arima"
       )
     },
+
     #' @description
     #' Returns forecasts after the last training instance.
+    #'
+    #' @param h (`numeric(1)`)\cr
+    #'   Number of steps ahead to forecast. Default is 10.
+    #'
+    #' @param task ([Task]).
+    #'
+    #' @param new_data ([data.frame()])\cr
+    #'   New data to predict on.
+    #'
+    #' @return [Prediction].
     forecast = function(h = 10, task, new_data = NULL) {
       if (length(task$feature_names) > 0) {
         newdata = as.matrix(new_data)
@@ -64,12 +75,14 @@ LearnerRegrForecastArima = R6::R6Class("LearnerRegrForecastArima",
       )
     }
   ),
+
   private = list(
     .train = function(task) {
       span = range(task$date()[[task$date_col]])
-      self$date_span =
-        list(begin = list(time = span[1], row_id = task$row_ids[1]),
-          end = list(time = span[2], row_id = task$row_ids[task$nrow]))
+      self$date_span = list(
+        begin = list(time = span[1], row_id = task$row_ids[1]),
+        end = list(time = span[2], row_id = task$row_ids[task$nrow])
+      )
       pv = self$param_set$get_values(tags = "train")
       if ("weights" %in% task$properties) {
         pv = insert_named(pv, list(weights = task$weights$weight))
@@ -87,6 +100,7 @@ LearnerRegrForecastArima = R6::R6Class("LearnerRegrForecastArima",
         ), .args = pv)
       }
     },
+
     .predict = function(task) {
       se = NULL
       fitted_ids = task$row_ids[task$row_ids <= self$date_span$end$row_id]

@@ -4,20 +4,19 @@
 \alias{LearnerForecast}
 \title{LearnerForecast}
 \description{
-Abstract learner for forecasting problems. The  required \code{task_type} is \code{"forecast"}.
+This Learner specializes \link{Learner} for forecasting problems:
+\itemize{
+\item \code{task_type} is set to \code{"forecast"}.
+\item Creates \link{Prediction}s of class \link{PredictionForecast}.
+\item Possible values for \code{predict_types} are:
+\itemize{
+\item \code{"response"}: Predicts a numeric response for each observation in the test set.
+\item \code{"se"}: Predicts the standard error for each value of response for each observation in the test set.
+\item \code{"distr"}: Probability distribution as \code{VectorDistribution} object (requires package \code{distr6}, available via
+repository \url{https://raphaels1.r-universe.dev}).
 }
-\section{Construction}{
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{LearnerForecast$new(id, param_set = ParamSet$new(),
-     predict_types = character(),
-     feature_types = character(), properties = character(),
-     packages = character())
-}\if{html}{\out{</div>}}
-
-For a description of the arguments, see \link[mlr3:Learner]{mlr3::Learner}.`
 }
-
+}
 \seealso{
 \itemize{
 \item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
@@ -47,6 +46,14 @@ Other Learner:
 \section{Super class}{
 \code{\link[mlr3:Learner]{mlr3::Learner}} -> \code{LearnerForecast}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{date_span}}{(named \code{list()})\cr
+Stores the beginning and end of the date span of the training data.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -73,10 +80,11 @@ Other Learner:
 \if{html}{\out{<a id="method-LearnerForecast-new"></a>}}
 \if{latex}{\out{\hypertarget{method-LearnerForecast-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{LearnerForecast$new(
   id,
-  param_set = ParamSet$new(),
+  param_set = ps(),
   predict_types = "response",
   feature_types = character(),
   properties = character(),
@@ -86,35 +94,124 @@ Other Learner:
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier for the new instance.}
+
+\item{\code{param_set}}{(\link[paradox:ParamSet]{paradox::ParamSet})\cr
+Set of hyperparameters.}
+
+\item{\code{predict_types}}{(\code{character()})\cr
+Supported predict types. Must be a subset of \code{\link[=mlr_reflections]{mlr_reflections$learner_predict_types}}.}
+
+\item{\code{feature_types}}{(\code{character()})\cr
+Feature types the learner operates on. Must be a subset of \code{\link[=mlr_reflections]{mlr_reflections$task_feature_types}}.}
+
+\item{\code{properties}}{(\code{character()})\cr
+Set of properties of the \link{Learner}.
+Must be a subset of \code{\link[=mlr_reflections]{mlr_reflections$learner_properties}}.
+The following properties are currently standardized and understood by learners in \CRANpkg{mlr3}:
+\itemize{
+\item \code{"missings"}: The learner can handle missing values in the data.
+\item \code{"weights"}: The learner supports observation weights.
+\item \code{"importance"}: The learner supports extraction of importance scores, i.e. comes with an \verb{$importance()} extractor function (see section on optional extractors in \link{Learner}).
+\item \code{"selected_features"}: The learner supports extraction of the set of selected features, i.e. comes with a \verb{$selected_features()} extractor function (see section on optional extractors in \link{Learner}).
+\item \code{"oob_error"}: The learner supports extraction of estimated out of bag error, i.e. comes with a \code{oob_error()} extractor function (see section on optional extractors in \link{Learner}).
+}}
+
+\item{\code{data_formats}}{(\code{character()})\cr
+Set of supported data formats which can be processed during \verb{$train()} and \verb{$predict()},
+e.g. \code{"data.table"}.}
+
+\item{\code{packages}}{(\code{character()})\cr
+Set of required packages.
+A warning is signaled by the constructor if at least one of the packages is not installed,
+but loaded (not attached) later on-demand via \code{\link[=requireNamespace]{requireNamespace()}}.}
+
+\item{\code{man}}{(\code{character(1)})\cr
+String in the format \verb{[pkg]::[topic]} pointing to a manual page for this object.
+The referenced help package can be opened via method \verb{$help()}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LearnerForecast-train"></a>}}
 \if{latex}{\out{\hypertarget{method-LearnerForecast-train}{}}}
 \subsection{Method \code{train()}}{
+Train the learner on a set of observations of the provided \code{task}.
+Mutates the learner by reference, i.e. stores the model alongside other information in field \verb{$state}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{LearnerForecast$train(task, row_ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{task}}{(\link{Task}).}
+
+\item{\code{row_ids}}{(\code{integer()})\cr
+Vector of training indices as subset of \code{task$row_ids}.
+For a simple split into training and test set, see \code{\link[=partition]{partition()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Returns the object itself, but modified \strong{by reference}.
+You need to explicitly \verb{$clone()} the object beforehand if you want to keeps
+the object in its previous state.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LearnerForecast-predict"></a>}}
 \if{latex}{\out{\hypertarget{method-LearnerForecast-predict}{}}}
 \subsection{Method \code{predict()}}{
+Uses the information stored during \verb{$train()} in \verb{$state} to create a new \link{Prediction}
+for a set of observations of the provided \code{task}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{LearnerForecast$predict(task, row_ids = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{task}}{(\link{Task}).}
+
+\item{\code{row_ids}}{(\code{integer()})\cr
+Vector of test indices as subset of \code{task$row_ids}.
+For a simple split into training and test set, see \code{\link[=partition]{partition()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{Prediction}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LearnerForecast-fitted_values"></a>}}
 \if{latex}{\out{\hypertarget{method-LearnerForecast-fitted_values}{}}}
 \subsection{Method \code{fitted_values()}}{
+Returns the fitted values of the model, i.e. the values that the model predicted for the training data.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{LearnerForecast$fitted_values(
   row_ids = self$date_span$begin$row_id:self$date_span$end$row_id
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{row_ids}}{(\code{integer()})\cr
+Vector of test indices as subset of \code{task$row_ids}.
+For a simple split into training and test set, see \code{\link[=partition]{partition()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{\link[data.table:data.table]{data.table::data.table()}} .
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LearnerForecast-clone"></a>}}
