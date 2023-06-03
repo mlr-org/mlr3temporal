@@ -2,33 +2,38 @@
 % Please edit documentation in R/MeasureForecast.R
 \name{MeasureForecast}
 \alias{MeasureForecast}
-\title{Forecast Regression Measure}
+\title{Forecast Measure}
 \description{
-This measure specializes \link[mlr3:Measure]{mlr3::Measure} for forecast regression problems.
-The \code{task_type} is set to \code{"forecast"}.
-}
-\section{Construction}{
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{m = MeasureForecast$new(id, range, minimize, predict_type = "response",
-     task_properties = character(0L), packages = character(0L))
-}\if{html}{\out{</div>}}
-
-For a description of the arguments, see \link[mlr3:Measure]{mlr3::Measure}.
-The \code{task_type} is set to \code{"forecast"}.
-Possible values for \code{predict_types} is "response" and "se".
+This measure specializes \link{Measure} for forecast problems:
+\itemize{
+\item \code{task_type} is set to \code{"forecast"}.
+\item Possible values for \code{predict_type} are \code{"response"}, \code{"se"} and \code{"distr"}.
 }
 
-\section{Fields}{
-
-See \link{Measure}.
+Predefined measures can be found in the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_measures}.
+The default measure for regression is \code{\link[=mlr_measures_regr.mse]{regr.mse}}.
+}
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#train-predict}
+\item Package \CRANpkg{mlr3measures} for the scoring functions.
+\link[mlr3misc:Dictionary]{Dictionary} of \link[=Measure]{Measures}: \link{mlr_measures}
+\code{as.data.table(mlr_measures)} for a table of available \link[=Measure]{Measures} in the running session (depending on the loaded packages).
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
 }
 
-\section{Methods}{
-
-See \link{Measure}.
+Other Measure: 
+\code{\link{mlr_measures_forecast.mae}},
+\code{\link{mlr_measures_forecast.mape}},
+\code{\link{mlr_measures_forecast.mse}},
+\code{\link{mlr_measures_forecast.regr}},
+\code{\link{mlr_measures_forecast.rmse}}
 }
-
 \concept{Measure}
 \section{Super class}{
 \code{\link[mlr3:Measure]{mlr3::Measure}} -> \code{MeasureForecast}
@@ -54,6 +59,7 @@ See \link{Measure}.
 \if{html}{\out{<a id="method-MeasureForecast-new"></a>}}
 \if{latex}{\out{\hypertarget{method-MeasureForecast-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MeasureForecast$new(
   id,
@@ -70,5 +76,79 @@ See \link{Measure}.
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier for the new instance.}
+
+\item{\code{range}}{(\code{numeric(2)})\cr
+Feasible range for this measure as \code{c(lower_bound, upper_bound)}.
+Both bounds may be infinite.}
+
+\item{\code{minimize}}{(\code{logical(1)})\cr
+Set to \code{TRUE} if good predictions correspond to small values,
+and to \code{FALSE} if good predictions correspond to large values.
+If set to \code{NA} (default), tuning this measure is not possible.}
+
+\item{\code{average}}{(\code{character(1)})\cr
+How to average multiple \link{Prediction}s from a \link{ResampleResult}.
+
+The default, \code{"macro"}, calculates the individual performances scores for each \link{Prediction} and then uses the
+function defined in \verb{$aggregator} to average them to a single number.
+
+If set to \code{"micro"}, the individual \link{Prediction} objects are first combined into a single new \link{Prediction} object which is then used to assess the performance.
+The function in \verb{$aggregator} is not used in this case.}
+
+\item{\code{aggregator}}{(\verb{function()})\cr
+Function to aggregate over multiple iterations. The role of this function depends on
+the value of field \code{"average"}:
+\itemize{
+\item \code{"macro"}: A numeric vector of scores (one per iteration) is passed.
+The aggregate function defaults to \code{\link[=mean]{mean()}} in this case.
+\item \code{"micro"}: The \code{aggregator} function is not used.
+Instead, predictions from multiple iterations are first combined and then
+scored in one go.
+\item \code{"custom"}: A \link{ResampleResult} is passed to the aggregate function.
+}}
+
+\item{\code{properties}}{(\code{character()})\cr
+Properties of the measure.
+Must be a subset of \link[=mlr_reflections]{mlr_reflections$measure_properties}.
+Supported by \code{mlr3}:
+\itemize{
+\item \code{"requires_task"} (requires the complete \link{Task}),
+\item \code{"requires_learner"} (requires the trained \link{Learner}),
+\item \code{"requires_model"} (requires the trained \link{Learner}, including the fitted
+model),
+\item \code{"requires_train_set"} (requires the training indices from the \link{Resampling}), and
+\item \code{"na_score"} (the measure is expected to occasionally return \code{NA} or \code{NaN}).
+}}
+
+\item{\code{predict_type}}{(\code{character(1)})\cr
+Required predict type of the \link{Learner}.
+Possible values are stored in \link[=mlr_reflections]{mlr_reflections$learner_predict_types}.}
+
+\item{\code{predict_sets}}{(\code{character()})\cr
+Prediction sets to operate on, used in \code{aggregate()} to extract the matching \code{predict_sets} from the \link{ResampleResult}.
+Multiple predict sets are calculated by the respective \link{Learner} during \code{\link[=resample]{resample()}}/\code{\link[=benchmark]{benchmark()}}.
+Must be a non-empty subset of \verb{\{"train", "test", "holdout"\}}.
+If multiple sets are provided, these are first combined to a single prediction object.
+Default is \code{"test"}.}
+
+\item{\code{task_properties}}{(\code{character()})\cr
+Required task properties, see \link{Task}.}
+
+\item{\code{packages}}{(\code{character()})\cr
+Set of required packages.
+A warning is signaled by the constructor if at least one of the packages is not installed,
+but loaded (not attached) later on-demand via \code{\link[=requireNamespace]{requireNamespace()}}.}
+
+\item{\code{man}}{(\code{character(1)})\cr
+String in the format \verb{[pkg]::[topic]} pointing to a manual page for this object.
+The referenced help package can be opened via method \verb{$help()}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 }

@@ -3,17 +3,44 @@
 \name{mlr_measures_forecast.regr}
 \alias{mlr_measures_forecast.regr}
 \alias{MeasureForecastRegr}
-\title{General Regression Measures for Forecasting}
-\format{
-\code{\link[R6:R6Class]{R6::R6Class()}} inheriting from \link{MeasureForecast}.
-}
+\title{Forecast Regression Measure}
 \description{
-General Regression Measures for Forecasting
+Forecast Regression Measure
 
-General Regression Measures for Forecasting
+Forecast Regression Measure
 }
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#train-predict}
+\item Package \CRANpkg{mlr3measures} for the scoring functions.
+\link[mlr3misc:Dictionary]{Dictionary} of \link[=Measure]{Measures}: \link{mlr_measures}
+\code{as.data.table(mlr_measures)} for a table of available \link[=Measure]{Measures} in the running session (depending on the loaded packages).
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
+}
+
+Other Measure: 
+\code{\link{MeasureForecast}},
+\code{\link{mlr_measures_forecast.mae}},
+\code{\link{mlr_measures_forecast.mape}},
+\code{\link{mlr_measures_forecast.mse}},
+\code{\link{mlr_measures_forecast.rmse}}
+}
+\concept{Measure}
 \section{Super classes}{
 \code{\link[mlr3:Measure]{mlr3::Measure}} -> \code{\link[mlr3temporal:MeasureForecast]{mlr3temporal::MeasureForecast}} -> \code{MeasureForecastRegr}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{measure_regr}}{(\link{Measure})\cr
+Measure(s) to calculate.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -37,10 +64,22 @@ General Regression Measures for Forecasting
 \if{html}{\out{<a id="method-MeasureForecastRegr-new"></a>}}
 \if{latex}{\out{\hypertarget{method-MeasureForecastRegr-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{MeasureForecastRegr$new(id = NULL, measure_regr)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier for the new instance.}
+
+\item{\code{measure_regr}}{(\link{Measure})\cr
+Measure(s) to calculate.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-MeasureForecastRegr-clone"></a>}}

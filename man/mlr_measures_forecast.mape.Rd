@@ -9,6 +9,54 @@ Mean Absolute Percentage Error Measure
 
 Mean Absolute Percentage Error Measure
 }
+\section{Dictionary}{
+
+This \link{Measure} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_measures} or with the associated sugar function \code{\link[=msr]{msr()}}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_measures$get("forecast.mape")
+msr("forecast.mape")
+}\if{html}{\out{</div>}}
+}
+
+\section{Meta Information}{
+
+\itemize{
+\item Task type: \dQuote{forecast}
+\item Range: \eqn{[0, \infty)}{[0, Inf)}
+\item Minimize: TRUE
+\item Average: macro
+\item Required Prediction: \dQuote{response}
+\item Required Packages: \CRANpkg{mlr3}, \CRANpkg{mlr3temporal}
+}
+}
+
+\section{Parameters}{
+
+Empty ParamSet
+}
+
+\seealso{
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#train-predict}
+\item Package \CRANpkg{mlr3measures} for the scoring functions.
+\link[mlr3misc:Dictionary]{Dictionary} of \link[=Measure]{Measures}: \link{mlr_measures}
+\code{as.data.table(mlr_measures)} for a table of available \link[=Measure]{Measures} in the running session (depending on the loaded packages).
+\item Extension packages for additional task types:
+\itemize{
+\item \CRANpkg{mlr3proba} for probabilistic supervised regression and survival analysis.
+\item \CRANpkg{mlr3cluster} for unsupervised clustering.
+}
+}
+
+Other Measure: 
+\code{\link{MeasureForecast}},
+\code{\link{mlr_measures_forecast.mae}},
+\code{\link{mlr_measures_forecast.mse}},
+\code{\link{mlr_measures_forecast.regr}},
+\code{\link{mlr_measures_forecast.rmse}}
+}
+\concept{Measure}
 \section{Super classes}{
 \code{\link[mlr3:Measure]{mlr3::Measure}} -> \code{\link[mlr3temporal:MeasureForecast]{mlr3temporal::MeasureForecast}} -> \code{\link[mlr3temporal:MeasureForecastRegr]{mlr3temporal::MeasureForecastRegr}} -> \code{MeasureForecastMAPE}
 }
@@ -34,8 +82,9 @@ Mean Absolute Percentage Error Measure
 \if{html}{\out{<a id="method-MeasureForecastMAPE-new"></a>}}
 \if{latex}{\out{\hypertarget{method-MeasureForecastMAPE-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{MeasureForecastMAPE$new(id = "forecast.mape")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{MeasureForecastMAPE$new()}\if{html}{\out{</div>}}
 }
 
 }
