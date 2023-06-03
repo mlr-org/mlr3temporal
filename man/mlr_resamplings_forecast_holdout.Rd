@@ -4,27 +4,23 @@
 \alias{mlr_resamplings_forecast_holdout}
 \alias{ResamplingForecastHoldout}
 \title{Forecast Holdout Resampling}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.
-}
 \description{
 Splits data into a training set and a test set.
 Parameter \code{ratio} determines the ratio of observation going into the training set (default: 2/3).
 }
-\section{Fields}{
+\section{Dictionary}{
 
-See \link{Resampling}.
-}
+This \link{Resampling} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_resamplings} or with the associated sugar function \code{\link[=rsmp]{rsmp()}}:
 
-\section{Methods}{
-
-See \link{Resampling}.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_resamplings$get("forecast_cv")
+rsmp("forecast_cv")
+}\if{html}{\out{</div>}}
 }
 
 \section{Parameters}{
 
 \itemize{
-\item \code{ratio} :: \code{numeric(1)}\cr
+\item ratio (\code{numeric(1)})\cr
 Ratio of observations to put into the training set.
 }
 }
@@ -84,6 +80,7 @@ Other resample:
 \if{html}{\out{<a id="method-ResamplingForecastHoldout-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ResamplingForecastHoldout-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ResamplingForecastHoldout$new()}\if{html}{\out{</div>}}
 }

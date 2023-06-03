@@ -1,33 +1,25 @@
 #' @title Forecast Cross-Validation Resampling
 #'
-#' @usage NULL
 #' @name mlr_resamplings_forecast_cv
-#' @format [R6::R6Class] inheriting from [Resampling].
-#' @include ResamplingForecastCV.R
 #'
 #' @description
 #' Splits data using a `folds`-folds (default: 10 folds) rolling window cross-validation.
 #'
-#' @section Fields:
-#' See [Resampling].
-#'
-#' @section Methods:
-#' See [Resampling].
+#' @templateVar id forecast_cv
+#' @template resampling
 #'
 #' @section Parameters:
-#' * `folds` :: `integer(1)`\cr
+#' * `folds` (`integer(1)`)\cr
 #'   Number of folds.
-#' * `window_size` :: `integer(1)`\cr
+#' * window_size (`integer(1)`)\cr
 #'   (Minimal) Size of the rolling window.
-#' * `horizon` :: `integer(1)`\cr
+#' * horizon (`integer(1)`)\cr
 #'   Forecasting horizon in the test sets.
-#' * `fixed_window` :: `logial(1)`\cr
+#' * fixed_window (`logial(1)`)\cr
 #'   Flag for fixed sized window. If FALSE an expanding window is used.
 #'
 #' @references
-#' \cite{mlr3}{bischl_2012}
-#' paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
-#        autoregressive time series prediction, Computational Statistics and Data Analysis 120 (2018) 70–83.
+#' `r format_bib("bergmeir_2018")`
 #'
 #' @template seealso_resampling
 #' @export
@@ -49,24 +41,31 @@
 #' rfho$instance #  list
 ResamplingForecastCV = R6Class("ResamplingForecastCV",
   inherit = Resampling,
+
   public = list(
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
-      ps = ParamSet$new(list(
-        ParamInt$new("window_size", lower = 2L, tags = "required"),
-        ParamInt$new("horizon", lower = 1L, tags = "required"),
-        ParamInt$new("folds", lower = 1L, tags = "required"),
-        ParamLgl$new("fixed_window", tags = "required")
-      ))
+      ps = ps(
+        window_size = p_int(2L, tags = "required"),
+        horizon = p_int(1L, tags = "required"),
+        folds = p_int(1L, tags = "required"),
+        fixed_window = p_lgl(tags = "required")
+      )
       ps$values = list(window_size = 10L, horizon = 5L, folds = 10L, fixed_window = TRUE)
 
       super$initialize(id = "cv", param_set = ps, man = "mlr3temporal::mlr_resamplings_forecast_cv")
     }
   ),
+
   active = list(
+    #' @template field_iters
     iters = function(rhs) {
-      asInteger(self$param_set$values$folds)
+      as.integer(self$param_set$values$folds)
     }
   ),
+
   private = list(
     .sample = function(ids, ...) {
       ids = sort(ids)
@@ -91,15 +90,19 @@ ResamplingForecastCV = R6Class("ResamplingForecastCV",
 
       list(train = train_ids, test = test_ids)
     },
+
     .get_train = function(i) {
       self$instance$train[[i]]
     },
+
     .get_test = function(i) {
       self$instance$test[[i]]
     },
+
     .combine = function(instances) {
       rbindlist(instances, use.names = TRUE)
     },
+
     deep_clone = function(name, value) {
       if (name == "instance") copy(value) else value
     }

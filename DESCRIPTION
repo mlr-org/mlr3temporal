@@ -67,6 +67,7 @@ Collate:
     'TaskRegrForecastPetrol.R'
     'assertions.R'
     'autoplot.R'
+    'bibentries.R'
     'helper.R'
     'reexports.R'
     'zzz.R'

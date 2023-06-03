@@ -4,32 +4,28 @@
 \alias{mlr_resamplings_forecast_cv}
 \alias{ResamplingForecastCV}
 \title{Forecast Cross-Validation Resampling}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{Resampling}.
-}
 \description{
 Splits data using a \code{folds}-folds (default: 10 folds) rolling window cross-validation.
 }
-\section{Fields}{
+\section{Dictionary}{
 
-See \link{Resampling}.
-}
+This \link{Resampling} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_resamplings} or with the associated sugar function \code{\link[=rsmp]{rsmp()}}:
 
-\section{Methods}{
-
-See \link{Resampling}.
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_resamplings$get("forecast_cv")
+rsmp("forecast_cv")
+}\if{html}{\out{</div>}}
 }
 
 \section{Parameters}{
 
 \itemize{
-\item \code{folds} :: \code{integer(1)}\cr
+\item \code{folds} (\code{integer(1)})\cr
 Number of folds.
-\item \code{window_size} :: \code{integer(1)}\cr
+\item window_size (\code{integer(1)})\cr
 (Minimal) Size of the rolling window.
-\item \code{horizon} :: \code{integer(1)}\cr
+\item horizon (\code{integer(1)})\cr
 Forecasting horizon in the test sets.
-\item \code{fixed_window} :: \code{logial(1)}\cr
+\item fixed_window (\code{logial(1)})\cr
 Flag for fixed sized window. If FALSE an expanding window is used.
 }
 }
@@ -52,8 +48,9 @@ intersect(rfho$train_set(1), rfho$test_set(1))
 rfho$instance #  list
 }
 \references{
-\cite{mlr3}{bischl_2012}
-paper:Ch. Bergmeir, R. J. Hyndman, B. Koo, A note on the validity of cross-validation for evaluating
+Bergmeir, Christoph, Hyndman, J R, Koo, Bonsoo (2018).
+\dQuote{A note on the validity of cross-validation for evaluating autoregressive time series prediction.}
+\emph{Computational Statistics & Data Analysis}, \bold{120}, 70--83.
 }
 \seealso{
 \itemize{
@@ -69,6 +66,14 @@ Other resample:
 \concept{resample}
 \section{Super class}{
 \code{\link[mlr3:Resampling]{mlr3::Resampling}} -> \code{ResamplingForecastCV}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{iters}}{(\code{integer(1)})\cr
+Returns the number of resampling iterations, depending on the values stored in the \code{param_set}.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -93,6 +98,7 @@ Other resample:
 \if{html}{\out{<a id="method-ResamplingForecastCV-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ResamplingForecastCV-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ResamplingForecastCV$new()}\if{html}{\out{</div>}}
 }
