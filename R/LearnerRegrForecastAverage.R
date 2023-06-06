@@ -38,11 +38,12 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
     #'
     #' @param task ([Task]).
     #'
-    #' @param new_data ([data.frame()])\cr
+    #' @param newdata ([data.frame()])\cr
     #'   New data to predict on.
     #'
     #' @return [Prediction].
-    forecast = function(h = 10, task, new_data = NULL) {
+    forecast = function(h = 10, task, newdata = NULL) {
+      h = assert_int(h, lower = 1, coerce = TRUE)
       response = as.data.table(rep(self$model, h))
       colnames(response) = task$target_names
       truth = copy(response)

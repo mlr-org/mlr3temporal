@@ -45,13 +45,14 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
     #'
     #' @param task ([Task]).
     #'
-    #' @param new_data ([data.frame()])\cr
+    #' @param newdata ([data.frame()])\cr
     #'   New data to predict on.
     #'
     #' @return [Prediction].
-    forecast = function(h = 10, task, new_data = NULL) {
+    forecast = function(h = 10, task, newdata = NULL) {
+      h = assert_int(h, lower = 1, coerce = TRUE)
       if (length(task$feature_names) > 0) {
-        newdata = as.matrix(new_data)
+        newdata = as.matrix(newdata)
         forecast = invoke(predict, self$model, n.ahead = h, ci = 0.95, dumvar = newdata)
       } else {
         forecast = invoke(predict, self$model, n.ahead = h, ci = 0.95)
@@ -87,7 +88,7 @@ LearnerRegrForecastVAR = R6::R6Class("LearnerVAR",
 
       tgts = task$data(rows = task$row_ids, cols = task$target_names)
       tgts = na.omit(tgts)
-      row_ids = task$row_ids[which(!apply(tgts, 1, function(x) {all(is.na(x))}))]
+      row_ids = task$row_ids[which(!apply(tgts, 1, function(x) all(is.na(x))))]
       if (length(task$feature_names) > 0) {
         exogen = task$data(rows = row_ids, cols = task$feature_names)
         invoke(vars::VAR, y = tgts, exogen = exogen, .args = pv)

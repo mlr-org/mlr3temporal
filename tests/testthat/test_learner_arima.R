@@ -20,7 +20,7 @@ test_that("Basic Tests", {
   rr = resample(task, learner, resampling)
   expect_resample_result(rr)
 
-  forecast = learner$forecast(task = task, h = 10, new_data = task$data(rows = 11:20, cols = "fdeaths"))
+  forecast = learner$forecast(task = task, h = 10, newdata = task$data(rows = 11:20, cols = "fdeaths"))
   expect_prediction_forecast(forecast)
 })
 

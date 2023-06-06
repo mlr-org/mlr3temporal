@@ -58,13 +58,14 @@ LearnerRegrForecastAutoArima = R6::R6Class("LearnerRegrForecastAutoArima",
     #'
     #' @param task ([Task]).
     #'
-    #' @param new_data ([data.frame()])\cr
+    #' @param newdata ([data.frame()])\cr
     #'   New data to predict on.
     #'
     #' @return [Prediction].
-    forecast = function(h = 10, task, new_data = NULL) {
+    forecast = function(h = 10, task, newdata = NULL) {
+      h = assert_int(h, lower = 1, coerce = TRUE)
       if (length(task$feature_names) > 0) {
-        newdata = as.matrix(new_data)
+        newdata = as.matrix(newdata)
         forecast = invoke(forecast::forecast, self$model, xreg = newdata)
       } else {
         forecast = invoke(forecast::forecast, self$model, h = h)
