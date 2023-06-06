@@ -23,16 +23,17 @@ DataBackendLong = R6::R6Class("DataBackendLong",
   inherit = DataBackend,
   cloneable = FALSE,
   public = list(
-    id_col = NULL,
-    #' @field value_col (`character()`)\cr
-    #' Names of the columns containing the values.
-
-    #' @field date_col (`character(1)`)\cr
-    #' Name of the column containing the timestamps.
-    value_col = NULL,
 
     #' @field id_col (`character(1)`)\cr
     #' Name of the column containing the row ids.
+    id_col = NULL,
+
+    #' @field value_col (`character()`)\cr
+    #' Names of the columns containing the values.
+    value_col = NULL,
+
+    #' @field date_col (`character(1)`)\cr
+    #' Name of the column containing the timestamps.
     date_col = NULL,
 
     #' @description

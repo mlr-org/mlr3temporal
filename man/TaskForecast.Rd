@@ -157,9 +157,6 @@ Column names.}
 
 \item{\code{data_format}}{(\code{character(1)})\cr
 Desired data format, e.g. \code{"data.table"} or \code{"Matrix"}.}
-
-\item{\code{ordered}}{(\code{logical(1)})\cr
-If \code{TRUE}, data is ordered according to the columns with column role \code{"order"}.}
 }
 \if{html}{\out{</div>}}
 }

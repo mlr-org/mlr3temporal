@@ -30,14 +30,14 @@ e.g. SQL servers or \CRANpkg{duckdb}.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{id_col}}{(\code{character(1)})\cr
+Name of the column containing the row ids.}
+
 \item{\code{value_col}}{(\code{character()})\cr
 Names of the columns containing the values.}
 
 \item{\code{date_col}}{(\code{character(1)})\cr
 Name of the column containing the timestamps.}
-
-\item{\code{id_col}}{(\code{character(1)})\cr
-Name of the column containing the row ids.}
 }
 \if{html}{\out{</div>}}
 }

@@ -11,7 +11,6 @@ This measure specializes \link{Measure} for forecast problems:
 }
 
 Predefined measures can be found in the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_measures}.
-The default measure for regression is \code{\link[=mlr_measures_regr.mse]{regr.mse}}.
 }
 \seealso{
 \itemize{

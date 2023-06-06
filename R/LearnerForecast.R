@@ -123,10 +123,10 @@ LearnerForecast = R6Class("LearnerForecast",
       if (!test_subset(row_ids, self$date_span$begin$row_id:self$date_span$end$row_id)) {
         stop("Model has not been trained on selected row_ids")
       }
-      n.row = self$date_span$end$row_id - self$date_span$begin$row_id + 1
+      n_row = self$date_span$end$row_id - self$date_span$begin$row_id + 1
       fitted = as.data.table(stats::fitted(self$model))
       fitted[, colnames(fitted) := lapply(.SD, function(x) as.numeric(x))]
-      n = n.row - nrow(fitted)
+      n = n_row - nrow(fitted)
       fitted = rbind(
         as.data.table(
           sapply(names(fitted), function(x) rep(NA, n), simplify = FALSE)

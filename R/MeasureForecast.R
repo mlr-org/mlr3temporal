@@ -7,7 +7,6 @@
 #' * Possible values for `predict_type` are `"response"`, `"se"` and `"distr"`.
 #'
 #' Predefined measures can be found in the [dictionary][mlr3misc::Dictionary] [mlr_measures].
-#' The default measure for regression is [`regr.mse`][mlr_measures_regr.mse].
 
 #' @template param_id
 #' @template param_range

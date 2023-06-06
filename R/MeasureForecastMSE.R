@@ -3,7 +3,7 @@
 #' @name mlr_measures_forecast.mse
 #' @include MeasureForecast.R
 #'
-#' @templateVar id forecast.mape
+#' @templateVar id forecast.mse
 #' @template measure
 #'
 #' @template seealso_measure

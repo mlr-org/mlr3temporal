@@ -114,21 +114,21 @@ LearnerRegrForecastArima = R6::R6Class("LearnerRegrForecastArima",
           response_predict = invoke(forecast::forecast, self$model, h = length(predict_ids))
         }
 
-        predict.mean = as.data.table(as.numeric(response_predict$mean))
-        colnames(predict.mean) = task$target_names
+        predict_mean = as.data.table(as.numeric(response_predict$mean))
+        colnames(predict_mean) = task$target_names
         fitted.mean = self$fitted_values(fitted_ids)
         colnames(fitted.mean) = task$target_names
-        response = rbind(fitted.mean, predict.mean)
+        response = rbind(fitted.mean, predict_mean)
         if (self$predict_type == "se") {
-          predict.se = as.data.table(as.numeric(
+          predict_se = as.data.table(as.numeric(
             ci_to_se(width = response_predict$upper[, 1] - response_predict$lower[, 1],
               level = response_predict$level[1])
           ))
-          colnames(predict.se) = task$target_names
-          fitted.se = as.data.table(
+          colnames(predict_se) = task$target_names
+          fitted_se = as.data.table(
             sapply(task$target_names, function(x) rep(sqrt(self$model$sigma2), length(fitted_ids)), simplify = FALSE)
           )
-          se = rbind(fitted.se, predict.se)
+          se = rbind(fitted_se, predict_se)
         }
       } else {
         response = self$fitted_values(fitted_ids)

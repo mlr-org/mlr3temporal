@@ -66,9 +66,6 @@ TaskForecast = R6::R6Class("TaskForecast",
     #' Note that it is recommended to **not** rely on the order of columns, and instead always
     #' address columns with their respective column name.
     #'
-    #' @param ordered (`logical(1)`)\cr
-    #'   If `TRUE`, data is ordered according to the columns with column role `"order"`.
-    #'
     #' @return Depending on the [DataBackend], but usually a [data.table::data.table()].
     data = function(rows = NULL, cols = NULL, data_format = "data.table") {
       data = super$data(rows, cols, data_format)

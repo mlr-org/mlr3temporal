@@ -13,8 +13,8 @@ Root Mean Squared Error Measure
 
 This \link{Measure} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_measures} or with the associated sugar function \code{\link[=msr]{msr()}}:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_measures$get("forecast.mape")
-msr("forecast.mape")
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_measures$get("forecast.rmse")
+msr("forecast.rmse")
 }\if{html}{\out{</div>}}
 }
 
