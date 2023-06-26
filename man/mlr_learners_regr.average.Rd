@@ -61,6 +61,7 @@ for established default tuning spaces.
 Other Learner: 
 \code{\link{LearnerForecast}},
 \code{\link{mlr_learners_regr.VAR}},
+\code{\link{mlr_learners_regr.arima}},
 \code{\link{mlr_learners_regr.auto_arima}}
 }
 \concept{Learner}
@@ -109,6 +110,22 @@ Returns forecasts after the last training instance.
 \if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAverage$forecast(h = 10, task, new_data = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{h}}{(\code{numeric(1)})\cr
+Number of steps ahead to forecast. Default is 10.}
+
+\item{\code{task}}{(\link{Task}).}
+
+\item{\code{new_data}}{(\code{\link[=data.frame]{data.frame()}})\cr
+New data to predict on.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{Prediction}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-LearnerRegrForecastAverage-clone"></a>}}

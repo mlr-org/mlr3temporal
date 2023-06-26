@@ -3,14 +3,15 @@
 #' @name mlr_tasks_airpassengers
 #' @format [R6::R6Class] inheriting from [TaskRegrForecast].
 #'
+#'
 #' @section Construction:
 #' ```
-#' mlr_tasks$get("AirPassengers")
+#' mlr_tasks$get("airpassengers")
 #' tsk("AirPassengers")
 #' ```
 #'
-#' @description
-#' A forecasting task for the [datasets::AirPassengers] data set.
+#' @section Meta Information:
+#' `r rd_info(tsk("airpassengers"))`
 #'
 #' @template seealso_task
 NULL

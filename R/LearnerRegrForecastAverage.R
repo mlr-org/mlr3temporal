@@ -29,9 +29,21 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
         feature_types = c("logical", "integer", "numeric", "factor", "ordered")
       )
     },
+
     #' @description
     #' Returns forecasts after the last training instance.
-    forecast = function(h = 10, task, new_data = NULL) {
+    #'
+    #' @param h (`numeric(1)`)\cr
+    #'   Number of steps ahead to forecast. Default is 10.
+    #'
+    #' @param task ([Task]).
+    #'
+    #' @param newdata ([data.frame()])\cr
+    #'   New data to predict on.
+    #'
+    #' @return [Prediction].
+    forecast = function(h = 10, task, newdata = NULL) {
+      h = assert_int(h, lower = 1, coerce = TRUE)
       response = as.data.table(rep(self$model, h))
       colnames(response) = task$target_names
       truth = copy(response)
@@ -42,15 +54,18 @@ LearnerRegrForecastAverage = R6::R6Class("LearnerRegrForecastAverage",
       )
     }
   ),
+
   private = list(
     .train = function(task) {
       span = range(task$date()[[task$date_col]])
-      self$date_span =
-        list(begin = list(time = span[1], row_id = task$row_ids[1]),
-          end = list(time = span[2], row_id = task$row_ids[task$nrow]))
+      self$date_span = list(
+        begin = list(time = span[1], row_id = task$row_ids[1]),
+        end = list(time = span[2], row_id = task$row_ids[task$nrow])
+      )
       x = task$data(cols = task$target_names)[[1L]]
       list("mean" = mean(x))
     },
+
     .predict = function(task) {
       response = rep(self$model$mean, length(task$row_ids))
       list(response = response)

@@ -1,30 +1,34 @@
-#' @title Forecast Regression Measure
+#' @title Forecast Measure
 #'
 #' @description
-#' This measure specializes [mlr3::Measure] for forecast regression problems.
-#' The `task_type` is set to `"forecast"`.
+#' This measure specializes [Measure] for forecast problems:
 #'
-#' @section Construction:
-#' ```
-#' m = MeasureForecast$new(id, range, minimize, predict_type = "response",
-#'      task_properties = character(0L), packages = character(0L))
-#' ```
-#' For a description of the arguments, see [mlr3::Measure].
-#' The `task_type` is set to `"forecast"`.
-#' Possible values for `predict_types` is "response" and "se".
+#' * `task_type` is set to `"forecast"`.
+#' * Possible values for `predict_type` are `"response"`, `"se"` and `"distr"`.
 #'
-#' @section Fields:
-#' See [Measure].
+#' Predefined measures can be found in the [dictionary][mlr3misc::Dictionary] [mlr_measures].
+
+#' @template param_id
+#' @template param_range
+#' @template param_minimize
+#' @template param_average
+#' @template param_aggregator
+#' @template param_predict_type
+#' @template param_measure_properties
+#' @template param_predict_sets
+#' @template param_task_properties
+#' @template param_packages
+#' @template param_man
 #'
-#' @section Methods:
-#' See [Measure].
-#'
-#' @family Measure
+#' @template seealso_measure
 #' @export
 MeasureForecast = R6Class("MeasureForecast",
   inherit = Measure,
   cloneable = FALSE,
+
   public = list(
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function(id,
                           range,
                           minimize = NA,
@@ -54,19 +58,27 @@ MeasureForecast = R6Class("MeasureForecast",
   )
 )
 
-#' @title General Regression Measures for Forecasting
+#' @title Forecast Regression Measure
 #'
 #' @name mlr_measures_forecast.regr
-#' @format [R6::R6Class()] inheriting from [MeasureForecast].
 #'
+#' @template param_id
+#'
+#' @template seealso_measure
 #' @export
-#' @include MeasureForecast.R
 MeasureForecastRegr = R6Class("MeasureForecastRegr",
   inherit = MeasureForecast,
   public = list(
 
+    #' @field measure_regr ([Measure])\cr
+    #'   Measure(s) to calculate.
     measure_regr = NULL,
 
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
+    #'
+    #' @param measure_regr ([Measure])\cr
+    #'  Measure(s) to calculate.
     initialize = function(id = NULL, measure_regr) {
       self$measure_regr = as_measure(measure_regr)
       super$initialize(
@@ -77,6 +89,7 @@ MeasureForecastRegr = R6Class("MeasureForecastRegr",
       )
     }
   ),
+
   private = list(
     .score = function(prediction, ...) {
       mean(pmap_dbl(list(prediction$truth, prediction$response), self$measure_regr$fun))

@@ -2,96 +2,64 @@
 % Please edit documentation in R/DataBackendLong.R
 \name{DataBackendLong}
 \alias{DataBackendLong}
-\title{DataBackend}
-\format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:DataBackend]{mlr3::DataBackend}
-}
+\title{DataBackend for timeseries in long-format}
 \description{
-DataBackend for timeseries in long-format
-
-Data Backends provide a layer of abstraction for various data storage systems.
-It is not recommended to work directly with the DataBackend.
-Instead, all data access is handled transparently via the \link{Task}.
-
-To connect to out-of-memory database management systems such as SQL servers, see \CRANpkg{mlr3db}.
-
-The required set of fields and methods to implement a custom DataBackend is listed in the respective sections.
-See \link{DataBackendDataTable} or \link{DataBackendMatrix} for exemplary implementations of the interface.
+\link{DataBackend} for \CRANpkg{data.table} which serves as an efficient in-memory data base.
 }
-\section{Construction}{
-
-Note: This object is typically constructed via a derived classes, e.g. \link{DataBackendDataTable} or \link{DataBackendMatrix},
-or via the S3 method \code{\link[=as_data_backend]{as_data_backend()}}.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{DataBackend$new(data, primary_key = NULL, data_formats = "data.table")
-}\if{html}{\out{</div>}}
-\itemize{
-\item \code{data} :: \code{any}\cr
-The format of the input data depends on the specialization.
-E.g., \link{DataBackendDataTable} expects a \code{\link[data.table:data.table]{data.table::data.table()}} and \link{DataBackendMatrix} expects a \code{\link[Matrix:Matrix]{Matrix::Matrix()}}
-constructed with the \CRANpkg{Matrix} package.
-\item \code{primary_key} :: \code{character(1)}\cr
-Each DataBackend needs a way to address rows, which is done via a column of unique values, referenced here by \code{primary_key}.
-The use of this variable may differ between backends.
-\item data_formats (\code{character()})\cr
-Set of supported formats, e.g. \code{"data.table"} or \code{"Matrix"}.
+\examples{
+data = data.table::data.table(id = 1:5, x = runif(5), y = sample(letters[1:3], 5, replace = TRUE))
+b = mlr3::DataBackendDataTable$new(data, primary_key = "id")
+print(b)
+b$head(2)
+b$data(rows = 1:2, cols = "x")
+b$distinct(rows = b$rownames, "y")
+b$missings(rows = b$rownames, cols = names(data))
 }
-}
-
-\section{Fields}{
-
-\itemize{
-\item \code{nrow} :: \code{integer(1)}\cr
-Number of rows (observations).
-\item \code{ncol} :: \code{integer(1)}\cr
-Number of columns (variables), including the primary key column.
-\item \code{colnames} :: \code{character()}\cr
-Returns vector of all column names, including the primary key column.
-\item \code{rownames} :: (\code{integer()} | \code{character()})\cr
-Returns vector of all distinct row identifiers, i.e. the primary key column.
-\item \code{hash} :: \code{character(1)}\cr
-Returns a unique hash for this backend. This hash is cached.
-\item \code{data_formats} :: \code{character()}\cr
-Vector of supported data formats.
-A specific format can be chosen in the \verb{$data()} method.
-}
-}
-
-\section{Methods}{
-
-\itemize{
-\item \code{data(rows = NULL, cols = NULL, format = "data.table")}\cr
-(\code{integer()} | \code{character()}, \code{character()}) -> \code{any}\cr
-Returns a slice of the data in the specified format.
-Currently, the only supported formats are \code{"data.table"} and \code{"Matrix"}.
-The rows must be addressed as vector of primary key values, columns must be referred to via column names.
-Queries for rows with no matching row id and queries for columns with no matching column name are silently ignored.
-Rows are guaranteed to be returned in the same order as \code{rows}, columns may be returned in an arbitrary order.
-Duplicated row ids result in duplicated rows, duplicated column names lead to an exception.
-\item \code{distinct(rows, cols, na_rm = TRUE)}\cr
-(\code{integer()} | \code{character()}, \code{character()}, \code{logical(1)}) -> named \code{list()}\cr
-Returns a named list of vectors of distinct values for each column specified.
-If \code{na_rm} is \code{TRUE}, missing values are removed from the returned vectors of distinct values.
-Non-existing rows and columns are silently ignored.
-
-If \code{rows} is \code{NULL}, all possible distinct values will be returned, even if the value is not present in the data.
-This affects factor-like variables with empty levels, if supported by the backend.
-\item \code{head(n = 6)}\cr
-\code{integer(1)} -> \code{\link[data.table:data.table]{data.table::data.table()}}\cr
-Returns the first up-to \code{n} rows of the data as \code{\link[data.table:data.table]{data.table::data.table()}}.
-\item \code{missings(rows, cols)}\cr
-(\code{integer()} | \code{character()}, \code{character()}) -> named \code{integer()}\cr
-Returns the number of missing values per column in the specified slice of data.
-Non-existing rows and columns are silently ignored.
-}
-}
-
 \seealso{
-Extension Packages: \CRANpkg{mlr3db}
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/technical.html#backends}
+\item Package \CRANpkg{mlr3db} to interface out-of-memory data,
+e.g. SQL servers or \CRANpkg{duckdb}.
+}
 }
 \concept{DataBackend}
 \section{Super class}{
 \code{\link[mlr3:DataBackend]{mlr3::DataBackend}} -> \code{DataBackendLong}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id_col}}{(\code{character(1)})\cr
+Name of the column containing the row ids.}
+
+\item{\code{value_col}}{(\code{character()})\cr
+Names of the columns containing the values.}
+
+\item{\code{date_col}}{(\code{character(1)})\cr
+Name of the column containing the timestamps.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{rownames}}{(\code{integer()})\cr
+Returns vector of all distinct row identifiers, i.e. the contents of the primary key column.}
+
+\item{\code{colnames}}{(\code{character()})\cr
+Returns vector of all column names, including the primary key column.}
+
+\item{\code{nrow}}{(\code{integer(1)})\cr
+Number of rows (observations).}
+
+\item{\code{ncol}}{(\code{integer(1)})\cr
+Number of columns (variables), including the primary key column.}
+
+\item{\code{key_cols}}{(\code{character()})\cr
+Returns vector of all column names that are part of the primary key.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -115,45 +83,138 @@ Extension Packages: \CRANpkg{mlr3db}
 \if{html}{\out{<a id="method-DataBackendLong-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DataBackendLong-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
+
+Note that \code{DataBackendLong} does not copy the input data, while \code{as_data_backend()} calls \code{\link[data.table:copy]{data.table::copy()}}.
+\code{as_data_backend()} also takes care about casting to a \code{data.table()} and adds a primary key column if necessary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$new(data, primary_key, id_col, date_col)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{(\code{\link[data.table:data.table]{data.table::data.table()}})\cr
+The input \code{\link[=data.table]{data.table()}}.}
+
+\item{\code{primary_key}}{(\code{character(1)} | \code{integer()})\cr
+Name of the primary key column, or integer vector of row ids.}
+
+\item{\code{id_col}}{(\code{character(1)})\cr
+Name of the column containing the row ids.}
+
+\item{\code{date_col}}{(\code{character(1)})\cr
+Name of the column containing the timestamps.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataBackendLong-data"></a>}}
 \if{latex}{\out{\hypertarget{method-DataBackendLong-data}{}}}
 \subsection{Method \code{data()}}{
+Returns a slice of the data in the specified format.
+Currently, the only supported formats are \code{"data.table"} and \code{"Matrix"}.
+The rows must be addressed as vector of primary key values, columns must be referred to via column names.
+Queries for rows with no matching row id and queries for columns with no matching column name are silently ignored.
+Rows are guaranteed to be returned in the same order as \code{rows}, columns may be returned in an arbitrary order.
+Duplicated row ids result in duplicated rows, duplicated column names lead to an exception.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$data(rows, cols, data_format = "data.table", roll = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+
+\item{\code{cols}}{\code{character()}\cr
+Column names.}
+
+\item{\code{data_format}}{(\code{character(1)})\cr
+Desired data format, e.g. \code{"data.table"} or \code{"Matrix"}.}
+
+\item{\code{roll}}{(\code{logical(1)})\cr
+If \code{TRUE} (default), rows are rolled to the nearest existing row id if necessary.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataBackendLong-head"></a>}}
 \if{latex}{\out{\hypertarget{method-DataBackendLong-head}{}}}
 \subsection{Method \code{head()}}{
+Retrieve the first \code{n} rows.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$head(n = 6L)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{(\code{integer(1)})\cr
+Number of rows.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{\link[data.table:data.table]{data.table::data.table()}} of the first \code{n} rows.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataBackendLong-distinct"></a>}}
 \if{latex}{\out{\hypertarget{method-DataBackendLong-distinct}{}}}
 \subsection{Method \code{distinct()}}{
+Returns a named list of vectors of distinct values for each column
+specified. If \code{na_rm} is \code{TRUE}, missing values are removed from the
+returned vectors of distinct values. Non-existing rows and columns are
+silently ignored.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$distinct(rows, cols, na_rm = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+
+\item{\code{cols}}{\code{character()}\cr
+Column names.}
+
+\item{\code{na_rm}}{\code{logical(1)}\cr
+Whether to remove NAs or not.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Named \code{list()} of distinct values.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DataBackendLong-missings"></a>}}
 \if{latex}{\out{\hypertarget{method-DataBackendLong-missings}{}}}
 \subsection{Method \code{missings()}}{
+Returns the number of missing values per column in the specified slice
+of data. Non-existing rows and columns are silently ignored.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DataBackendLong$missings(rows, cols)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+
+\item{\code{cols}}{\code{character()}\cr
+Column names.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Total of missing values per column (named \code{numeric()}).
+}
 }
 }

@@ -1,7 +1,8 @@
-#' @title Petrol Multivariate Forecast Class
+#' @title Petrol Forecast Task
 #'
 #' @name mlr_tasks_petrol
 #' @format [R6::R6Class] inheriting from [TaskRegrForecast]
+#'
 #'
 #' @section Construction:
 #' ```
@@ -9,8 +10,8 @@
 #' tsk("petrol")
 #' ```
 #'
-#' @description
-#' A multivariate forecasting task for the [fma::petrol] data set.
+#' @section Meta Information:
+#' `r rd_info(tsk("petrol"))`
 #'
 #' @template seealso_task
 NULL

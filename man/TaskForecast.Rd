@@ -3,57 +3,28 @@
 \name{TaskForecast}
 \alias{TaskForecast}
 \title{Forecasting Task}
-\format{
-\link[R6:R6Class]{R6::R6Class} object inheriting from \link{Task}/\link{TaskSupervised}.
-}
 \description{
-Introduces a new Forecasting Task that inherits from \link{TaskSupervised} which can be used to forecast time series.
-This is an abstract class, which should not be instantiated.
-Use the subclass \link{TaskRegrForecast} instead.
-The \code{task_type} is set to \code{"forecast"}.
+This is the abstract base class for \link{TaskRegrForecast}.
+It extends \link{TaskSupervised} with methods to handle forecasting tasks.
 
-Note, that in case the input is a \verb{data.table' or }data.frame\verb{, }mlr3temporal\verb{expects a "wide"  data.frame as input. The}tsbox::to_wide()` function can help casting time-series to this format.
+Note, that in case the input is a \verb{data.table' or }data.frame\verb{, }mlr3temporal\verb{expects a "wide" data.frame as input. The}tsbox::to_wide()` function can help casting time-series to this format.
 }
-\section{Construction}{
-
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{t = TaskForecast$new(id, backend, target, date_col)
-}\if{html}{\out{</div>}}
-\itemize{
-\item \code{id} :: \code{character(1)}\cr
-Identifier for the task.
-\item \code{backend} :: \link{DataBackend}\cr
-Either a \link{DataBackendLong}, an object of class \code{ts} or a \code{data.frame} with specified date column
-or any object which is convertible to a DataBackendLong with \code{as_data_backend()}.
-E.g., a object of class  \code{dts} (from package tsbox) will be converted to a \link{DataBackendLong}.
-\item \code{target} :: \code{character(n)}\cr
-Name of the target column(s).
-\item \code{date_col} :: \code{character(1)}\cr
-Name of the date column, only required if backend is a \code{data.frame}.
-}
-}
-
-\section{Fields}{
-
-All methods inherited from \link{TaskSupervised}, and additionally:
-\itemize{
-\item \code{date_col} :: \code{character(1)}\cr
-Name of the date column.
-}
-}
-
-\section{Methods}{
-
-See \link{TaskSupervised}, additionally:
-\itemize{
-\item \code{date(row_ids = NULL)}  :: \code{data.table}\cr
-(\code{integer()} | \code{character()}) -> named \code{list()}\cr
-Returns the \code{date} column.
-}
-}
-
 \seealso{
-seealso_task
+\itemize{
+\item Chapter in the \href{https://mlr3book.mlr-org.com/}{mlr3book}:
+\url{https://mlr3book.mlr-org.com/basics.html#tasks}
+\item Package \CRANpkg{mlr3data} for more toy tasks.
+\item Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
+\item Package \CRANpkg{mlr3viz} for some generic visualizations.
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Task]{Tasks}: \link{mlr_tasks}
+\item \code{as.data.table(mlr_tasks)} for a table of available \link[=Task]{Tasks} in the running session (depending on the loaded packages).
+\item \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
+\item Extension packages for additional task types:
+\itemize{
+\item Unsupervised clustering: \CRANpkg{mlr3cluster}
+\item Probabilistic supervised regression and survival analysis: \url{https://mlr3proba.mlr-org.com/}.
+}
+}
 
 Other Task: 
 \code{\link{TaskRegrForecast}},
@@ -63,6 +34,14 @@ Other Task:
 \concept{Task}
 \section{Super classes}{
 \code{\link[mlr3:Task]{mlr3::Task}} -> \code{\link[mlr3:TaskSupervised]{mlr3::TaskSupervised}} -> \code{TaskForecast}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{date_col}}{(\code{character(1)})\cr
+Returns the date column.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -101,37 +80,107 @@ Other Task:
 \if{html}{\out{<a id="method-TaskForecast-new"></a>}}
 \if{latex}{\out{\hypertarget{method-TaskForecast-new}{}}}
 \subsection{Method \code{new()}}{
+Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TaskForecast$new(id, backend, target, date_col = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier for the new instance.}
+
+\item{\code{backend}}{(\link{DataBackend})\cr
+Either a \link{DataBackend}, or any object which is convertible to a \link{DataBackend} with \code{as_data_backend()}.
+E.g., a \code{data.frame()} will be converted to a \link{DataBackendDataTable}.}
+
+\item{\code{target}}{(\code{character(1)})\cr
+Name of the target column.}
+
+\item{\code{date_col}}{(\code{character(1)})\cr
+Name of the date column, only required if backend is a \code{data.frame}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TaskForecast-truth"></a>}}
 \if{latex}{\out{\hypertarget{method-TaskForecast-truth}{}}}
 \subsection{Method \code{truth()}}{
+True response for specified \code{row_ids}. Format depends on the task type.
+Defaults to all rows with role "use".
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$truth(row_ids = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$truth(rows = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{numeric()}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TaskForecast-data"></a>}}
 \if{latex}{\out{\hypertarget{method-TaskForecast-data}{}}}
 \subsection{Method \code{data()}}{
+Returns a slice of the data from the \link{DataBackend} in the data format specified by \code{data_format}.
+Rows default to observations with role \code{"use"}, and
+columns default to features with roles \code{"target"} or \code{"feature"}.
+If \code{rows} or \code{cols} are specified which do not exist in the \link{DataBackend},
+an exception is raised.
+
+Rows and columns are returned in the order specified via the arguments \code{rows} and \code{cols}.
+If \code{rows} is \code{NULL}, rows are returned in the order of \code{task$row_ids}.
+If \code{cols} is \code{NULL}, the column order defaults to
+\code{c(task$target_names, task$feature_names)}.
+Note that it is recommended to \strong{not} rely on the order of columns, and instead always
+address columns with their respective column name.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TaskForecast$data(rows = NULL, cols = NULL, data_format = "data.table")}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+
+\item{\code{cols}}{\code{character()}\cr
+Column names.}
+
+\item{\code{data_format}}{(\code{character(1)})\cr
+Desired data format, e.g. \code{"data.table"} or \code{"Matrix"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Depending on the \link{DataBackend}, but usually a \code{\link[data.table:data.table]{data.table::data.table()}}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TaskForecast-date"></a>}}
 \if{latex}{\out{\hypertarget{method-TaskForecast-date}{}}}
 \subsection{Method \code{date()}}{
+Returns the \code{date} column.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$date(row_ids = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$date(rows = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rows}}{\code{integer()}\cr
+Row indices.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TaskForecast-clone"></a>}}
