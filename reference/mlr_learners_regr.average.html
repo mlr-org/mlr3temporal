@@ -106,6 +106,7 @@ for established default tuning spaces.</p></li>
 </ul><p>Other Learner: 
 <code><a href="LearnerForecast.html">LearnerForecast</a></code>,
 <code><a href="mlr_learners_regr.VAR.html">mlr_learners_regr.VAR</a></code>,
+<code><a href="mlr_learners_regr.arima.html">mlr_learners_regr.arima</a></code>,
 <code><a href="mlr_learners_regr.auto_arima.html">mlr_learners_regr.auto_arima</a></code></p></div>
     </div>
     <div id="super-classes">
@@ -145,6 +146,28 @@ for established default tuning spaces.</p></li>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">LearnerRegrForecastAverage</span><span class="op">$</span><span class="fu">forecast</span><span class="op">(</span>h <span class="op">=</span> <span class="fl">10</span>, <span class="va">task</span>, new_data <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+<div class="section">
+<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>h</code></dt>
+<dd><p>(<code>numeric(1)</code>)<br>
+Number of steps ahead to forecast. Default is 10.</p></dd>
+
+
+<dt><code>task</code></dt>
+<dd><p>(<a href="https://mlr3.mlr-org.com/reference/Task.html" class="external-link">Task</a>).</p></dd>
+
+
+<dt><code>new_data</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code>)<br>
+New data to predict on.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
+<p><a href="https://mlr3.mlr-org.com/reference/Prediction.html" class="external-link">Prediction</a>.</p>
+</div>
 
 </div><p></p><hr><a id="method-LearnerRegrForecastAverage-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
@@ -154,7 +177,7 @@ for established default tuning spaces.</p></li>
 </div>
 
 <div class="section">
-<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

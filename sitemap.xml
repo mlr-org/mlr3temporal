@@ -43,6 +43,9 @@
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html</loc>
   </url>
   <url>
+    <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.arima.html</loc>
+  </url>
+  <url>
     <loc>https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.auto_arima.html</loc>
   </url>
   <url>

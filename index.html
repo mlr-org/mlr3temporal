@@ -144,16 +144,21 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.AutoArima.html">forecast.auto_arima</a></td>
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.auto_arima.html">forecast.auto_arima</a></td>
 <td>Auto Arima</td>
 <td><a href="https://cran.r-project.org/package=forecast" class="external-link">forecast</a></td>
 </tr>
 <tr class="even">
-<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.Average.html">forecast.average</a></td>
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.arima.html">forecast.arima</a></td>
+<td>Arima</td>
+<td><a href="https://cran.r-project.org/package=forecast" class="external-link">forecast</a></td>
+</tr>
+<tr class="odd">
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.average.html">forecast.average</a></td>
 <td>Average</td>
 <td>base</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_learners_regr.VAR.html">forecast.VAR</a></td>
 <td>Vector Autoregression</td>
 <td><a href="https://cran.r-project.org/package=vars" class="external-link">vars</a></td>
@@ -166,20 +171,37 @@
 </h3>
 <table class="table">
 <colgroup>
-<col width="75%">
-<col width="17%">
-<col width="7%">
+<col width="69%">
+<col width="23%">
+<col width="6%">
 </colgroup>
 <thead><tr class="header">
 <th>Id</th>
 <th>Measure</th>
 <th>Package</th>
 </tr></thead>
-<tbody><tr class="odd">
+<tbody>
+<tr class="odd">
 <td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mae.html">forecast.mae</a></td>
 <td>Mean Absolute Error</td>
 <td>base</td>
-</tr></tbody>
+</tr>
+<tr class="even">
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mape.html">forecast.mape</a></td>
+<td>Mean Absolute Percentage Error</td>
+<td>base</td>
+</tr>
+<tr class="odd">
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.mse.html">forecast.mse</a></td>
+<td>Mean Squared Error</td>
+<td>base</td>
+</tr>
+<tr class="even">
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_measures_forecast.rmse.html">forecast.rmse</a></td>
+<td>Root Mean Squared Error</td>
+<td>base</td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="section level3">
@@ -198,12 +220,12 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecastHoldout.html">forecast_holdout</a></td>
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_holdout.html">forecast_holdout</a></td>
 <td>Holdout</td>
 <td>base</td>
 </tr>
 <tr class="even">
-<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_RollingWindowCV.html">forecast_cv</a></td>
+<td><a href="https://mlr3temporal.mlr-org.com/reference/mlr_resamplings_forecast_cv.html">forecast_cv</a></td>
 <td>Rolling Window CrossValidation</td>
 <td>base</td>
 </tr>

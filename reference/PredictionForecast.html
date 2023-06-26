@@ -59,51 +59,44 @@ the predicted response and standard error."><!-- mathjax --><script src="https:/
     </div>
 
     <div class="ref-description">
-    <p>This object wraps the predictions returned by a learner of class LearnerForecast, i.e.
+    <p>This object wraps the predictions returned by a learner of class <a href="LearnerForecast.html">LearnerForecast</a>, i.e.
 the predicted response and standard error.</p>
     </div>
 
 
-    <div id="format">
-    <h2>Format</h2>
-    <p><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class</a> object inheriting from Prediction.</p>
-    </div>
-    <div id="construction">
-    <h2>Construction</h2>
-    
-
-
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> PredictionForecast<span class="sc">$</span><span class="fu">new</span>(<span class="at">task =</span> <span class="cn">NULL</span>, <span class="at">row_ids =</span> task<span class="sc">$</span>row_ids, <span class="at">truth =</span> task<span class="sc">$</span><span class="fu">truth</span>(), <span class="at">response =</span> <span class="cn">NULL</span>, <span class="at">se =</span> <span class="cn">NULL</span>)</span></code></pre><p></p></div><ul><li><p><code>task</code> :: <a href="TaskRegrForecast.html">TaskRegrForecast</a><br>
-Task, used to extract defaults for <code>row_ids</code> and <code>truth</code>.</p></li>
-<li><p><code>row_ids</code> :: <code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code><br>
-Row ids of the predicted observations, i.e. the row ids of the test set.</p></li>
-<li><p><code>truth</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-True (observed) outcome.</p></li>
-<li><p><code>response</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-Object of numeric response values that can be coerced to a data.table.</p></li>
-<li><p><code>se</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-Object of numeric standard errors that can be coerced to a data.table.</p></li>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index">
+<ul><li><p>Chapter in the <a href="https://mlr3book.mlr-org.com/" class="external-link">mlr3book</a>:
+<a href="https://mlr3book.mlr-org.com/basics.html#train-predict" class="external-link">https://mlr3book.mlr-org.com/basics.html#train-predict</a></p></li>
+<li><p>Package <a href="https://CRAN.R-project.org/package=mlr3viz" class="external-link"><span class="pkg">mlr3viz</span></a> for some generic visualizations.</p></li>
+<li><p>Extension packages for additional task types:</p><ul><li><p><a href="https://CRAN.R-project.org/package=mlr3proba" class="external-link"><span class="pkg">mlr3proba</span></a> for probabilistic supervised regression and survival analysis.</p></li>
+<li><p><a href="https://CRAN.R-project.org/package=mlr3cluster" class="external-link"><span class="pkg">mlr3cluster</span></a> for unsupervised clustering.</p></li>
+</ul></li>
 </ul></div>
-    <div id="fields">
-    <h2>Fields</h2>
-    
-
-<p>All fields from Prediction, and additionally:</p><ul><li><p><code>response</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-Access to the stored predicted response.</p></li>
-<li><p><code>se</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-Access to the stored standard error.</p></li>
-</ul><p>The field <code>task_type</code> is set to <code>"forecast"</code>.</p>
     </div>
-    <div id="methods">
-    <h2>Methods</h2>
-    
-
-<p>All Methods from Prediction, and additionally:</p><ul><li><p><code>conf_int(level)</code><br>
-Access to the stored predicted response.</p></li>
-</ul></div>
     <div id="super-class">
     <h2>Super class</h2>
     <p><code><a href="https://mlr3.mlr-org.com/reference/Prediction.html" class="external-link">mlr3::Prediction</a></code> -&gt; <code>PredictionForecast</code></p>
+    </div>
+    <div id="active-bindings">
+    <h2>Active bindings</h2>
+    <p></p><div class="r6-active-bindings"><dl><dt><code>response</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
+Access the stored predicted response.</p></dd>
+
+
+<dt><code>se</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
+Access the stored standard error.</p></dd>
+
+
+<dt><code>missing</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code>)<br>
+Returns <code>row_ids</code> for which the predictions are missing or incomplete.</p></dd>
+
+
+</dl><p></p></div>
     </div>
     <div id="methods">
     <h2>Methods</h2>
@@ -112,16 +105,15 @@ Access to the stored predicted response.</p></li>
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-PredictionForecast-new"><code>PredictionForecast$new()</code></a></p></li>
-<li><p><a href="#method-PredictionForecast-help"><code>PredictionForecast$help()</code></a></p></li>
 <li><p><a href="#method-PredictionForecast-print"><code>PredictionForecast$print()</code></a></p></li>
 <li><p><a href="#method-PredictionForecast-conf_int"><code>PredictionForecast$conf_int()</code></a></p></li>
 </ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="filter"><a href="https://mlr3.mlr-org.com/reference/Prediction.html#method-filter"><code>mlr3::Prediction$filter()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="format"><a href="https://mlr3.mlr-org.com/reference/Prediction.html#method-format"><code>mlr3::Prediction$format()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="help"><a href="https://mlr3.mlr-org.com/reference/Prediction.html#method-help"><code>mlr3::Prediction$help()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3" data-topic="Prediction" data-id="score"><a href="https://mlr3.mlr-org.com/reference/Prediction.html#method-score"><code>mlr3::Prediction$score()</code></a></span></li>
 </ul></details></p><hr><a id="method-PredictionForecast-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
-
-<div class="section">
+<p>Creates a new instance of this <a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6</a> class.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/PredictionForecast.html">PredictionForecast</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>  task <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -134,33 +126,81 @@ Access to the stored predicted response.</p></li>
 <span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-
-</div><p></p><hr><a id="method-PredictionForecast-help"></a><div class="section">
-<h3 id="method-help-">Method <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code><a class="anchor" aria-label="anchor" href="#method-help-"></a></h3>
-
 <div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PredictionForecast</span><span class="op">$</span><span class="fu">help</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
+<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>task</code></dt>
+<dd><p>(TaskRegr)<br>
+Task, used to extract defaults for <code>row_ids</code> and <code>truth</code>.</p></dd>
 
+
+<dt><code>row_ids</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer()</a></code>)<br>
+Row ids of the predicted observations, i.e. the row ids of the test set.</p></dd>
+
+
+<dt><code>truth</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
+True (observed) response.</p></dd>
+
+
+<dt><code>response</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
+Vector of numeric response values.
+One element for each observation in the test set.</p></dd>
+
+
+<dt><code>se</code></dt>
+<dd><p>(<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code>)<br>
+Numeric vector of predicted standard errors.
+One element for each observation in the test set.</p></dd>
+
+
+<dt><code>distr</code></dt>
+<dd><p>(<code>VectorDistribution</code>)<br><code>VectorDistribution</code> from package distr6 (in repository <a href="https://raphaels1.r-universe.dev" class="external-link">https://raphaels1.r-universe.dev</a>).
+Each individual distribution in the vector represents the random variable 'survival time'
+for an individual observation.</p></dd>
+
+
+<dt><code>check</code></dt>
+<dd><p>(<code>logical(1)</code>)<br>
+If <code>TRUE</code>, performs some argument checks and predict type conversions.</p></dd>
+
+
+</dl><p></p></div>
+</div>
 
 </div><p></p><hr><a id="method-PredictionForecast-print"></a><div class="section">
 <h3 id="method-print-">Method <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code><a class="anchor" aria-label="anchor" href="#method-print-"></a></h3>
-
-<div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<p>Printer.</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PredictionForecast</span><span class="op">$</span><span class="fu">print</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+<div class="section">
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>(ignored).</p></dd>
+
+
+</dl><p></p></div>
+</div>
 
 </div><p></p><hr><a id="method-PredictionForecast-conf_int"></a><div class="section">
 <h3 id="method-conf-int-">Method <code>conf_int()</code><a class="anchor" aria-label="anchor" href="#method-conf-int-"></a></h3>
-
-<div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p>Access to the stored predicted response.</p><div class="section">
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PredictionForecast</span><span class="op">$</span><span class="fu">conf_int</span><span class="op">(</span>level <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+<div class="section">
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>level</code></dt>
+<dd><p>(<code>numeric(1)</code>)<br>
+Confidence level in percent.</p></dd>
+
+
+</dl><p></p></div>
+</div>
 
 </div>
 
@@ -169,12 +209,19 @@ Access to the stored predicted response.</p></li>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">task</span> <span class="op">=</span> <span class="fu">mlr3</span><span class="fu">::</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"airpassengers"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">learner</span> <span class="op">=</span> <span class="va"><a href="mlr_learners_regr.auto_arima.html">LearnerRegrForecastAutoArima</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">learner</span> <span class="op">=</span> <span class="fu">mlr3</span><span class="fu">::</span><span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">lrn</a></span><span class="op">(</span><span class="st">"forecast.average"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">learner</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'quantmod':</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   method            from</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   as.zoo.data.frame zoo </span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="va">learner</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, <span class="fl">31</span><span class="op">:</span><span class="fl">50</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="va">predict_types</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "response"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    row_ids target target</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      31    199  139.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      32    199  139.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:      33    184  139.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:      34    162  139.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:      35    146  139.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:      36    166  139.4</span>
 </code></pre></div>
     </div>
   </div>
