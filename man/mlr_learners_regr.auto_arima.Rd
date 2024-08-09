@@ -124,7 +124,7 @@ Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Method \code{forecast()}}{
 Returns forecasts after the last training instance.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAutoArima$forecast(h = 10, task, new_data = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{LearnerRegrForecastAutoArima$forecast(h = 10, task, newdata = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -135,7 +135,7 @@ Number of steps ahead to forecast. Default is 10.}
 
 \item{\code{task}}{(\link{Task}).}
 
-\item{\code{new_data}}{(\code{\link[=data.frame]{data.frame()}})\cr
+\item{\code{newdata}}{(\code{\link[=data.frame]{data.frame()}})\cr
 New data to predict on.}
 }
 \if{html}{\out{</div>}}

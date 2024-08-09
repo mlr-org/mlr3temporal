@@ -28,7 +28,8 @@ Imports:
     mlr3misc (>= 0.1.5),
     paradox,
     R6,
-    tsbox
+    tsbox,
+    mlr3pipelines
 Suggests:
     knitr,
     rnoaa,
@@ -43,7 +44,7 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE, r6 = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate:
     'DataBackendLong.R'
     'LearnerForecast.R'
@@ -57,6 +58,7 @@ Collate:
     'MeasureForecastMAPE.R'
     'MeasureForecastMSE.R'
     'MeasureForecastRMSE.R'
+    'PipeOpLag.R'
     'PredictionDataForecast.R'
     'PredictionForecast.R'
     'ResamplingForecastCV.R'

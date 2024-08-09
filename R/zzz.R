@@ -4,6 +4,7 @@
 #' @import checkmate
 #' @import mlr3
 #' @import mlr3misc
+#' @import mlr3pipelines
 #' @importFrom R6 R6Class
 #' @importFrom digest digest
 #' @importFrom utils getFromNamespace
@@ -16,7 +17,7 @@ NULL
 register_mlr3 = function() {
   # reflections ----------------------------------------------------------------
   x = getFromNamespace("mlr_reflections", getNamespace("mlr3"))
-
+  mlr3pipelines:::mlr_pipeops$add("shift", PipeOpShift)
   x$task_types = rbind(x$task_types, data.table(
     type = "forecast",
     package = "mlr3temporal",

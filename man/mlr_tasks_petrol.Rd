@@ -19,14 +19,7 @@ tsk("petrol")
 
 \section{Meta Information}{
 
-\itemize{
-\item Task type: \dQuote{forecast}
-\item Dimensions: 252x4
-\item Properties: \dQuote{multivariate}
-\item Has Missings: \code{FALSE}
-\item Target: \dQuote{Chemicals}, \dQuote{Coal}, \dQuote{Petrol}, \dQuote{Vehicles}
-\item Features: -
-}
+\verb{r rd_info(tsk("petrol"))}
 }
 
 \seealso{

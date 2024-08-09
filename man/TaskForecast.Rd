@@ -82,7 +82,7 @@ Returns the date column.}
 \subsection{Method \code{new()}}{
 Creates a new instance of this \link[R6:R6Class]{R6} class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$new(id, backend, target, date_col = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TaskForecast$new(id, backend, target, date_col = NULL, primary_key = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

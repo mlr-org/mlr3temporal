@@ -19,14 +19,7 @@ tsk("AirPassengers")
 
 \section{Meta Information}{
 
-\itemize{
-\item Task type: \dQuote{forecast}
-\item Dimensions: 144x1
-\item Properties: \dQuote{univariate}
-\item Has Missings: \code{FALSE}
-\item Target: \dQuote{target}
-\item Features: -
-}
+\verb{r rd_info(tsk("airpassengers"))}
 }
 
 \seealso{

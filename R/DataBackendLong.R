@@ -1,4 +1,4 @@
-#' @title DataBackend for timeseries in long-format
+#' @title DataBackend for timeseries
 #'
 #' @description
 #' [DataBackend] for \CRANpkg{data.table} which serves as an efficient in-memory data base.
@@ -19,46 +19,35 @@
 #' b$data(rows = 1:2, cols = "x")
 #' b$distinct(rows = b$rownames, "y")
 #' b$missings(rows = b$rownames, cols = names(data))
-DataBackendLong = R6::R6Class("DataBackendLong",
-  inherit = DataBackend,
+DataBackendTime = R6::R6Class("DataBackendTime",
+  inherit = DataBackendDataTable,
   cloneable = FALSE,
   public = list(
-
-    #' @field id_col (`character(1)`)\cr
-    #' Name of the column containing the row ids.
-    id_col = NULL,
-
-    #' @field value_col (`character()`)\cr
-    #' Names of the columns containing the values.
-    value_col = NULL,
 
     #' @field date_col (`character(1)`)\cr
     #' Name of the column containing the timestamps.
     date_col = NULL,
-
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     #'
-    #' Note that `DataBackendLong` does not copy the input data, while `as_data_backend()` calls [data.table::copy()].
+    #' Note that `DataBackendTime` does not copy the input data, while `as_data_backend()` calls [data.table::copy()].
     #' `as_data_backend()` also takes care about casting to a `data.table()` and adds a primary key column if necessary.
     #'
     #' @param data ([data.table::data.table()])\cr
     #'   The input [data.table()].
     #'
-    #' @param id_col (`character(1)`)\cr
-    #'   Name of the column containing the row ids.
-    #'
     #' @param date_col (`character(1)`)\cr
     #'   Name of the column containing the timestamps.
-    initialize = function(data, primary_key, id_col, date_col) {
-      assert_data_frame(data, ncols = 4L, col.names = "unique")
+    initialize = function(data, date_col, primary_key) {
+#      assert_data_frame(data, ncols = 4L, col.names = "unique")
       setDT(data)
-      super$initialize(data, primary_key, data_formats = "data.table")
-
-      self$id_col = assert_choice(id_col, names(data))
+      super$initialize(data, primary_key)
       self$date_col = assert_choice(date_col, names(data))
-      self$value_col = setdiff(colnames(data), c(primary_key, id_col, date_col))
-      setkeyv(data, c(primary_key, id_col))
+      if (is.null(primary_key)) {
+        setkeyv(data, c(date_col))
+      } else {
+        setkeyv(data, c(primary_key, date_col))
+      }
     },
 
     #' @description
@@ -82,23 +71,12 @@ DataBackendLong = R6::R6Class("DataBackendLong",
       if (length(cols) == 0) {
         return(data.table()) # FIXME: Not sure what should be returned here. cols = "_not_existing_" check.
       }
-      if (!all(cols %in% self$key_cols)) {
-        subset_cols = setdiff(cols, self$key_cols) # for dcasting id_col
-      } else {
-        subset_cols = cols # case we only want primary key or date
-      }
-      # FIXME: This is not very efficient, but seems reasonably robust
-
       if (length(rows) != 0L) {
-        dt = private$.data[CJ(rows, subset_cols), roll = roll]
+        dt = private$.data[rows, ..cols]
       } else {
         # keep all rows, subset later
-        dt = private$.data[CJ(private$.data[[self$primary_key]], subset_cols), roll = roll]
+        dt = private$.data[, ..cols]
       }
-      dt = dcast(
-        dt, formulate(paste0(c(self$key_cols), collapse = "+"), self$id_col), fun.aggregate = identity, fill = NA
-      )
-      dt = dt[list(rows), cols, with = FALSE, on = self$primary_key, nomatch = 0L]
       return(dt)
     },
 
@@ -110,9 +88,7 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     #'
     #' @return [data.table::data.table()] of the first `n` rows.
     head = function(n = 6L) {
-      rn = head(self$rownames, n)
-      cn = self$colnames
-      self$data(rn, cn)
+      head(private$.data, n)
     },
 
     #' @description
@@ -157,19 +133,19 @@ DataBackendLong = R6::R6Class("DataBackendLong",
     #' @field colnames (`character()`)\cr
     #' Returns vector of all column names, including the primary key column.
     colnames = function() {
-      c(self$primary_key, self$date_col, unique(private$.data[, self$id_col, with = FALSE])[[1L]])
+      colnames(private$.data)
     },
 
     #' @field nrow (`integer(1)`)\cr
     #' Number of rows (observations).
     nrow = function() {
-      uniqueN(private$.data, by = self$primary_key)
+      nrow(private$.data)
     },
 
     #' @field ncol (`integer(1)`)\cr
     #' Number of columns (variables), including the primary key column.
     ncol = function() {
-      uniqueN(private$.data, by = self$id_col) + 2L
+      ncol(private$.data)
     },
 
     #' @field key_cols (`character()`)\cr
@@ -202,7 +178,7 @@ as_data_backend.dts = function(data, primary_key = NULL, target = NULL, ...) {
   cname = attr(data, "cname")
   set(data, j = cname$time, value = as.POSIXct(data[[cname$time]]))
   if ("..row_id" %nin% names(data)) data[, "..row_id" := rowid(id)]
-  DataBackendLong$new(data, primary_key = "..row_id", id_col = cname$id, date_col = cname$time)
+  DataBackendTime$new(data, primary_key = "..row_id", id_col = cname$id, date_col = cname$time)
 }
 
 #' @rdname as_data_backend

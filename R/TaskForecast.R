@@ -18,7 +18,7 @@
 TaskForecast = R6::R6Class("TaskForecast",
   inherit = TaskSupervised,
   public = list(
-
+    date_col_ = NA_character_,
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     #'
@@ -26,18 +26,25 @@ TaskForecast = R6::R6Class("TaskForecast",
     #'
     #' @param date_col (`character(1)`)\cr
     #'   Name of the date column, only required if backend is a `data.frame`.
-    initialize = function(id, backend, target, date_col = NULL) {
+    initialize = function(id, backend, target, date_col = NULL, primary_key = NULL) {
       assert_character(target)
+      if (is.null(primary_key)) {
+        row_ids = seq_len(nrow(backend))
+        primary_key = "..row_id"
+        setDT(backend)
+        backend[, ..row_id := row_ids]
+      }
+      self$date_col_ = date_col
       if (inherits(backend, "data.frame")) {
         assert_subset(date_col, colnames(backend))
-        backend = df_to_backend(backend, target, date_col)
-      }
-      if (!inherits(backend, "DataBackend")) {
-        backend = as_data_backend(tsbox::ts_dts(backend), target = target)
+        # Convert dates to integer as a primary key
+        backend = DataBackendTime$new(backend, date_col, primary_key)
+        # FIXME(Steve): Better place for this
+        backend$compact_seq = TRUE
       }
       super$initialize(id = id, task_type = "forecast", backend = backend, target = target)
-      private$.col_roles$feature = setdiff(private$.col_roles$feature, self$date_col)
-      self$col_roles$date_col = date_col %??% "time"
+#      private$.col_roles$feature = union(private$.col_roles$feature, date_col)
+#      self$col_roles$date_col = self$date_col
     },
 
     #' @description
@@ -87,7 +94,7 @@ TaskForecast = R6::R6Class("TaskForecast",
     #' @field date_col (`character(1)`)\cr
     #' Returns the date column.
     date_col = function() {
-      self$backend$date_col
+      self$date_col_
     }
   )
 )
