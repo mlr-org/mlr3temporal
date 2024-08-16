@@ -76,28 +76,48 @@ PipeOpShift = R6Class("PipeOpShift",
     }
   ),
   private = list(
-
-    .train_dt = function(dt, levels, target) {
-      browser()
-      dt[, target__ := target]
+    .train_task = function(tsk) {
+      dt = tsk$data()
+      target_dt = data.table(target__ = tsk$truth())
       args = self$param_set$get_values(tags = "shift")
       args$give.names = TRUE
-      args$n = seq(from = args$min, to = args$max)
+      min_lag = min(args$min, args$max)
+      max_lag = max(args$min, args$max)
+      args$n = seq(from = min_lag, to = max_lag)
       args$min = NULL
       args$max = NULL
-      bc = dt[, invoke(data.table::shift, .SD, .args = args)]
-      dt[, target__ := NULL]
-      self$state = list(bc = bc)
-      dt
-    },
-    .predict_dt = function(dt, levels) {
-      browser()
-      cols = colnames(dt)
-      for (j in colnames(dt)) {
-        set(dt, j = j,
-          value = stats::predict(self$state$bc[[j]], newdata = dt[[j]]))
+      if (length(args$n) == 1) {
+        target_lag_dt = target_dt[, .(target__lag_1 = invoke(data.table::shift, target__, .args = args))]
+      } else {
+        target_lag_dt = target_dt[, invoke(data.table::shift, target__, .args = args)]
       }
-      dt
+      bc = cbind(dt, target_lag_dt)
+      self$state = list(bc = bc, target = tsk$truth(), blahblah = dt)
+      blah = tsk$select(character(0))$cbind(bc)
+      return(blah)
+    },
+    .predict_task = function(input) {
+      inp = input
+      dt = inp$data()
+      pred_target = inp$truth()
+      target_full = c(self$state$target, pred_target)
+      args = self$param_set$get_values(tags = "shift")
+      min_lag = min(args$min, args$max)
+      max_lag = max(args$min, args$max)
+      args$give.names = TRUE
+      args$n = seq(from = min_lag, to = max_lag)
+      args$min = NULL
+      args$max = NULL
+      target_dt = data.table(target__ = target_full)
+      if (length(args$n) == 1) {
+        target_lag_dt = target_dt[, .(target__lag_1 = invoke(data.table::shift, target__, .args = args))]
+      } else {
+        target_lag_dt = target_dt[, invoke(data.table::shift, target__, .args = args)]
+      }
+      bc = cbind(dt, tail(target_lag_dt, n = nrow(dt)))
+      browser()
+      blah = inp$select(character(0))$cbind(bc)
+      return(blah)
     }
   )
 )
